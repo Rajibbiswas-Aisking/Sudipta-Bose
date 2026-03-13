@@ -38,19 +38,21 @@ class Experience(models.Model):
 
 class Publication(models.Model):
     CATEGORY_CHOICES = [
-        ('journal', 'Journal Article'),
-        ('book', 'Book Chapter'),
-        ('working', 'Working Paper'),
-        ('media', 'Media Article'),
+        ("published_paper", "Published Paper"),
+        ("media_article", "Media Article"),
+        ("book_chapter", "Book Chapter"),
+        ("journal_reviewer", "Journal Reviewer"),
+        ("journal_published", "Journal Published"),
+        ("working_paper", "Working Paper"),
     ]
+
     title = models.CharField(max_length=300)
-    authors = models.CharField(max_length=300)
+    authors = models.CharField(max_length=300, blank=True)
     year = models.PositiveIntegerField()
-    journal_or_source = models.CharField(max_length=255, blank=True)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='journal')
-    link = models.URLField(blank=True)
+    category = models.CharField(max_length=30, choices=CATEGORY_CHOICES)
+    journal_or_source = models.CharField(max_length=300, blank=True)
     abstract = models.TextField(blank=True)
-    featured = models.BooleanField(default=False)
+    link = models.URLField(blank=True)
 
     class Meta:
         ordering = ['-year', 'title']

@@ -15,8 +15,8 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'year', 'category', 'featured')
-    list_filter = ('category', 'featured', 'year')
+    list_display = ('title', 'year', 'category')
+    list_filter = ('category', 'year')
     search_fields = ('title', 'authors', 'journal_or_source')
 
 

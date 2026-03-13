@@ -4,12 +4,12 @@ from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, A
 
 def home(request):
     profile = SiteProfile.objects.first()
-    featured_publications = Publication.objects.filter(featured=True)[:4]
+    selected_publications = Publication.objects.all().order_by('-year', 'title')[:4]
     experiences = Experience.objects.all()[:5]
     awards = Award.objects.all()[:3]
     context = {
         'profile': profile,
-        'featured_publications': featured_publications,
+        'selected_publications': selected_publications,
         'experiences': experiences,
         'awards': awards,
     }
@@ -24,11 +24,20 @@ def about(request):
 
 
 def research(request):
-    return render(request, 'website/research.html', {
-        'profile': SiteProfile.objects.first(),
-        'publications': Publication.objects.all(),
-        'grants': Grant.objects.all(),
-    })
+    profile = SiteProfile.objects.first()
+    grants = Grant.objects.all().order_by("-year")
+
+    context = {
+        "profile": profile,
+        "published_papers": Publication.objects.filter(category="published_paper").order_by("-year"),
+        "media_articles": Publication.objects.filter(category="media_article").order_by("-year"),
+        "book_chapters": Publication.objects.filter(category="book_chapter").order_by("-year"),
+        "journal_reviewers": Publication.objects.filter(category="journal_reviewer").order_by("-year"),
+        "journal_published": Publication.objects.filter(category="journal_published").order_by("-year"),
+        "working_papers": Publication.objects.filter(category="working_paper").order_by("-year"),
+        "grants": grants,
+    }
+    return render(request, "website/research.html", context)
 
 
 def teaching(request):

@@ -1,5 +1,6 @@
 {% extends "website/base.html" %}
 {% block title %}Research | Sudipta Bose{% endblock %}
+
 {% block page_styles %}
 <style>
 :root {
@@ -15,8 +16,12 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth;
-      overflow-y: scroll; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
+
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -25,8 +30,14 @@ body {
   line-height: 1.65;
 }
 
-a { color: var(--brand); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 
 .container {
   width: min(1500px, calc(100% - 48px));
@@ -38,6 +49,7 @@ a:hover { text-decoration: underline; }
   margin: 0 auto;
 }
 
+/* navbar / header */
 .site-header {
   position: sticky;
   top: 0;
@@ -46,38 +58,45 @@ a:hover { text-decoration: underline; }
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
+
 .nav-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: 74px;
 }
+
 .brand {
   font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   color: var(--text);
 }
+
 .nav {
   display: flex;
   gap: 1.15rem;
   flex-wrap: wrap;
 }
+
 .nav a {
   color: var(--muted);
   font-weight: 600;
 }
 
+/* hero / general */
 .hero,
 .page-hero {
   padding: 5rem 0 2rem;
 }
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
   gap: 2rem;
   align-items: center;
 }
+
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -85,29 +104,36 @@ a:hover { text-decoration: underline; }
   color: var(--brand);
   font-weight: 800;
 }
+
 h1 {
   font-size: clamp(2.3rem, 4vw, 4.5rem);
   line-height: 1.05;
   margin: 0.2rem 0 0.8rem;
 }
+
 h2 {
   font-size: clamp(1.5rem, 2vw, 2.2rem);
   margin: 0;
 }
+
 h3 {
   margin-top: 0;
   margin-bottom: 0.45rem;
 }
+
 .lead {
   font-size: 1.18rem;
   color: var(--muted);
 }
+
 .section {
   padding: 2rem 0 4rem;
 }
+
 .section-alt {
   background: linear-gradient(180deg, transparent, #f0f4fb);
 }
+
 .section-heading {
   display: flex;
   align-items: center;
@@ -115,13 +141,16 @@ h3 {
   gap: 1rem;
   margin-bottom: 1.25rem;
 }
+
 .grid {
   display: grid;
   gap: 1.25rem;
 }
+
 .cards-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+
 .card {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -129,12 +158,18 @@ h3 {
   padding: 1.4rem;
   box-shadow: var(--shadow);
 }
+
 .compact-card { margin-bottom: 1rem; }
-.stat-card { background: linear-gradient(180deg, #ffffff, #eef4ff); }
+
+.stat-card {
+  background: linear-gradient(180deg, #ffffff, #eef4ff);
+}
+
 .meta {
   color: var(--muted);
   font-size: 0.95rem;
 }
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -144,37 +179,107 @@ h3 {
   font-weight: 700;
   transition: 180ms ease;
 }
-.btn:hover { text-decoration: none; transform: translateY(-1px); }
+
+.btn:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
 .btn-primary {
   background: var(--brand);
   color: white;
 }
-.btn-primary:hover { background: var(--brand-dark); }
+
+.btn-primary:hover {
+  background: var(--brand-dark);
+}
+
 .btn-secondary {
   background: var(--accent);
   color: var(--brand-dark);
 }
+
 .cta-row {
   display: flex;
   gap: 0.8rem;
   flex-wrap: wrap;
   margin-top: 1.2rem;
 }
+
 .timeline-item {
   position: relative;
   padding: 0 0 1.2rem 1rem;
   border-left: 2px solid var(--line);
   margin-left: 0.35rem;
 }
+
 .site-footer {
   border-top: 1px solid var(--line);
   padding: 2rem 0 3rem;
   background: #fff;
 }
+
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
+}
+
+/* research tabs */
+.tab-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.tab-btn {
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.82rem 1.1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  background: var(--accent);
+  border-color: #bfd0ef;
+}
+
+.tab-btn.active {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+.research-panel {
+  display: none;
+}
+
+.research-panel.active {
+  display: block;
+}
+
+.section-subtext {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.label {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.empty-card {
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: 20px;
+  padding: 1.4rem;
 }
 
 @media (max-width: 800px) {
@@ -183,55 +288,219 @@ h3 {
   .footer-grid {
     grid-template-columns: 1fr;
   }
+
   .nav-wrap {
     align-items: flex-start;
     padding: 1rem 0;
     flex-direction: column;
     gap: 0.8rem;
   }
-  .hero,
-  .page-hero { padding-top: 3rem; }
-}
 
+  .hero,
+  .page-hero {
+    padding-top: 3rem;
+  }
+
+  .tab-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <section class="page-hero container narrow">
-    <p class="eyebrow">Research</p>
-    <h1>Publications and Grants</h1>
-    <p>{{ profile.research_interests }}</p>
+  <p class="eyebrow">Research</p>
+  <h1>Publications and Grants</h1>
+  <p>{{ profile.research_interests }}</p>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" type="button" data-target="published-papers">Published Papers</button>
+    <button class="tab-btn" type="button" data-target="media-articles">Media Articles</button>
+    <button class="tab-btn" type="button" data-target="book-chapters">Book Chapters</button>
+    <button class="tab-btn" type="button" data-target="journal-reviewer">Journal Reviewer</button>
+    <button class="tab-btn" type="button" data-target="journal-published">Journal Published</button>
+    <button class="tab-btn" type="button" data-target="working-papers">Working Papers</button>
+  </div>
 </section>
 
 <section class="section container">
-    <div class="section-heading"><h2>Publications</h2></div>
-    <div class="grid cards-2">
-        {% for item in publications %}
-        <article class="card">
-            <p class="meta">{{ item.year }} · {{ item.get_category_display }}</p>
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.authors }}</p>
-            <p>{{ item.journal_or_source }}</p>
-            {% if item.abstract %}<p>{{ item.abstract }}</p>{% endif %}
-            {% if item.link %}<p><a href="{{ item.link }}" target="_blank" rel="noopener">Read more</a></p>{% endif %}
-        </article>
-        {% endfor %}
+
+  <div class="research-panel active" id="published-papers">
+    <div class="section-heading">
+      <div>
+        <h2>Published Papers</h2>
+        <p class="section-subtext">Peer-reviewed and completed scholarly research outputs.</p>
+      </div>
     </div>
+    <div class="grid cards-2">
+      {% for item in published_papers %}
+      <article class="card">
+        <p class="meta">{{ item.year }}</p>
+        <h3>{{ item.title }}</h3>
+        {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
+        {% if item.journal_or_source %}<p><span class="label">Source:</span> {{ item.journal_or_source }}</p>{% endif %}
+        {% if item.abstract %}<p>{{ item.abstract }}</p>{% endif %}
+        {% if item.link %}<p><a href="{{ item.link }}" target="_blank">Read more</a></p>{% endif %}
+      </article>
+      {% empty %}
+      <article class="empty-card"><p>No published papers added yet.</p></article>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="research-panel" id="media-articles">
+    <div class="section-heading">
+      <div>
+        <h2>Media Articles</h2>
+        <p class="section-subtext">Articles, commentary, and public-facing writing.</p>
+      </div>
+    </div>
+    <div class="grid cards-2">
+      {% for item in media_articles %}
+      <article class="card">
+        <p class="meta">{{ item.year }}</p>
+        <h3>{{ item.title }}</h3>
+        {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
+        {% if item.journal_or_source %}<p><span class="label">Source:</span> {{ item.journal_or_source }}</p>{% endif %}
+        {% if item.link %}<p><a href="{{ item.link }}" target="_blank">Read more</a></p>{% endif %}
+      </article>
+      {% empty %}
+      <article class="empty-card"><p>No media articles added yet.</p></article>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="research-panel" id="book-chapters">
+    <div class="section-heading">
+      <div>
+        <h2>Book Chapters</h2>
+        <p class="section-subtext">Contributions published in edited volumes and books.</p>
+      </div>
+    </div>
+    <div class="grid cards-2">
+      {% for item in book_chapters %}
+      <article class="card">
+        <p class="meta">{{ item.year }}</p>
+        <h3>{{ item.title }}</h3>
+        {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
+        {% if item.journal_or_source %}<p><span class="label">Book / Publisher:</span> {{ item.journal_or_source }}</p>{% endif %}
+      </article>
+      {% empty %}
+      <article class="empty-card"><p>No book chapters added yet.</p></article>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="research-panel" id="journal-reviewer">
+    <div class="section-heading">
+      <div>
+        <h2>Journal Reviewer</h2>
+        <p class="section-subtext">Editorial and peer-review service.</p>
+      </div>
+    </div>
+    <div class="grid cards-2">
+      {% for item in journal_reviewers %}
+      <article class="card">
+        <p class="meta">{{ item.year }}</p>
+        <h3>{{ item.title }}</h3>
+        {% if item.journal_or_source %}<p><span class="label">Journal:</span> {{ item.journal_or_source }}</p>{% endif %}
+      </article>
+      {% empty %}
+      <article class="empty-card"><p>No journal reviewer entries added yet.</p></article>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="research-panel" id="journal-published">
+    <div class="section-heading">
+      <div>
+        <h2>Journal Published</h2>
+        <p class="section-subtext">Journal-based research outputs listed separately.</p>
+      </div>
+    </div>
+    <div class="grid cards-2">
+      {% for item in journal_published %}
+      <article class="card">
+        <p class="meta">{{ item.year }}</p>
+        <h3>{{ item.title }}</h3>
+        {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
+        {% if item.journal_or_source %}<p><span class="label">Journal:</span> {{ item.journal_or_source }}</p>{% endif %}
+      </article>
+      {% empty %}
+      <article class="empty-card"><p>No journal published entries added yet.</p></article>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="research-panel" id="working-papers">
+    <div class="section-heading">
+      <div>
+        <h2>Working Papers</h2>
+        <p class="section-subtext">Current research in progress and ongoing work.</p>
+      </div>
+    </div>
+    <div class="grid cards-2">
+      {% for item in working_papers %}
+      <article class="card">
+        <p class="meta">{{ item.year }}</p>
+        <h3>{{ item.title }}</h3>
+        {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
+        {% if item.journal_or_source %}<p><span class="label">Source:</span> {{ item.journal_or_source }}</p>{% endif %}
+        {% if item.abstract %}<p>{{ item.abstract }}</p>{% endif %}
+        {% if item.link %}<p><a href="{{ item.link }}" target="_blank">Read more</a></p>{% endif %}
+      </article>
+      {% empty %}
+      <article class="empty-card"><p>No working papers added yet.</p></article>
+      {% endfor %}
+    </div>
+  </div>
+
 </section>
 
 <section class="section section-alt">
-    <div class="container">
-        <div class="section-heading"><h2>Research Grants</h2></div>
-        <div class="grid cards-2">
-            {% for item in grants %}
-            <article class="card">
-                <p class="meta">{{ item.year }} · {{ item.funder }}</p>
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.summary }}</p>
-                {% if item.amount %}<p><strong>Amount:</strong> {{ item.amount }}</p>{% endif %}
-            </article>
-            {% endfor %}
-        </div>
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <h2>Research Grants</h2>
+        <p class="section-subtext">Funded projects and research support.</p>
+      </div>
     </div>
+    <div class="grid cards-2">
+      {% for item in grants %}
+      <article class="card">
+        <p class="meta">{{ item.year }} · {{ item.funder }}</p>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.summary }}</p>
+        {% if item.amount %}<p><strong>Amount:</strong> {{ item.amount }}</p>{% endif %}
+      </article>
+      {% empty %}
+      <article class="empty-card"><p>No research grants added yet.</p></article>
+      {% endfor %}
+    </div>
+  </div>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const buttons = document.querySelectorAll(".tab-btn");
+  const panels = document.querySelectorAll(".research-panel");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const target = this.getAttribute("data-target");
+
+      buttons.forEach((btn) => btn.classList.remove("active"));
+      panels.forEach((panel) => panel.classList.remove("active"));
+
+      this.classList.add("active");
+      const activePanel = document.getElementById(target);
+      if (activePanel) {
+        activePanel.classList.add("active");
+      }
+    });
+  });
+});
+</script>
 {% endblock %}

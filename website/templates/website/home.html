@@ -224,7 +224,7 @@ h3 {
         <a href="/research/">See all</a>
     </div>
     <div class="grid cards-2">
-        {% for item in featured_publications %}
+      {% for item in selected_publications %}
         <article class="card">
             <p class="meta">{{ item.year }} · {{ item.get_category_display }}</p>
             <h3>{{ item.title }}</h3>
@@ -232,7 +232,7 @@ h3 {
             <p>{{ item.journal_or_source }}</p>
         </article>
         {% empty %}
-        <article class="card"><p>Add featured publications from Django admin.</p></article>
+      <article class="card"><p>Add publications from Django admin.</p></article>
         {% endfor %}
     </div>
 </section>

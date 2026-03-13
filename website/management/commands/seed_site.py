@@ -42,13 +42,13 @@ class Command(BaseCommand):
             Experience.objects.create(role=item[0], organization=item[1], start_date=item[2], end_date=item[3], ordering=idx)
 
         publications = [
-            ('Climate disclosure and firm outcomes', 'Sudipta Bose et al.', 2025, 'Journal of Corporate Finance', 'journal', True),
-            ('Sustainability assurance and market effects', 'Sudipta Bose et al.', 2024, 'Accounting & Finance', 'journal', True),
-            ('Machine learning in accounting research', 'Sudipta Bose et al.', 2024, 'Working Paper Series', 'working', False),
-            ('Carbon emissions reporting and governance', 'Sudipta Bose et al.', 2023, 'British Accounting Review', 'journal', True),
+            ('Climate disclosure and firm outcomes', 'Sudipta Bose et al.', 2025, 'Journal of Corporate Finance', 'published_paper'),
+            ('Sustainability assurance and market effects', 'Sudipta Bose et al.', 2024, 'Accounting & Finance', 'published_paper'),
+            ('Machine learning in accounting research', 'Sudipta Bose et al.', 2024, 'Working Paper Series', 'working_paper'),
+            ('Carbon emissions reporting and governance', 'Sudipta Bose et al.', 2023, 'British Accounting Review', 'journal_published'),
         ]
-        for title, authors, year, source, category, featured in publications:
-            Publication.objects.create(title=title, authors=authors, year=year, journal_or_source=source, category=category, featured=featured)
+        for title, authors, year, source, category in publications:
+            Publication.objects.create(title=title, authors=authors, year=year, journal_or_source=source, category=category)
 
         Grant.objects.create(title='Climate-related disclosure research project', funder='AASB', amount='TBD', year=2024, summary='Research on reporting standards and disclosure quality.')
         Grant.objects.create(title='Sustainable finance and biodiversity reporting', funder='ADB', amount='TBD', year=2023, summary='Research focused on sustainability and finance intersections.')
