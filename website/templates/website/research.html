@@ -1,0 +1,237 @@
+{% extends "website/base.html" %}
+{% block title %}Research | Sudipta Bose{% endblock %}
+{% block page_styles %}
+<style>
+:root {
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --text: #172033;
+  --muted: #5f6b7a;
+  --line: #dde3ea;
+  --brand: #1f4b99;
+  --brand-dark: #16386f;
+  --accent: #eaf1ff;
+  --shadow: 0 16px 40px rgba(16, 24, 40, 0.08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth;
+      overflow-y: scroll; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+}
+
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+  width: min(1500px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.narrow {
+  width: min(1300px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 74px;
+}
+.brand {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+.nav {
+  display: flex;
+  gap: 1.15rem;
+  flex-wrap: wrap;
+}
+.nav a {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.hero,
+.page-hero {
+  padding: 5rem 0 2rem;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: var(--brand);
+  font-weight: 800;
+}
+h1 {
+  font-size: clamp(2.3rem, 4vw, 4.5rem);
+  line-height: 1.05;
+  margin: 0.2rem 0 0.8rem;
+}
+h2 {
+  font-size: clamp(1.5rem, 2vw, 2.2rem);
+  margin: 0;
+}
+h3 {
+  margin-top: 0;
+  margin-bottom: 0.45rem;
+}
+.lead {
+  font-size: 1.18rem;
+  color: var(--muted);
+}
+.section {
+  padding: 2rem 0 4rem;
+}
+.section-alt {
+  background: linear-gradient(180deg, transparent, #f0f4fb);
+}
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+.cards-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 1.4rem;
+  box-shadow: var(--shadow);
+}
+.compact-card { margin-bottom: 1rem; }
+.stat-card { background: linear-gradient(180deg, #ffffff, #eef4ff); }
+.meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.15rem;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: 180ms ease;
+}
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+.btn-primary {
+  background: var(--brand);
+  color: white;
+}
+.btn-primary:hover { background: var(--brand-dark); }
+.btn-secondary {
+  background: var(--accent);
+  color: var(--brand-dark);
+}
+.cta-row {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+}
+.timeline-item {
+  position: relative;
+  padding: 0 0 1.2rem 1rem;
+  border-left: 2px solid var(--line);
+  margin-left: 0.35rem;
+}
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 2rem 0 3rem;
+  background: #fff;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 800px) {
+  .hero-grid,
+  .cards-2,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .nav-wrap {
+    align-items: flex-start;
+    padding: 1rem 0;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .hero,
+  .page-hero { padding-top: 3rem; }
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero container narrow">
+    <p class="eyebrow">Research</p>
+    <h1>Publications and Grants</h1>
+    <p>{{ profile.research_interests }}</p>
+</section>
+
+<section class="section container">
+    <div class="section-heading"><h2>Publications</h2></div>
+    <div class="grid cards-2">
+        {% for item in publications %}
+        <article class="card">
+            <p class="meta">{{ item.year }} · {{ item.get_category_display }}</p>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.authors }}</p>
+            <p>{{ item.journal_or_source }}</p>
+            {% if item.abstract %}<p>{{ item.abstract }}</p>{% endif %}
+            {% if item.link %}<p><a href="{{ item.link }}" target="_blank" rel="noopener">Read more</a></p>{% endif %}
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-heading"><h2>Research Grants</h2></div>
+        <div class="grid cards-2">
+            {% for item in grants %}
+            <article class="card">
+                <p class="meta">{{ item.year }} · {{ item.funder }}</p>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.summary }}</p>
+                {% if item.amount %}<p><strong>Amount:</strong> {{ item.amount }}</p>{% endif %}
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

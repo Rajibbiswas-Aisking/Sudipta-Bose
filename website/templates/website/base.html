@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sudipta Bose{% endblock %}</title>
+    <meta name="description" content="Academic profile website for Dr Sudipta Bose.">
+    {% block page_styles %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a class="brand" href="/">Sudipta Bose</a>
+            <nav class="nav">
+                <a href="/about/">About</a>
+                <a href="/research/">Research</a>
+                <a href="/teaching/">Teaching</a>
+                <a href="/awards/">Awards</a>
+                <a href="/contact/">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <h4>Sudipta Bose</h4>
+                <p>Academic profile, research, teaching, and professional service.</p>
+            </div>
+            <div>
+                <h4>Navigation</h4>
+                <p><a href="/research/">Research</a> · <a href="/teaching/">Teaching</a> · <a href="/contact/">Contact</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
