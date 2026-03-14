@@ -3,6 +3,7 @@ from django.db import models
 
 class SiteProfile(models.Model):
     full_name = models.CharField(max_length=200)
+    photo = models.ImageField(upload_to="profile_photos/", blank=True, null=True)
     title = models.CharField(max_length=200)
     institution = models.CharField(max_length=200, blank=True)
     bio = models.TextField()
@@ -12,6 +13,7 @@ class SiteProfile(models.Model):
     scholar_url = models.URLField(blank=True)
     orcid_url = models.URLField(blank=True)
     linkedin_url = models.URLField(blank=True)
+    
 
     class Meta:
         verbose_name = 'Site Profile'
