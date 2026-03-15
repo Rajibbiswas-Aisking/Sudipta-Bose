@@ -1,10 +1,21 @@
 {% extends "website/base.html" %}
 {% block title %}Supervision | Sudipta Bose{% endblock %}
 
+{% block page_styles %}
+<style>
+.card .meta {
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <section class="page-hero container narrow">
     <p class="eyebrow">Supervision</p>
     <h1>Research Supervision</h1>
+    <div class="page-hero-divider"></div>
     <p>Current and completed supervision across doctoral and postgraduate research training.</p>
 </section>
 

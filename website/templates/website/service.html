@@ -1,10 +1,29 @@
 {% extends "website/base.html" %}
 {% block title %}Service | Sudipta Bose{% endblock %}
 
+{% block page_styles %}
+<style>
+.category-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--brand);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.75rem;
+    border-radius: 4px;
+    border: 1px solid rgba(26,58,107,0.15);
+    margin-bottom: 0.85rem;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <section class="page-hero container narrow">
     <p class="eyebrow">Service</p>
     <h1>Service and Administration</h1>
+    <div class="page-hero-divider"></div>
     <p>Editorial roles, conference leadership, grant review, and professional academic service.</p>
 </section>
 
@@ -12,18 +31,18 @@
     {% regroup items by category as category_groups %}
 
     {% for group in category_groups %}
-    <div class="section-heading">
-        <h2>{% if group.grouper %}{{ group.grouper }}{% else %}Other Service{% endif %}</h2>
-    </div>
-    <div class="grid cards-2">
-        {% for item in group.list %}
-        <article class="card compact-card">
-            <h3>{{ item.title }}</h3>
-            {% if item.role %}<p><strong>{{ item.role }}</strong></p>{% endif %}
-            {% if item.organization %}<p>{{ item.organization }}</p>{% endif %}
-            {% if item.year_range %}<p class="meta">{{ item.year_range }}</p>{% endif %}
-        </article>
-        {% endfor %}
+    <div style="margin-bottom: 2rem;">
+        <span class="category-badge">{% if group.grouper %}{{ group.grouper }}{% else %}Other Service{% endif %}</span>
+        <div class="grid cards-2">
+            {% for item in group.list %}
+            <article class="card compact-card">
+                <h3>{{ item.title }}</h3>
+                {% if item.role and item.role != item.title %}<p><strong>{{ item.role }}</strong></p>{% endif %}
+                {% if item.organization %}<p>{{ item.organization }}</p>{% endif %}
+                {% if item.year_range %}<p class="meta">{{ item.year_range }}</p>{% endif %}
+            </article>
+            {% endfor %}
+        </div>
     </div>
     {% empty %}
     <article class="card">

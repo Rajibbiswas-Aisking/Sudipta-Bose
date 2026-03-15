@@ -5,19 +5,27 @@
 <section class="page-hero container narrow">
     <p class="eyebrow">About</p>
     <h1>{{ profile.full_name }}</h1>
+    <div class="page-hero-divider"></div>
     <p class="lead">{{ profile.title }}{% if profile.institution %}, {{ profile.institution }}{% endif %}</p>
     <p>{{ profile.bio }}</p>
 </section>
 
-<section class="section container narrow">
-    <h2>Career Timeline</h2>
-    {% for item in experiences %}
-    <div class="timeline-item">
-        <h3>{{ item.role }}</h3>
-        <p>{{ item.organization }}</p>
-        <p class="meta">{{ item.start_date }} – {{ item.end_date }}</p>
-        <p>{{ item.summary }}</p>
+<section class="section">
+    <div class="container narrow">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Career</p>
+                <h2>Academic Timeline</h2>
+            </div>
+        </div>
+        {% for item in experiences %}
+        <div class="timeline-item">
+            <h3>{{ item.role }}</h3>
+            <p class="meta">{{ item.organization }}</p>
+            <p class="meta">{{ item.start_date }}{% if item.end_date %} – {{ item.end_date }}{% endif %}</p>
+            {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </section>
 {% endblock %}
