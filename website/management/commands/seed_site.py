@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from website.models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision
+from website.models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision, ServiceItem
 
 
 class Command(BaseCommand):
@@ -13,6 +13,7 @@ class Command(BaseCommand):
         TeachingItem.objects.all().delete()
         Award.objects.all().delete()
         Supervision.objects.all().delete()
+        ServiceItem.objects.all().delete()
 
         SiteProfile.objects.create(
             full_name='Dr Sudipta Bose',
@@ -28,7 +29,14 @@ class Command(BaseCommand):
             email='contact@example.com',
             scholar_url='https://scholar.google.com/',
             orcid_url='https://orcid.org/',
-            linkedin_url='https://www.linkedin.com/'
+            linkedin_url='https://www.linkedin.com/',
+            researchgate_url='https://www.researchgate.net/',
+            ssrn_url='https://www.ssrn.com/',
+            scopus_url='https://www.scopus.com/',
+            webofscience_url='https://www.webofscience.com/',
+            twitter_url='https://x.com/',
+            bluesky_url='https://bsky.app/',
+            cssn_url='https://www.cssn.org/'
         )
 
         experiences = [
@@ -63,5 +71,29 @@ class Command(BaseCommand):
 
         Supervision.objects.create(student_name='Example PhD Candidate', degree='PhD', status='Current', role='Principal Supervisor', topic='Sustainability reporting', ordering=1)
         Supervision.objects.create(student_name='Example MPhil Candidate', degree='MPhil', status='Current', role='Co-Supervisor', topic='Corporate governance', ordering=2)
+
+        ServiceItem.objects.create(
+            title='Editorial Panel Member',
+            role='Editorial Panel Member',
+            organization='Accounting and Finance journal',
+            year_range='2022–Present',
+            category='Editorial',
+            ordering=1,
+        )
+        ServiceItem.objects.create(
+            title='Reviewer',
+            role='Reviewer',
+            organization='Social Sciences and Humanities Research Council of Canada (SSHRC)',
+            category='Grant Review',
+            ordering=2,
+        )
+        ServiceItem.objects.create(
+            title='Program Committee',
+            role='Program Committee',
+            organization='AFAANZ Conference',
+            year_range='2021–Present',
+            category='Conference',
+            ordering=3,
+        )
 
         self.stdout.write(self.style.SUCCESS('Starter content created.'))

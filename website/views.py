@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision
+from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision, ServiceItem
 
 
 def home(request):
@@ -43,7 +43,19 @@ def research(request):
 def teaching(request):
     return render(request, 'website/teaching.html', {
         'teaching_items': TeachingItem.objects.all(),
+    })
+
+
+def service(request):
+    items = ServiceItem.objects.all().order_by('category', 'ordering', '-title')
+    return render(request, 'website/service.html', {'items': items})
+
+
+def supervision_page(request):
+    return render(request, 'website/supervision.html', {
         'supervisions': Supervision.objects.all(),
+        'current_supervisions': Supervision.objects.filter(status='Current'),
+        'completed_supervisions': Supervision.objects.filter(status='Completed'),
     })
 
 

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Sudipta Bose{% endblock %}</title>
     <meta name="description" content="Academic profile website for Dr Sudipta Bose.">
+    <link rel="stylesheet" href="{% static 'website/css/main.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     {% block page_styles %}{% endblock %}
 </head>
 <body>
@@ -15,6 +19,8 @@
                 <a href="/about/">About</a>
                 <a href="/research/">Research</a>
                 <a href="/teaching/">Teaching</a>
+                <a href="/supervision/">Supervision</a>
+                <a href="/service/">Service</a>
                 <a href="/awards/">Awards</a>
                 <a href="/contact/">Contact</a>
             </nav>

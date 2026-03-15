@@ -13,6 +13,13 @@ class SiteProfile(models.Model):
     scholar_url = models.URLField(blank=True)
     orcid_url = models.URLField(blank=True)
     linkedin_url = models.URLField(blank=True)
+    researchgate_url = models.URLField(blank=True)
+    ssrn_url = models.URLField(blank=True)
+    scopus_url = models.URLField(blank=True)
+    webofscience_url = models.URLField(blank=True)
+    twitter_url = models.URLField(blank=True)
+    bluesky_url = models.URLField(blank=True)
+    cssn_url = models.URLField(blank=True)
     education = models.TextField(blank=True)
     professional_education = models.TextField(blank=True)
     positions = models.TextField(blank=True)
@@ -119,3 +126,18 @@ class Supervision(models.Model):
 
     def __str__(self):
         return f"{self.student_name} ({self.degree})"
+
+
+class ServiceItem(models.Model):
+    title = models.CharField(max_length=250)
+    role = models.CharField(max_length=200, blank=True)
+    organization = models.CharField(max_length=200, blank=True)
+    year_range = models.CharField(max_length=100, blank=True, help_text='e.g. 2021–Present')
+    category = models.CharField(max_length=100, blank=True, help_text='e.g. Editorial, Conference, Grant Review')
+    ordering = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['ordering', '-title']
+
+    def __str__(self):
+        return self.title
