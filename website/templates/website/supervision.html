@@ -1,0 +1,44 @@
+{% extends "website/base.html" %}
+{% block title %}Supervision | Sudipta Bose{% endblock %}
+
+{% block content %}
+<section class="page-hero container narrow">
+    <p class="eyebrow">Supervision</p>
+    <h1>Research Supervision</h1>
+    <p>Current and completed supervision across doctoral and postgraduate research training.</p>
+</section>
+
+<section class="section container">
+    <div class="section-heading"><h2>Current Supervision</h2></div>
+    <div class="grid cards-2">
+        {% for item in current_supervisions %}
+        <article class="card">
+            <h3>{{ item.student_name }}</h3>
+            <p class="meta">{{ item.degree }} · {{ item.status }}</p>
+            <p><strong>{{ item.role }}</strong></p>
+            <p>{{ item.topic }}</p>
+        </article>
+        {% empty %}
+        <article class="card"><p>No current supervision records added yet.</p></article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-heading"><h2>Completed Supervision</h2></div>
+        <div class="grid cards-2">
+            {% for item in completed_supervisions %}
+            <article class="card">
+                <h3>{{ item.student_name }}</h3>
+                <p class="meta">{{ item.degree }} · {{ item.status }}</p>
+                <p><strong>{{ item.role }}</strong></p>
+                <p>{{ item.topic }}</p>
+            </article>
+            {% empty %}
+            <article class="card"><p>No completed supervision records added yet.</p></article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

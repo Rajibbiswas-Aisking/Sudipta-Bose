@@ -3,229 +3,6 @@
 
 {% block page_styles %}
 <style>
-:root {
-  --bg: #f4f7fb;
-  --surface: #ffffff;
-  --surface-soft: #f8fbff;
-  --text: #142033;
-  --muted: #5d6a7c;
-  --line: #dbe3ec;
-  --brand: #1f4b99;
-  --brand-dark: #173b77;
-  --accent: #eaf2ff;
-  --accent-strong: #d8e7ff;
-  --shadow: 0 18px 45px rgba(16, 24, 40, 0.08);
-  --shadow-soft: 0 10px 28px rgba(16, 24, 40, 0.05);
-}
-
-* { box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  overflow-y: scroll;
-}
-
-body {
-  margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(31, 75, 153, 0.08), transparent 30%),
-    linear-gradient(180deg, #f8fbff 0%, #f4f7fb 40%, #eef3f8 100%);
-  line-height: 1.65;
-}
-
-a {
-  color: var(--brand);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.container {
-  width: min(1500px, calc(100% - 48px));
-  margin: 0 auto;
-}
-
-.narrow {
-  width: min(1300px, calc(100% - 48px));
-  margin: 0 auto;
-}
-
-/* header */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(219, 227, 236, 0.95);
-}
-
-.nav-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 78px;
-}
-
-.brand {
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  color: var(--text);
-}
-
-.nav {
-  display: flex;
-  gap: 1.2rem;
-  flex-wrap: wrap;
-}
-
-.nav a {
-  color: var(--muted);
-  font-weight: 650;
-  position: relative;
-}
-
-.nav a:hover {
-  color: var(--brand);
-  text-decoration: none;
-}
-
-/* common */
-.eyebrow {
-  display: inline-block;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.78rem;
-  color: var(--brand);
-  font-weight: 800;
-  margin-bottom: 0.9rem;
-}
-
-h1 {
-  font-size: clamp(2.8rem, 5vw, 5.4rem);
-  line-height: 0.98;
-  margin: 0 0 1rem;
-  letter-spacing: -0.04em;
-}
-
-h2 {
-  font-size: clamp(1.6rem, 2.4vw, 2.45rem);
-  margin: 0;
-  letter-spacing: -0.03em;
-}
-
-h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.12rem;
-}
-
-.lead {
-  font-size: 1.14rem;
-  color: var(--muted);
-  margin: 0 0 1rem;
-}
-
-.section {
-  padding: 2.5rem 0 4.5rem;
-}
-
-.section-alt {
-  background: linear-gradient(180deg, rgba(255,255,255,0), rgba(234,242,255,0.45));
-}
-
-.section-heading {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.4rem;
-}
-
-.section-heading p {
-  margin: 0.5rem 0 0;
-  color: var(--muted);
-}
-
-.grid {
-  display: grid;
-  gap: 1.35rem;
-}
-
-.cards-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.cards-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  padding: 1.45rem;
-  box-shadow: var(--shadow-soft);
-}
-
-.card:hover {
-  transform: translateY(-2px);
-  transition: 0.2s ease;
-}
-
-.meta {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.95rem 1.2rem;
-  border-radius: 999px;
-  font-weight: 750;
-  transition: 180ms ease;
-}
-
-.btn:hover {
-  text-decoration: none;
-  transform: translateY(-1px);
-}
-
-.btn-primary {
-  background: var(--brand);
-  color: #fff;
-  box-shadow: 0 10px 25px rgba(31, 75, 153, 0.22);
-}
-
-.btn-primary:hover {
-  background: var(--brand-dark);
-}
-
-.btn-secondary {
-  background: var(--accent);
-  color: var(--brand-dark);
-}
-
-
-.site-footer {
-  border-top: 1px solid var(--line);
-  padding: 2rem 0 3rem;
-  background: rgba(255,255,255,0.8);
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-
-/* hero */
 .hero {
   padding: 4.4rem 0 2.6rem;
 }
@@ -269,6 +46,7 @@ h3 {
   color: #334155;
   font-size: 1.03rem;
   max-width: 860px;
+  margin-bottom: 1rem;
 }
 
 .hero-side {
@@ -323,7 +101,7 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 22px;
   padding: 1.15rem;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 10px 28px rgba(16, 24, 40, 0.05);
 }
 
 .info-card h3 {
@@ -348,7 +126,7 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 22px;
   padding: 1.2rem;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 10px 28px rgba(16, 24, 40, 0.05);
 }
 
 .detail-panel h3 {
@@ -396,12 +174,11 @@ h3 {
   margin: 0;
 }
 
-
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  margin-top: 1.6rem;
+  margin-top: 1.4rem;
 }
 
 .stat-box {
@@ -424,7 +201,6 @@ h3 {
   color: var(--muted);
 }
 
-/* publication */
 .pub-card h3 {
   font-size: 1.2rem;
   line-height: 1.45;
@@ -434,13 +210,12 @@ h3 {
   margin-bottom: 0.45rem;
 }
 
-/* highlights */
 .highlight-card {
   background: linear-gradient(180deg, #ffffff, #f8fbff);
   border: 1px solid var(--line);
   border-radius: 24px;
   padding: 1.35rem;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 10px 28px rgba(16, 24, 40, 0.05);
 }
 
 .highlight-card p {
@@ -448,23 +223,6 @@ h3 {
   color: #334155;
 }
 
-/* appointments / awards */
-.timeline-item {
-  position: relative;
-  padding: 0 0 1.3rem 1.1rem;
-  border-left: 2px solid var(--line);
-  margin-left: 0.35rem;
-}
-
-.timeline-item:last-child {
-  padding-bottom: 0;
-}
-
-.compact-card {
-  margin-bottom: 1rem;
-}
-
-/* responsive */
 @media (max-width: 1100px) {
   .hero-shell,
   .cards-3 {
@@ -478,18 +236,9 @@ h3 {
 }
 
 @media (max-width: 800px) {
-  .cards-2,
-  .footer-grid,
   .info-grid,
   .stat-grid {
     grid-template-columns: 1fr;
-  }
-
-  .nav-wrap {
-    align-items: flex-start;
-    padding: 1rem 0;
-    flex-direction: column;
-    gap: 0.8rem;
   }
 
   .hero {
@@ -498,11 +247,6 @@ h3 {
 }
 
 @media (max-width: 640px) {
-  .container,
-  .narrow {
-    width: calc(100% - 28px);
-  }
-
   .hero-main,
   .profile-card,
   .card,
@@ -527,88 +271,117 @@ h3 {
       <p class="hero-subtitle">
         {{ profile.title|default:"Associate Professor" }}{% if profile.institution %}, {{ profile.institution }}{% else %} in accounting, finance, sustainability, and corporate governance research{% endif %}
       </p>
-      <p class="hero-bio">
-        {{ profile.bio|default:"A research-led academic profile focused on capital markets, sustainability disclosure, corporate governance, and analytical methods that connect scholarship with real-world policy and practice." }}
-      </p>
-      
-    </div>
 
-<div class="hero-side">
-  <div class="profile-card">
-    <div class="profile-photo-wrap">
-      {% if profile.photo %}
-        <img class="profile-photo" src="{{ profile.photo.url }}" alt="Portrait of {{ profile.full_name|default:'Dr Sudipta Bose' }}">
-      {% else %}
-        <img class="profile-photo" src="/static/images/sudipta-bose.jpg" alt="Portrait of Dr Sudipta Bose">
-      {% endif %}
-    </div>
-    <p class="profile-name">{{ profile.full_name|default:"Dr Sudipta Bose" }}</p>
-    <p class="profile-role">
-      {{ profile.title|default:"Academic" }}{% if profile.institution %} · {{ profile.institution }}{% endif %}
-    </p>
-  </div>
+      <div>
+        <p class="hero-bio">
+          {{ profile.bio|default:"A research-led academic profile focused on capital markets, sustainability disclosure, corporate governance, and analytical methods that connect scholarship with real-world policy and practice." }}
+        </p>
 
-  <div class="profile-side-sections">
-    <div class="info-grid">
-      <div class="info-card">
-        <h3>Research Focus</h3>
-        <p>{{ profile.research_interests|default:"Capital markets, sustainable finance, climate change, carbon emissions and assurance, sustainability and assurance, biodiversity, corporate governance, and machine learning." }}</p>
-      </div>
-      <div class="info-card">
-        <h3>Research & Analytical Skills</h3>
-        <p>{{ profile.skills|default:"STATA, R, Python Programming, Power BI, and LaTeX." }}</p>
+        <div class="stat-grid" aria-label="Key Impact">
+          <div class="stat-box">
+            <strong>25+</strong>
+            <span>Publications</span>
+          </div>
+          <div class="stat-box">
+            <strong>A*/A</strong>
+            <span>Journals</span>
+          </div>
+          <div class="stat-box">
+            <strong>4</strong>
+            <span>PhD Supervised</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="profile-detail-stack">
-      <div class="detail-panel">
-        <h3>Education</h3>
-        {% if profile.education %}
-          <ul class="detail-list">
-            {% for line in profile.education.splitlines %}
-              {% if line.strip %}
-                <li>{{ line }}</li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p class="muted-note">Add education details from Django admin.</p>
-        {% endif %}
+    <div class="hero-side">
+      <div class="profile-card">
+        <div class="profile-photo-wrap">
+          {% if profile.photo %}
+            <img class="profile-photo" src="{{ profile.photo.url }}" alt="Portrait of {{ profile.full_name|default:'Dr Sudipta Bose' }}">
+          {% else %}
+            <img class="profile-photo" src="/static/images/sudipta-bose.jpg" alt="Portrait of Dr Sudipta Bose">
+          {% endif %}
+        </div>
+        <p class="profile-name">{{ profile.full_name|default:"Dr Sudipta Bose" }}</p>
+        <p class="profile-role">
+          {{ profile.title|default:"Academic" }}{% if profile.institution %} · {{ profile.institution }}{% endif %}
+        </p>
+
+        <div class="hero-links">
+          {% if profile.scholar_url %}<a class="hero-link" href="{{ profile.scholar_url }}" target="_blank" rel="noopener">Scholar</a>{% endif %}
+          {% if profile.orcid_url %}<a class="hero-link" href="{{ profile.orcid_url }}" target="_blank" rel="noopener">ORCID</a>{% endif %}
+          {% if profile.researchgate_url %}<a class="hero-link" href="{{ profile.researchgate_url }}" target="_blank" rel="noopener">ResearchGate</a>{% endif %}
+          {% if profile.ssrn_url %}<a class="hero-link" href="{{ profile.ssrn_url }}" target="_blank" rel="noopener">SSRN</a>{% endif %}
+          {% if profile.scopus_url %}<a class="hero-link" href="{{ profile.scopus_url }}" target="_blank" rel="noopener">Scopus</a>{% endif %}
+          {% if profile.webofscience_url %}<a class="hero-link" href="{{ profile.webofscience_url }}" target="_blank" rel="noopener">Web of Science</a>{% endif %}
+          {% if profile.linkedin_url %}<a class="hero-link" href="{{ profile.linkedin_url }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
+          {% if profile.twitter_url %}<a class="hero-link" href="{{ profile.twitter_url }}" target="_blank" rel="noopener">Twitter</a>{% endif %}
+          {% if profile.bluesky_url %}<a class="hero-link" href="{{ profile.bluesky_url }}" target="_blank" rel="noopener">BlueSky</a>{% endif %}
+          {% if profile.cssn_url %}<a class="hero-link" href="{{ profile.cssn_url }}" target="_blank" rel="noopener">CSSN</a>{% endif %}
+        </div>
       </div>
 
-      <div class="detail-panel">
-        <h3>Professional Education</h3>
-        {% if profile.professional_education %}
-          <ul class="detail-list">
-            {% for line in profile.professional_education.splitlines %}
-              {% if line.strip %}
-                <li>{{ line }}</li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p class="muted-note">Add professional education details from Django admin.</p>
-        {% endif %}
-      </div>
+      <div class="profile-side-sections">
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Research Focus</h3>
+            <p>{{ profile.research_interests|default:"Capital markets, sustainable finance, climate change, carbon emissions and assurance, sustainability and assurance, biodiversity, corporate governance, and machine learning." }}</p>
+          </div>
+          <div class="info-card">
+            <h3>Research & Analytical Skills</h3>
+            <p>{{ profile.skills|default:"STATA, R, Python Programming, Power BI, and LaTeX." }}</p>
+          </div>
+        </div>
 
-      <div class="detail-panel">
-        <h3>Positions</h3>
-        {% if profile.positions %}
-          <ul class="detail-list">
-            {% for line in profile.positions.splitlines %}
-              {% if line.strip %}
-                <li>{{ line }}</li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        {% else %}
-          <p class="muted-note">Add position history from Django admin.</p>
-        {% endif %}
+        <div class="profile-detail-stack">
+          <div class="detail-panel">
+            <h3>Education</h3>
+            {% if profile.education %}
+              <ul class="detail-list">
+                {% for line in profile.education.splitlines %}
+                  {% if line.strip %}
+                    <li>{{ line }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="muted-note">Add education details from Django admin.</p>
+            {% endif %}
+          </div>
+
+          <div class="detail-panel">
+            <h3>Professional Education</h3>
+            {% if profile.professional_education %}
+              <ul class="detail-list">
+                {% for line in profile.professional_education.splitlines %}
+                  {% if line.strip %}
+                    <li>{{ line }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="muted-note">Add professional education details from Django admin.</p>
+            {% endif %}
+          </div>
+
+          <div class="detail-panel">
+            <h3>Positions</h3>
+            {% if profile.positions %}
+              <ul class="detail-list">
+                {% for line in profile.positions.splitlines %}
+                  {% if line.strip %}
+                    <li>{{ line }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="muted-note">Add position history from Django admin.</p>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
 
   </div>
 </section>
