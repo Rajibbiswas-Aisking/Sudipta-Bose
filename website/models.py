@@ -13,7 +13,9 @@ class SiteProfile(models.Model):
     scholar_url = models.URLField(blank=True)
     orcid_url = models.URLField(blank=True)
     linkedin_url = models.URLField(blank=True)
-    
+    education = models.TextField(blank=True)
+    professional_education = models.TextField(blank=True)
+    positions = models.TextField(blank=True)
 
     class Meta:
         verbose_name = 'Site Profile'

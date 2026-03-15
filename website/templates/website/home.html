@@ -337,6 +337,66 @@ h3 {
   font-size: 0.98rem;
 }
 
+.profile-detail-stack {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.detail-panel {
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 1.2rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.detail-panel h3 {
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  color: var(--brand-dark);
+}
+
+.detail-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail-list li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.72rem;
+  color: #334155;
+  line-height: 1.65;
+}
+
+.detail-list li:last-child {
+  margin-bottom: 0;
+}
+
+.detail-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.68rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--brand);
+}
+
+.profile-side-sections {
+  display: grid;
+  gap: 1rem;
+}
+
+.muted-note {
+  color: var(--muted);
+  margin: 0;
+}
+
+
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -473,33 +533,82 @@ h3 {
       
     </div>
 
-    <div class="hero-side">
-      <div class="profile-card">
-        <div class="profile-photo-wrap">
-          <{% if profile.photo %}
-            <img class="profile-photo" src="{{ profile.photo.url }}" alt="Portrait of {{ profile.full_name|default:'Dr Sudipta Bose' }}">
-              {% else %}
-          <img class="profile-photo" src="/static/images/sudipta-bose.jpg" alt="Portrait of Dr Sudipta Bose">
-              {% endif %}
+<div class="hero-side">
+  <div class="profile-card">
+    <div class="profile-photo-wrap">
+      {% if profile.photo %}
+        <img class="profile-photo" src="{{ profile.photo.url }}" alt="Portrait of {{ profile.full_name|default:'Dr Sudipta Bose' }}">
+      {% else %}
+        <img class="profile-photo" src="/static/images/sudipta-bose.jpg" alt="Portrait of Dr Sudipta Bose">
+      {% endif %}
+    </div>
+    <p class="profile-name">{{ profile.full_name|default:"Dr Sudipta Bose" }}</p>
+    <p class="profile-role">
+      {{ profile.title|default:"Academic" }}{% if profile.institution %} · {{ profile.institution }}{% endif %}
+    </p>
+  </div>
 
-        </div>
-        <p class="profile-name">{{ profile.full_name|default:"Dr Sudipta Bose" }}</p>
-        <p class="profile-role">
-          {{ profile.title|default:"Academic" }}{% if profile.institution %} · {{ profile.institution }}{% endif %}
-        </p>
+  <div class="profile-side-sections">
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Research Focus</h3>
+        <p>{{ profile.research_interests|default:"Capital markets, sustainable finance, climate change, carbon emissions and assurance, sustainability and assurance, biodiversity, corporate governance, and machine learning." }}</p>
       </div>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <h3>Research Focus</h3>
-          <p>{{ profile.research_interests|default:"Capital markets, sustainability, climate disclosure, corporate governance, ESG reporting, and machine learning applications." }}</p>
-        </div>
-        <div class="info-card">
-          <h3>Analytical Expertise</h3>
-          <p>{{ profile.skills|default:"STATA, R, Python, Power BI, econometric analysis, and data-driven academic research." }}</p>
-        </div>
+      <div class="info-card">
+        <h3>Research & Analytical Skills</h3>
+        <p>{{ profile.skills|default:"STATA, R, Python Programming, Power BI, and LaTeX." }}</p>
       </div>
     </div>
+
+    <div class="profile-detail-stack">
+      <div class="detail-panel">
+        <h3>Education</h3>
+        {% if profile.education %}
+          <ul class="detail-list">
+            {% for line in profile.education.splitlines %}
+              {% if line.strip %}
+                <li>{{ line }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="muted-note">Add education details from Django admin.</p>
+        {% endif %}
+      </div>
+
+      <div class="detail-panel">
+        <h3>Professional Education</h3>
+        {% if profile.professional_education %}
+          <ul class="detail-list">
+            {% for line in profile.professional_education.splitlines %}
+              {% if line.strip %}
+                <li>{{ line }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="muted-note">Add professional education details from Django admin.</p>
+        {% endif %}
+      </div>
+
+      <div class="detail-panel">
+        <h3>Positions</h3>
+        {% if profile.positions %}
+          <ul class="detail-list">
+            {% for line in profile.positions.splitlines %}
+              {% if line.strip %}
+                <li>{{ line }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="muted-note">Add position history from Django admin.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
 
   </div>
 </section>
