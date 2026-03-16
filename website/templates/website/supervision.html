@@ -1,14 +1,27 @@
 {% extends "website/base.html" %}
 {% block title %}Supervision | Sudipta Bose{% endblock %}
 
+{% block page_styles %}
+<style>
+.card .meta {
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<section class="page-hero container narrow">
+<section class="section">
+    <div class="container">
     <p class="eyebrow">Supervision</p>
     <h1>Research Supervision</h1>
+    <div class="page-hero-divider"></div>
     <p>Current and completed supervision across doctoral and postgraduate research training.</p>
 </section>
 
-<section class="section container">
+<section class="section">
+    <div class="container">
     <div class="section-heading"><h2>Current Supervision</h2></div>
     <div class="grid cards-2">
         {% for item in current_supervisions %}

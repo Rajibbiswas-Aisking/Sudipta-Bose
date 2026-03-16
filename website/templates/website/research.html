@@ -7,31 +7,37 @@
 .tab-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 1.5rem;
+  gap: 10px;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
 }
 
 .tab-btn {
-  border: 1px solid var(--line);
-  background: #ffffff;
-  color: var(--text);
-  border-radius: 999px;
-  padding: 0.82rem 1.1rem;
-  font-size: 0.95rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
   font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.18s ease;
 }
 
 .tab-btn:hover {
-  background: var(--accent);
-  border-color: #bfd0ef;
+  border-color: var(--gold);
+  color: var(--navy);
+  background: var(--gold-light);
 }
 
 .tab-btn.active {
-  background: var(--brand);
-  color: #fff;
-  border-color: var(--brand);
+  background: var(--navy);
+  color: var(--gold);
+  border-color: var(--navy);
 }
 
 .research-panel {
@@ -60,6 +66,15 @@
   padding: 1.4rem;
 }
 
+.pub-year {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
 @media (max-width: 800px) {
   .tab-btn {
     width: 100%;
@@ -70,22 +85,26 @@
 {% endblock %}
 
 {% block content %}
-<section class="page-hero container narrow">
-  <p class="eyebrow">Research</p>
-  <h1>Publications and Grants</h1>
-  <p>{{ profile.research_interests }}</p>
+<section class="page-hero">
+  <div class="container narrow">
+    <p class="eyebrow">Research</p>
+    <h1>Publications and Grants</h1>
+    <div class="page-hero-divider"></div>
+    <p>{{ profile.research_interests }}</p>
 
-  <div class="tab-bar">
-    <button class="tab-btn active" type="button" data-target="published-papers">Published Papers</button>
-    <button class="tab-btn" type="button" data-target="media-articles">Media Articles</button>
-    <button class="tab-btn" type="button" data-target="book-chapters">Book Chapters</button>
-    <button class="tab-btn" type="button" data-target="journal-reviewer">Journal Reviewer</button>
-    <button class="tab-btn" type="button" data-target="journal-published">Journal Published</button>
-    <button class="tab-btn" type="button" data-target="working-papers">Working Papers</button>
+    <div class="tab-bar">
+      <button class="tab-btn active" type="button" data-target="published-papers">Published Papers</button>
+      <button class="tab-btn" type="button" data-target="media-articles">Media Articles</button>
+      <button class="tab-btn" type="button" data-target="book-chapters">Book Chapters</button>
+      <button class="tab-btn" type="button" data-target="journal-reviewer">Journal Reviewer</button>
+      <button class="tab-btn" type="button" data-target="journal-published">Journal Published</button>
+      <button class="tab-btn" type="button" data-target="working-papers">Working Papers</button>
+    </div>
   </div>
 </section>
 
-<section class="section container">
+<section class="section">
+  <div class="container">
 
   <div class="research-panel active" id="published-papers">
     <div class="section-heading">
@@ -96,11 +115,10 @@
     </div>
     <div class="grid cards-2">
       {% for item in published_papers %}
-      <article class="card">
-        <p class="meta">{{ item.year }}</p>
+      <article class="card pub-card">
+        <p class="meta pub-year">{{ item.year }}{% if item.journal_or_source %} · {{ item.journal_or_source }}{% endif %}</p>
         <h3>{{ item.title }}</h3>
         {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
-        {% if item.journal_or_source %}<p><span class="label">Source:</span> {{ item.journal_or_source }}</p>{% endif %}
         {% if item.abstract %}<p>{{ item.abstract }}</p>{% endif %}
         {% if item.link %}<p><a href="{{ item.link }}" target="_blank">Read more</a></p>{% endif %}
       </article>
@@ -119,7 +137,7 @@
     </div>
     <div class="grid cards-2">
       {% for item in media_articles %}
-      <article class="card">
+      <article class="card pub-card">
         <p class="meta">{{ item.year }}</p>
         <h3>{{ item.title }}</h3>
         {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
@@ -216,7 +234,7 @@
       {% endfor %}
     </div>
   </div>
-
+</div>
 </section>
 
 <section class="section section-alt">
@@ -240,6 +258,7 @@
       {% endfor %}
     </div>
   </div>
+</div>
 </section>
 
 <script>

@@ -2,24 +2,30 @@
 {% block title %}Teaching | Sudipta Bose{% endblock %}
 
 {% block content %}
-<section class="page-hero container narrow">
-    <p class="eyebrow">Teaching</p>
-    <h1>Teaching and Courses</h1>
-    <p>A dedicated place for course leadership, curriculum, and mentoring activity.</p>
+<section class="section">
+    <div class="container">
+        <p class="eyebrow">Teaching</p>
+        <h1>Teaching and Courses</h1>
+        <div class="page-hero-divider"></div>
+        <p>A dedicated place for course leadership, curriculum, and mentoring activity.</p>
+    </div>
 </section>
 
-<section class="section container">
-    <div class="section-heading"><h2>Courses</h2></div>
-    <div class="grid cards-2">
-        {% for item in teaching_items %}
-        <article class="card">
-            <h3>{{ item.course_name }}</h3>
-            <p class="meta">{{ item.institution }}{% if item.level %} · {{ item.level }}{% endif %}</p>
-            <p>{{ item.summary }}</p>
-        </article>
-        {% endfor %}
-    </div>
+<section class="section page-last-section">
+    <div class="container">
+        <div class="section-heading"><h2>Courses</h2></div>
+        <div class="grid cards-2">
+            {% for item in teaching_items %}
+            <article class="card">
+                {% if item.level %}<span class="badge">{{ item.level }}</span>{% endif %}
+                <h3 style="margin-top: 0.5rem;">{{ item.course_name }}</h3>
+                <p class="meta">{{ item.institution }}</p>
+                {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
+            </article>
+            {% endfor %}
+        </div>
 
-    <a class="section-link" href="/supervision/">View full supervision record →</a>
+        <a class="section-link" href="/supervision/">View full supervision record →</a>
+    </div>
 </section>
 {% endblock %}

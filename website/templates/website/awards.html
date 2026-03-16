@@ -1,20 +1,58 @@
 {% extends "website/base.html" %}
 {% block title %}Awards | Sudipta Bose{% endblock %}
 
+{% block page_styles %}
+<style>
+.award-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+.award-year {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    color: var(--gold);
+    line-height: 1;
+    font-weight: 800;
+    opacity: 0.25;
+    min-width: 5rem;
+    text-align: right;
+    padding-top: 0.1rem;
+    user-select: none;
+}
+
+@media (max-width: 640px) {
+    .award-card {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<section class="page-hero container narrow">
-    <p class="eyebrow">Awards</p>
-    <h1>Recognition and Achievement</h1>
-    <p>A focused record of teaching, supervision, and academic recognition.</p>
+<section class="section">
+    <div class="container">
+        <p class="eyebrow">Awards</p>
+        <h1>Recognition and Achievement</h1>
+        <div class="page-hero-divider"></div>
+        <p>A focused record of teaching, supervision, and academic recognition.</p>
+    </div>
 </section>
 
-<section class="section container narrow">
-    {% for item in awards %}
-    <article class="card compact-card">
-        <h3>{{ item.title }}</h3>
-        <p class="meta">{{ item.year }}{% if item.issuer %} · {{ item.issuer }}{% endif %}</p>
-        <p>{{ item.summary }}</p>
-    </article>
-    {% endfor %}
+<section class="section page-last-section">
+    <div class="container">
+        {% for item in awards %}
+        <article class="card compact-card award-card">
+            <div class="award-year">{{ item.year }}</div>
+            <div>
+                <h3>{{ item.title }}</h3>
+                <p class="meta">{% if item.issuer %}{{ item.issuer }}{% endif %}</p>
+                <p>{{ item.summary }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}
