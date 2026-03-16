@@ -2,12 +2,14 @@
 {% block title %}About | Sudipta Bose{% endblock %}
 
 {% block content %}
-<section class="page-hero container narrow">
+<section class="section">
+    <div class="container">
     <p class="eyebrow">About</p>
     <h1>{{ profile.full_name }}</h1>
     <div class="page-hero-divider"></div>
     <p class="lead">{{ profile.title }}{% if profile.institution %}, {{ profile.institution }}{% endif %}</p>
     <p>{{ profile.bio }}</p>
+    </div> 
 </section>
 
 <section class="section">

@@ -20,14 +20,16 @@
 {% endblock %}
 
 {% block content %}
-<section class="page-hero container narrow">
+<section class="section">
+    <div class="container">
     <p class="eyebrow">Service</p>
     <h1>Service and Administration</h1>
     <div class="page-hero-divider"></div>
     <p>Editorial roles, conference leadership, grant review, and professional academic service.</p>
 </section>
 
-<section class="section container">
+<section class="section">
+    <div class="container">
     {% regroup items by category as category_groups %}
 
     {% for group in category_groups %}
@@ -49,5 +51,6 @@
         <p>Add service entries from Django admin to display them here.</p>
     </article>
     {% endfor %}
+</div>
 </section>
 {% endblock %}

@@ -85,23 +85,26 @@
 {% endblock %}
 
 {% block content %}
-<section class="page-hero container narrow">
-  <p class="eyebrow">Research</p>
-  <h1>Publications and Grants</h1>
-  <div class="page-hero-divider"></div>
-  <p>{{ profile.research_interests }}</p>
+<section class="page-hero">
+  <div class="container narrow">
+    <p class="eyebrow">Research</p>
+    <h1>Publications and Grants</h1>
+    <div class="page-hero-divider"></div>
+    <p>{{ profile.research_interests }}</p>
 
-  <div class="tab-bar">
-    <button class="tab-btn active" type="button" data-target="published-papers">Published Papers</button>
-    <button class="tab-btn" type="button" data-target="media-articles">Media Articles</button>
-    <button class="tab-btn" type="button" data-target="book-chapters">Book Chapters</button>
-    <button class="tab-btn" type="button" data-target="journal-reviewer">Journal Reviewer</button>
-    <button class="tab-btn" type="button" data-target="journal-published">Journal Published</button>
-    <button class="tab-btn" type="button" data-target="working-papers">Working Papers</button>
+    <div class="tab-bar">
+      <button class="tab-btn active" type="button" data-target="published-papers">Published Papers</button>
+      <button class="tab-btn" type="button" data-target="media-articles">Media Articles</button>
+      <button class="tab-btn" type="button" data-target="book-chapters">Book Chapters</button>
+      <button class="tab-btn" type="button" data-target="journal-reviewer">Journal Reviewer</button>
+      <button class="tab-btn" type="button" data-target="journal-published">Journal Published</button>
+      <button class="tab-btn" type="button" data-target="working-papers">Working Papers</button>
+    </div>
   </div>
 </section>
 
-<section class="section container">
+<section class="section">
+  <div class="container">
 
   <div class="research-panel active" id="published-papers">
     <div class="section-heading">
@@ -231,7 +234,7 @@
       {% endfor %}
     </div>
   </div>
-
+</div>
 </section>
 
 <section class="section section-alt">
@@ -255,6 +258,7 @@
       {% endfor %}
     </div>
   </div>
+</div>
 </section>
 
 <script>
