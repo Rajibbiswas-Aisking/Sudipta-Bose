@@ -3,7 +3,14 @@
 
 {% block page_styles %}
 <style>
-/* research tabs */
+.research-panel {
+  display: none;
+}
+
+.research-panel.active {
+  display: block;
+}
+
 .tab-bar {
   display: flex;
   flex-wrap: wrap;
@@ -11,6 +18,33 @@
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--line);
+}
+
+.empty-card {
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: 20px;
+  padding: 1.4rem;
+}
+
+.label {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pub-year {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.section-subtext {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.98rem;
 }
 
 .tab-btn {
@@ -38,41 +72,6 @@
   background: var(--navy);
   color: var(--gold);
   border-color: var(--navy);
-}
-
-.research-panel {
-  display: none;
-}
-
-.research-panel.active {
-  display: block;
-}
-
-.section-subtext {
-  margin: 0.4rem 0 0;
-  color: var(--muted);
-  font-size: 0.98rem;
-}
-
-.label {
-  font-weight: 700;
-  color: var(--text);
-}
-
-.empty-card {
-  background: var(--surface);
-  border: 1px dashed var(--line);
-  border-radius: 20px;
-  padding: 1.4rem;
-}
-
-.pub-year {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
 }
 
 @media (max-width: 800px) {
