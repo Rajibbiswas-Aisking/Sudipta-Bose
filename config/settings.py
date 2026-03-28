@@ -6,13 +6,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me')
 
-#DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-debug_env = os.environ.get('DEBUG')
-if debug_env is None:
-    # Default to debug for local development (SQLite, no DATABASE_URL).
-    DEBUG = not bool(os.environ.get('DATABASE_URL'))
-else:
-    DEBUG = debug_env.strip().lower() in {'1', 'true', 'yes', 'on'}
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+# debug_env = os.environ.get('DEBUG')
+# if debug_env is None:
+#     # Default to debug for local development (SQLite, no DATABASE_URL).
+#     DEBUG = not bool(os.environ.get('DATABASE_URL'))
+# else:
+#     DEBUG = debug_env.strip().lower() in {'1', 'true', 'yes', 'on'}
 
 ALLOWED_HOSTS = ['*']
 

@@ -229,9 +229,9 @@
 .profile-photo {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 4.5;
-  object-fit: cover;
-  object-position: center top;
+  height: auto;      /* This is the key: it shows the full height of your photo */
+  object-fit: scale-down; /* Ensures the image doesn't get distorted */
+  object-position: center top; 
 }
 
 .profile-photo-wrap {
@@ -239,7 +239,12 @@
   overflow: hidden;
   background: #ffffff;
   border: 1px solid #d9e2ec;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem; /* Added slightly more space */
+  display: block; /* Removed flex to let the image define height */
+}
+
+.profile-photo:hover {
+  transform: scale(1.02);
 }
 
 .profile-role {
