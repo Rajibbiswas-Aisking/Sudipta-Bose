@@ -141,3 +141,16 @@ class ServiceItem(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class GalleryPhoto(models.Model):
+    image = models.ImageField(upload_to='gallery/')
+    caption = models.CharField(max_length=300, blank=True)
+    year = models.PositiveIntegerField(blank=True, null=True)
+    ordering = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['ordering', '-year']
+
+    def __str__(self):
+        return self.caption or f"Photo {self.id}"
