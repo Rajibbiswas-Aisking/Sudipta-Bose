@@ -394,9 +394,9 @@
       </p>
 
       <div>
-        <p class="hero-bio">
-          {{ profile.bio|default:"A research-led academic profile focused on capital markets, sustainability disclosure, corporate governance, and analytical methods that connect scholarship with real-world policy and practice." }}
-        </p>
+          <div class="hero-bio">
+            {{ profile.bio|linebreaks }}
+          </div>
 
         <div class="stat-grid" aria-label="Key Impact">
           <div class="stat-box">
