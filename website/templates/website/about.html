@@ -16,7 +16,10 @@
     <h1>{{ profile.full_name }}</h1>
     <div class="page-hero-divider"></div>
     <p class="lead">{{ profile.title }}{% if profile.institution %}, {{ profile.institution }}{% endif %}</p>
-    <p class="bio-text">{{ profile.bio }}</p>
+        <div class="bio-text">
+            {{ profile.bio|linebreaks }}
+        </div>
+    <!--<p class="bio-text">{{ profile.bio }}</p> -->
 
     </div> 
 </section>
