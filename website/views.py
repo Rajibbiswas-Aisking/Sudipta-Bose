@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision, ServiceItem
+from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision, ServiceItem, GalleryPhoto
 
 
 def home(request):
@@ -7,11 +7,13 @@ def home(request):
     selected_publications = Publication.objects.all().order_by('-year', 'title')[:4]
     experiences = Experience.objects.all()[:5]
     awards = Award.objects.all()[:3]
+    photos = GalleryPhoto.objects.all()
     context = {
         'profile': profile,
         'selected_publications': selected_publications,
         'experiences': experiences,
         'awards': awards,
+        'photos': photos,
     }
     return render(request, 'website/home.html', context)
 

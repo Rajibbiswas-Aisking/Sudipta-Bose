@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision, ServiceItem
+from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision, ServiceItem, GalleryPhoto
 
 
 @admin.register(SiteProfile)
@@ -15,9 +15,10 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'year', 'category')
+    list_display = ('title', 'year', 'category', 'abstract_image')
     list_filter = ('category', 'year')
     search_fields = ('title', 'authors', 'journal_or_source')
+    fields = ('title', 'authors', 'year', 'category', 'journal_or_source', 'abstract', 'abstract_image', 'link')
 
 
 @admin.register(Grant)
@@ -47,4 +48,10 @@ class SupervisionAdmin(admin.ModelAdmin):
 @admin.register(ServiceItem)
 class ServiceItemAdmin(admin.ModelAdmin):
     list_display = ('title', 'role', 'organization', 'year_range', 'category', 'ordering')
+    list_editable = ('ordering',)
+
+
+@admin.register(GalleryPhoto)
+class GalleryPhotoAdmin(admin.ModelAdmin):
+    list_display = ('caption', 'year', 'ordering')
     list_editable = ('ordering',)

@@ -1,6 +1,14 @@
 {% extends "website/base.html" %}
 {% block title %}About | Sudipta Bose{% endblock %}
 
+{% block page_styles %}
+<style>
+.bio-text {
+  text-align: justify;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <section class="section">
     <div class="container">
@@ -8,12 +16,14 @@
     <h1>{{ profile.full_name }}</h1>
     <div class="page-hero-divider"></div>
     <p class="lead">{{ profile.title }}{% if profile.institution %}, {{ profile.institution }}{% endif %}</p>
-    <p>{{ profile.bio }}</p>
+    <p class="bio-text">{{ profile.bio }}</p>
+
     </div> 
 </section>
 
 <section class="section">
-    <div class="container narrow">
+    <section class="section">
+    <div class="container">
         <div class="section-heading">
             <div>
                 <p class="eyebrow">Career</p>
