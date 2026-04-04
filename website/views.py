@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision, ServiceItem, GalleryPhoto
+from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, TeachingResource, Award, Supervision, ServiceItem, GalleryPhoto
 
 
 def home(request):
@@ -43,8 +43,18 @@ def research(request):
 
 
 def teaching(request):
+    resources = TeachingResource.objects.select_related('course').all()
+    resource_groups = []
+    for key, label in TeachingResource.RESOURCE_TYPE_CHOICES:
+        grouped_items = resources.filter(resource_type=key)
+        if grouped_items.exists():
+            resource_groups.append({'key': key, 'label': label, 'items': grouped_items})
+
     return render(request, 'website/teaching.html', {
         'teaching_items': TeachingItem.objects.all(),
+        'resources': resources,
+        'resource_types': TeachingResource.RESOURCE_TYPE_CHOICES,
+        'resource_groups': resource_groups,
     })
 
 

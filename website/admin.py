@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, Award, Supervision, ServiceItem, GalleryPhoto
+from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, TeachingResource, Award, Supervision, ServiceItem, GalleryPhoto
 
 
 @admin.register(SiteProfile)
@@ -31,6 +31,13 @@ class GrantAdmin(admin.ModelAdmin):
 class TeachingItemAdmin(admin.ModelAdmin):
     list_display = ('course_name', 'institution', 'level', 'ordering')
     list_editable = ('ordering',)
+
+
+@admin.register(TeachingResource)
+class TeachingResourceAdmin(admin.ModelAdmin):
+    list_display = ('title', 'resource_type', 'course', 'ordering')
+    list_editable = ('ordering',)
+    list_filter = ('resource_type', 'course')
 
 
 @admin.register(Award)
