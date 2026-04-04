@@ -63,6 +63,7 @@ class Publication(models.Model):
     category = models.CharField(max_length=30, choices=CATEGORY_CHOICES)
     journal_or_source = models.CharField(max_length=300, blank=True)
     abstract = models.TextField(blank=True)
+    abstract_image = models.ImageField(upload_to="abstract_images/", blank=True, null=True)
     link = models.URLField(blank=True)
 
     class Meta:
