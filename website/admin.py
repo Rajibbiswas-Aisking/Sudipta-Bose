@@ -15,10 +15,10 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'year', 'category', 'abstract_image')
+    list_display = ('title', 'year', 'category', 'rank', 'citation_count')
     list_filter = ('category', 'year')
     search_fields = ('title', 'authors', 'journal_or_source')
-    fields = ('title', 'authors', 'year', 'category', 'journal_or_source', 'abstract', 'abstract_image', 'link')
+    fields = ('title', 'authors', 'year', 'category', 'journal_or_source', 'rank', 'citation_count', 'abstract', 'abstract_image', 'link')
 
 
 @admin.register(Grant)

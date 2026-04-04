@@ -62,6 +62,8 @@ class Publication(models.Model):
     year = models.PositiveIntegerField()
     category = models.CharField(max_length=30, choices=CATEGORY_CHOICES)
     journal_or_source = models.CharField(max_length=300, blank=True)
+    rank = models.CharField(max_length=20, blank=True, help_text='e.g. A*, A, B, C (ABDC) or A (APSA)')
+    citation_count = models.PositiveIntegerField(null=True, blank=True, help_text='Google Scholar citation count')
     abstract = models.TextField(blank=True)
     abstract_image = models.ImageField(upload_to="abstract_images/", blank=True, null=True)
     link = models.URLField(blank=True)
