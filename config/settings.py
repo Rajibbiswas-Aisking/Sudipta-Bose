@@ -102,3 +102,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 DJANGO_SUPERUSER_USERNAME = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
 DJANGO_SUPERUSER_EMAIL = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
 DJANGO_SUPERUSER_PASSWORD = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'adminpass')
+
+
+# Verify Cloudinary is configured when not in local dev
+if not DEBUG:
+    assert os.environ.get('CLOUDINARY_CLOUD_NAME'), "CLOUDINARY_CLOUD_NAME env var is not set!"
+    assert os.environ.get('CLOUDINARY_API_KEY'), "CLOUDINARY_API_KEY env var is not set!"
+    assert os.environ.get('CLOUDINARY_API_SECRET'), "CLOUDINARY_API_SECRET env var is not set!"
