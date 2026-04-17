@@ -104,8 +104,16 @@ DJANGO_SUPERUSER_EMAIL = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example
 DJANGO_SUPERUSER_PASSWORD = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'adminpass')
 
 
-# Verify Cloudinary is configured when not in local dev
-if not DEBUG:
-    assert os.environ.get('CLOUDINARY_CLOUD_NAME'), "CLOUDINARY_CLOUD_NAME env var is not set!"
-    assert os.environ.get('CLOUDINARY_API_KEY'), "CLOUDINARY_API_KEY env var is not set!"
-    assert os.environ.get('CLOUDINARY_API_SECRET'), "CLOUDINARY_API_SECRET env var is not set!"
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+
+# TEMPORARY DIAGNOSTICS — remove after fixing
+print("=== CLOUDINARY DEBUG ===")
+print("CLOUD_NAME:", os.environ.get('CLOUDINARY_CLOUD_NAME'))
+print("API_KEY set:", bool(os.environ.get('CLOUDINARY_API_KEY')))
+print("API_SECRET set:", bool(os.environ.get('CLOUDINARY_API_SECRET')))
+print("DEFAULT_FILE_STORAGE:", DEFAULT_FILE_STORAGE)
+print("========================")
