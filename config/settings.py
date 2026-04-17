@@ -116,9 +116,3 @@ DJANGO_SUPERUSER_PASSWORD = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'adminpa
 
 
 
-# TEMPORARY DIAGNOSTICS — remove after fixing
-print("=== CLOUDINARY DEBUG ===")
-print("CLOUD_NAME:", os.environ.get('CLOUDINARY_CLOUD_NAME'))
-print("API_KEY set:", bool(os.environ.get('CLOUDINARY_API_KEY')))
-print("API_SECRET set:", bool(os.environ.get('CLOUDINARY_API_SECRET')))
-print("========================")
