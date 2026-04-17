@@ -84,19 +84,18 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-# Replace your current STORAGES block with this:
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        # Using the standard WhiteNoise storage (no manifest, no heavy compression)
+        "BACKEND": "whitenoise.storage.StaticFilesStorage",
     },
 }
 
-# Add these two lines immediately AFTER the STORAGES block
-# This fixes the AttributeError: 'Settings' object has no attribute 'STATICFILES_STORAGE'
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# Keep these for compatibility
+STATICFILES_STORAGE = "whitenoise.storage.StaticFilesStorage"
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 CLOUDINARY_STORAGE = {
