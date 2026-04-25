@@ -22,7 +22,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
     'website',
 ]
 
@@ -82,7 +84,25 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        # Using the standard WhiteNoise storage (no manifest, no heavy compression)
+        "BACKEND": "whitenoise.storage.StaticFilesStorage",
+    },
+}
+
+# Keep these for compatibility
+STATICFILES_STORAGE = "whitenoise.storage.StaticFilesStorage"
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -93,3 +113,12 @@ MEDIA_ROOT = BASE_DIR / "media"
 DJANGO_SUPERUSER_USERNAME = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
 DJANGO_SUPERUSER_EMAIL = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
 DJANGO_SUPERUSER_PASSWORD = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'adminpass')
+
+
+
+# TEMPORARY DIAGNOSTICS — remove after fixing
+print("=== CLOUDINARY DEBUG ===")
+print("CLOUD_NAME:", os.environ.get('CLOUDINARY_CLOUD_NAME'))
+print("API_KEY set:", bool(os.environ.get('CLOUDINARY_API_KEY')))
+print("API_SECRET set:", bool(os.environ.get('CLOUDINARY_API_SECRET')))
+print("========================")

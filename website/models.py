@@ -62,6 +62,8 @@ class Publication(models.Model):
     year = models.PositiveIntegerField()
     category = models.CharField(max_length=30, choices=CATEGORY_CHOICES)
     journal_or_source = models.CharField(max_length=300, blank=True)
+    rank = models.CharField(max_length=20, blank=True, help_text='e.g. A*, A, B, C (ABDC) or A (APSA)')
+    citation_count = models.PositiveIntegerField(null=True, blank=True, help_text='Google Scholar citation count')
     abstract = models.TextField(blank=True)
     abstract_image = models.ImageField(upload_to="abstract_images/", blank=True, null=True)
     link = models.URLField(blank=True)
@@ -99,6 +101,30 @@ class TeachingItem(models.Model):
 
     def __str__(self):
         return self.course_name
+
+
+class TeachingResource(models.Model):
+    RESOURCE_TYPE_CHOICES = [
+        ('reading_list', 'Reading List'),
+        ('lecture_notes', 'Lecture Notes'),
+        ('template', 'Template'),
+        ('external_tool', 'External Tool'),
+        ('assessment_guide', 'Assessment Guide'),
+    ]
+
+    title = models.CharField(max_length=250)
+    description = models.TextField(blank=True)
+    resource_type = models.CharField(max_length=30, choices=RESOURCE_TYPE_CHOICES)
+    file = models.FileField(upload_to='teaching_resources/', blank=True, null=True)
+    url = models.URLField(blank=True)
+    course = models.ForeignKey(TeachingItem, on_delete=models.SET_NULL, null=True, blank=True, related_name='resources')
+    ordering = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['ordering', 'resource_type', 'title']
+
+    def __str__(self):
+        return self.title
 
 
 class Award(models.Model):
