@@ -59,11 +59,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # PostgreSQL on Render, SQLite locally
+# PostgreSQL on Render, SQLite locally
 if os.environ.get('DATABASE_URL'):
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600
+            conn_max_age=0,
+            ssl_require=True,
+            conn_health_checks=True,
         )
     }
 else:
@@ -116,9 +119,3 @@ DJANGO_SUPERUSER_PASSWORD = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'adminpa
 
 
 
-# TEMPORARY DIAGNOSTICS — remove after fixing
-print("=== CLOUDINARY DEBUG ===")
-print("CLOUD_NAME:", os.environ.get('CLOUDINARY_CLOUD_NAME'))
-print("API_KEY set:", bool(os.environ.get('CLOUDINARY_API_KEY')))
-print("API_SECRET set:", bool(os.environ.get('CLOUDINARY_API_SECRET')))
-print("========================")
