@@ -71,8 +71,8 @@ def service(request):
 def supervision_page(request):
     return render(request, 'website/supervision.html', {
         'supervisions': Supervision.objects.all(),
-        'current_supervisions': Supervision.objects.filter(status='Current'),
-        'completed_supervisions': Supervision.objects.filter(status='Completed'),
+        'current_supervisions': Supervision.objects.filter(status__iexact='Current'),
+        'completed_supervisions': Supervision.objects.filter(status__iexact='Completed'),
     })
 
 

@@ -141,11 +141,20 @@ class Award(models.Model):
 
 
 class Supervision(models.Model):
+    STATUS_CHOICES = [
+        ('Current', 'Current'),
+        ('Completed', 'Completed'),
+    ]
+
     student_name = models.CharField(max_length=200)
     degree = models.CharField(max_length=100)
-    status = models.CharField(max_length=100)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Current')
     role = models.CharField(max_length=100, help_text='Principal supervisor / Co-supervisor')
     topic = models.CharField(max_length=250, blank=True)
+    current_position = models.CharField(
+        max_length=300, blank=True,
+        help_text='Current position or job title of the graduate (for completed supervisions)'
+    )
     ordering = models.PositiveIntegerField(default=0)
 
     class Meta:

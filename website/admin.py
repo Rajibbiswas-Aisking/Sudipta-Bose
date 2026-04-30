@@ -48,8 +48,9 @@ class AwardAdmin(admin.ModelAdmin):
 
 @admin.register(Supervision)
 class SupervisionAdmin(admin.ModelAdmin):
-    list_display = ('student_name', 'degree', 'status', 'role', 'ordering')
+    list_display = ('student_name', 'degree', 'status', 'role', 'current_position', 'ordering')
     list_editable = ('ordering',)
+    fields = ('student_name', 'degree', 'status', 'role', 'topic', 'current_position', 'ordering')
 
 
 @admin.register(ServiceItem)
