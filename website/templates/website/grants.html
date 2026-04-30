@@ -143,18 +143,14 @@
         <span class="stat-number">{{ grants|length }}</span>
         <span class="stat-label">Grants Awarded</span>
       </div>
-      {% with earliest=grants|last %}
       <div class="stat-item">
         <span class="stat-number">{{ earliest.year }}</span>
         <span class="stat-label">First Grant Year</span>
       </div>
-      {% endwith %}
-      {% with latest=grants|first %}
       <div class="stat-item">
         <span class="stat-number">{{ latest.year }}</span>
         <span class="stat-label">Most Recent</span>
       </div>
-      {% endwith %}
     </div>
     {% endif %}
   </div>

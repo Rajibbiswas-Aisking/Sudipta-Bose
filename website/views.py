@@ -42,7 +42,9 @@ def research(request):
 
 def grants_page(request):
     grants = Grant.objects.all().order_by("-year")
-    return render(request, "website/grants.html", {"grants": grants})
+    earliest = grants.last()
+    latest = grants.first()
+    return render(request, "website/grants.html", {"grants": grants, "earliest": earliest, "latest": latest})
 
 
 def teaching(request):
