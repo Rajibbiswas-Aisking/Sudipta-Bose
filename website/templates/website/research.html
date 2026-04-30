@@ -342,7 +342,7 @@
 <section class="section">
     <div class="container">
     <p class="eyebrow">Research</p>
-    <h1>Publications and Grants</h1>
+    <h1>Publications</h1>
     <div class="page-hero-divider"></div>
     <p>{{ profile.research_interests }}</p>
 
@@ -540,29 +540,6 @@
 </div>
 </section>
 
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-heading">
-      <div>
-        <h2>Research Grants</h2>
-        <p class="section-subtext">Funded projects and research support.</p>
-      </div>
-    </div>
-    <div class="grid cards-2">
-      {% for item in grants %}
-      <article class="card">
-        <p class="meta">{{ item.year }} · {{ item.funder }}</p>
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.summary }}</p>
-        {% if item.amount %}<p><strong>Amount:</strong> {{ item.amount }}</p>{% endif %}
-      </article>
-      {% empty %}
-      <article class="empty-card"><p>No research grants added yet.</p></article>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-</section>
 
 <div id="abstract-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(10,22,40,0.88); align-items:center; justify-content:center; padding:1rem;">
   <div style="position:relative; max-width:720px; width:100%; max-height:82vh; overflow-y:auto; border-radius:16px; background:#fff; box-shadow:0 20px 48px rgba(10,22,40,0.28);">

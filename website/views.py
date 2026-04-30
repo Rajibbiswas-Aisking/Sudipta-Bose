@@ -27,7 +27,6 @@ def about(request):
 
 def research(request):
     profile = SiteProfile.objects.first()
-    grants = Grant.objects.all().order_by("-year")
 
     context = {
         "profile": profile,
@@ -37,9 +36,13 @@ def research(request):
         "journal_reviewers": Publication.objects.filter(category="journal_reviewer").order_by("-year"),
         "journal_published": Publication.objects.filter(category="journal_published").order_by("-year"),
         "working_papers": Publication.objects.filter(category="working_paper").order_by("-year"),
-        "grants": grants,
     }
     return render(request, "website/research.html", context)
+
+
+def grants_page(request):
+    grants = Grant.objects.all().order_by("-year")
+    return render(request, "website/grants.html", {"grants": grants})
 
 
 def teaching(request):
