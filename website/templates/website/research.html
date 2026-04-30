@@ -377,7 +377,8 @@
             {% if item.citation_count %}<span class="citation-pill">📄 {{ item.citation_count }} citations</span>{% endif %}
           </p>
           <h3>{{ item.title }}</h3>
-          {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
+          <p class="meta" style="margin-top:0.35rem;">{{ item.apa7_reference }}</p>
+          {% if item.authors %}<p style="display:none;"><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
           {% if item.abstract and not item.abstract_image %}
             <p class="abstract-truncated">{{ item.abstract }}</p>
             <p class="abstract-full">{{ item.abstract }}</p>
@@ -440,7 +441,8 @@
           {% if item.rank %}<span class="rank-badge">APSA: {{ item.rank }}</span>{% endif %}
         </p>
         <h3>{{ item.title }}</h3>
-        {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
+        <p class="meta" style="margin-top:0.35rem;">{{ item.apa7_reference }}</p>
+        {% if item.authors %}<p style="display:none;"><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
         {% if item.journal_or_source %}<p><span class="label">Book / Publisher:</span> {{ item.journal_or_source }}</p>{% endif %}
         {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ Link of the Paper</a>{% endif %}
       </article>
@@ -489,7 +491,8 @@
           {% if item.citation_count %}<span class="citation-pill">📄 {{ item.citation_count }} citations</span>{% endif %}
         </p>
         <h3>{{ item.title }}</h3>
-        {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
+        <p class="meta" style="margin-top:0.35rem;">{{ item.apa7_reference }}</p>
+        {% if item.authors %}<p style="display:none;"><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
         {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ Link of the Paper</a>{% endif %}
       </article>
       {% empty %}
@@ -514,7 +517,8 @@
             {% if item.rank %}<span class="rank-badge">{{ item.rank }}</span>{% endif %}
           </p>
           <h3>{{ item.title }}</h3>
-          {% if item.authors %}<p><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
+          <p class="meta" style="margin-top:0.35rem;">{{ item.apa7_reference }}</p>
+          {% if item.authors %}<p style="display:none;"><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
           {% if item.journal_or_source %}<p><span class="label">Source:</span> {{ item.journal_or_source }}</p>{% endif %}
           {% if item.abstract and not item.abstract_image %}
             <p class="abstract-truncated">{{ item.abstract }}</p>

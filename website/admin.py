@@ -18,7 +18,10 @@ class PublicationAdmin(admin.ModelAdmin):
     list_display = ('title', 'year', 'category', 'rank', 'citation_count')
     list_filter = ('category', 'year')
     search_fields = ('title', 'authors', 'journal_or_source')
-    fields = ('title', 'authors', 'year', 'category', 'journal_or_source', 'rank', 'citation_count', 'abstract', 'abstract_image', 'link')
+    fields = (
+        'title', 'authors', 'year', 'category', 'journal_or_source', 'publisher',
+        'volume', 'issue', 'pages', 'doi', 'rank', 'citation_count', 'abstract', 'abstract_image', 'link', 'reference_apa7'
+    )
 
 
 @admin.register(Grant)
