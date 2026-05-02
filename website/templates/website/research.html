@@ -3,63 +3,44 @@
 
 {% block page_styles %}
 <style>
-.research-panel {
-  display: none;
-}
-
-.research-panel.active {
-  display: block;
-}
-
+/* ═══════════════════════════════
+   TABS
+═══════════════════════════════ */
 .tab-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
+  gap: 6px;
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
   border-top: 1px solid var(--line);
-}
-
-.empty-card {
-  background: var(--surface);
-  border: 1px dashed var(--line);
-  border-radius: 20px;
-  padding: 1.4rem;
-}
-
-.label {
-  font-weight: 700;
-  color: var(--text);
-}
-
-.pub-year {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-
-.section-subtext {
-  margin: 0.4rem 0 0;
-  color: var(--muted);
-  font-size: 0.98rem;
 }
 
 .tab-btn {
   font-family: var(--font-body);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   border: 1px solid var(--line);
-  background: var(--surface);
+  background: transparent;
   color: var(--muted);
-  border-radius: var(--radius-sm);
-  padding: 0.65rem 1rem;
+  border-radius: 4px;
+  padding: 0.48rem 0.95rem;
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.tab-btn .tab-count {
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: var(--line);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+  transition: all 0.15s ease;
 }
 
 .tab-btn:hover {
@@ -74,60 +55,332 @@
   border-color: var(--navy);
 }
 
-.abstract-thumb-wrap {
-  margin-top: 0.85rem;
-  cursor: pointer;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  position: relative;
-  max-height: 110px;
+.tab-btn.active .tab-count {
+  background: rgba(255,255,255,0.18);
+  color: var(--gold);
 }
 
-.abstract-thumb-wrap img {
-  width: 100%;
-  object-fit: cover;
-  object-position: top;
-  display: block;
-  transition: opacity 0.2s ease;
-}
+/* ═══════════════════════════════
+   PANELS
+═══════════════════════════════ */
+.research-panel { display: none; }
+.research-panel.active { display: block; }
 
-.abstract-thumb-wrap:hover img {
-  opacity: 0.85;
-}
-
-.abstract-thumb-overlay {
-  position: absolute;
-  inset: 0;
+/* ═══════════════════════════════
+   PANEL HEADER
+═══════════════════════════════ */
+.panel-header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(10, 22, 40, 0.38);
-  color: white;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid var(--navy);
+  flex-wrap: wrap;
+}
+
+.panel-header-left h2 {
+  margin: 0 0 0.18rem;
+  font-size: 1.4rem;
+}
+
+.panel-header-left p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.panel-result-count {
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  padding-bottom: 0.1rem;
 }
 
-.abstract-thumb-wrap:hover .abstract-thumb-overlay {
-  opacity: 1;
+/* ═══════════════════════════════
+   SEARCH + SORT TOOLBAR
+═══════════════════════════════ */
+.pub-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1.25rem 0 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.82rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.pub-search {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  width: 100%;
+  padding: 0.58rem 2.3rem 0.58rem 2.3rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.pub-search:focus {
+  outline: none;
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(26,58,107,0.1);
+  background: white;
+}
+
+.pub-search::placeholder { color: var(--muted); opacity: 0.8; }
+
+.search-clear {
+  position: absolute;
+  right: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--line);
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 0.15rem 0.38rem;
+  border-radius: 3px;
+  display: none;
+  transition: background 0.12s ease, color 0.12s ease;
+  font-weight: 700;
+}
+
+.search-clear:hover { background: var(--muted); color: white; }
+.search-clear.visible { display: block; }
+
+.sort-select {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.58rem 2.1rem 0.58rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  transition: border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--navy);
+}
+
+/* ═══════════════════════════════
+   YEAR SEPARATORS
+═══════════════════════════════ */
+.year-group-sep {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.4rem 0 0.65rem;
+}
+
+.year-group-sep .year-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--gold-light);
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 3px;
+  padding: 0.18rem 0.6rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.year-group-sep .year-line {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ═══════════════════════════════
+   PUB ENTRIES
+═══════════════════════════════ */
+.pub-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.pub-entry {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 0 1.2rem;
+  padding: 1.5rem 1rem 1.5rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+  border-left: 3px solid transparent;
+  margin-left: -0.9rem;
+  border-radius: 0 6px 6px 0;
+  transition: border-left-color 0.18s ease, background 0.18s ease;
+}
+
+.pub-entry:hover {
+  border-left-color: var(--gold);
+  background: var(--surface);
+}
+
+.pub-index {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--muted);
+  padding-top: 0.22rem;
+  text-align: right;
+  opacity: 0.4;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Meta row */
+.pub-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.48rem;
+}
+
+.pub-year-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.pub-source {
+  font-size: 0.76rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--line);
+  display: inline-block;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ABDC rank — colour-coded */
+.rank-badge {
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.13rem 0.46rem;
+  border-radius: 3px;
+}
+
+.rank-badge.rank-astar { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
+.rank-badge.rank-a     { background: #e8f0fb; color: #1a3a6b; border: 1px solid #a8c1e8; }
+.rank-badge.rank-b     { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
+.rank-badge.rank-c     { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+.rank-badge.rank-default { background: var(--gold-light); color: #7a5a10; border: 1px solid rgba(201,168,76,0.35); }
+
+/* Citation pill */
+.citation-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.1rem 0.48rem;
+}
+
+.cite-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+  opacity: 0.45;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Title */
+.pub-title {
+  font-size: 1.01rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.42;
+  margin: 0 0 0.42rem;
+}
+
+.pub-title mark {
+  background: rgba(201,168,76,0.3);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* APA reference */
+.pub-apa {
+  font-size: 0.845rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Abstract */
+.abstract-block { margin-top: 0.65rem; }
 
 .abstract-truncated {
-  line-clamp: 2;
+  font-size: 0.845rem;
+  color: var(--text-body);
+  line-height: 1.7;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 0.3rem;
+  margin: 0 0 0.25rem;
 }
 
 .abstract-full {
   display: none;
-  margin-bottom: 0.3rem;
+  font-size: 0.845rem;
+  color: var(--text-body);
+  line-height: 1.7;
+  margin: 0 0 0.25rem;
 }
 
 .abstract-toggle {
@@ -135,204 +388,232 @@
   border: none;
   padding: 0;
   color: var(--brand);
-  font-size: 0.85rem;
+  font-size: 0.79rem;
   font-weight: 600;
   cursor: pointer;
   font-family: var(--font-body);
+  letter-spacing: 0.01em;
 }
 
-.abstract-toggle:hover {
-  text-decoration: underline;
-}
+.abstract-toggle:hover { text-decoration: underline; }
 
-.pub-card-compact {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px;
-  gap: 1rem;
-  align-items: start;
-}
-
-.pub-card-compact .pub-card-main {
-  min-width: 0;
-}
-
-.pub-card-compact .pub-card-aside {
-  width: 150px;
-}
-
-.pub-card-compact .abstract-thumb-wrap {
-  margin-top: 0.2rem;
-  max-height: 110px;
-}
-
-.pub-card-compact .abstract-thumb-wrap img {
-  height: 110px;
-}
-
-.rank-badge {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.18rem 0.6rem;
-  border-radius: 4px;
-  background: var(--gold-light);
-  color: #7a5a10;
-  border: 1px solid rgba(201,168,76,0.4);
-  margin-left: 0.5rem;
-  vertical-align: middle;
-}
-
-.citation-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--muted);
-  background: var(--bg);
+/* Abstract image */
+.abstract-img-wrap {
+  margin-top: 0.85rem;
+  cursor: pointer;
+  border-radius: 6px;
+  overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 0.15rem 0.6rem;
-  margin-left: 0.4rem;
-  vertical-align: middle;
+  position: relative;
+  max-width: 380px;
+  max-height: 92px;
 }
 
+.abstract-img-wrap img {
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: opacity 0.18s ease;
+}
+
+.abstract-img-wrap:hover img { opacity: 0.8; }
+
+.abstract-img-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,22,40,0.44);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.abstract-img-wrap:hover .abstract-img-overlay { opacity: 1; }
+
+/* Paper link */
 .paper-link-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  margin-top: 0.75rem;
+  gap: 0.3rem;
+  margin-top: 0.85rem;
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--brand);
   background: var(--accent);
-  border: 1px solid rgba(26,58,107,0.18);
-  border-radius: var(--radius-sm);
-  padding: 0.38rem 0.85rem;
+  border: 1px solid rgba(26,58,107,0.2);
+  border-radius: 4px;
+  padding: 0.32rem 0.76rem;
   text-decoration: none;
-  transition: all 0.18s ease;
+  transition: all 0.14s ease;
 }
 
 .paper-link-btn:hover {
   background: var(--brand);
-  color: #ffffff;
+  color: #fff;
   border-color: var(--brand);
   text-decoration: none;
 }
 
-.media-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
+/* No results */
+.no-results {
+  display: none;
+  padding: 3rem 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
-.media-list-item {
+.no-results strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+/* Empty card */
+.empty-card {
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--gold);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 1rem 1.25rem;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 1.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+/* ═══════════════════════════════
+   MEDIA ARTICLES
+═══════════════════════════════ */
+.media-list { display: flex; flex-direction: column; }
+
+.media-entry {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.5rem;
+  padding: 1.3rem 1rem 1.3rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  margin-left: -0.9rem;
+  border-left: 3px solid transparent;
+  border-radius: 0 6px 6px 0;
   flex-wrap: wrap;
-  transition: box-shadow 0.18s ease;
+  transition: border-left-color 0.18s ease, background 0.18s ease;
 }
 
-.media-list-item:hover {
-  box-shadow: var(--shadow-sm);
-}
-
-.media-list-item h3 {
-  font-size: 1rem;
-  margin: 0 0 0.2rem;
-  color: var(--text);
-}
-
-.media-list-item .media-source {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin: 0;
-}
-
-.media-list-item a.paper-link-btn {
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.reviewer-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 0.75rem;
-}
-
-.reviewer-item {
+.media-entry:hover {
+  border-left-color: var(--gold);
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 0.9rem 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
 }
 
-.reviewer-item::before {
-  content: "";
-  display: block;
-  width: 8px;
-  height: 8px;
-  min-width: 8px;
+.media-entry h3 {
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.16rem;
+  line-height: 1.4;
+}
+
+.media-source { font-size: 0.79rem; color: var(--muted); font-style: italic; margin: 0; }
+.media-year-tag { font-size: 0.67rem; font-weight: 800; color: var(--gold); letter-spacing: 0.09em; text-transform: uppercase; margin: 0.18rem 0 0; }
+
+/* ═══════════════════════════════
+   REVIEWER LIST
+═══════════════════════════════ */
+.reviewer-list { display: flex; flex-direction: column; }
+
+.reviewer-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.reviewer-dot {
+  width: 7px;
+  height: 7px;
+  min-width: 7px;
   border-radius: 50%;
   background: var(--gold);
+  margin-top: 0.45rem;
 }
 
-.reviewer-item p {
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--text-body);
-  font-weight: 500;
+.reviewer-entry p { margin: 0; font-size: 0.92rem; color: var(--text-body); font-weight: 600; line-height: 1.45; }
+.reviewer-sub { font-size: 0.77rem; color: var(--muted); font-weight: 400; margin-top: 0.1rem !important; }
+
+/* ═══════════════════════════════
+   ABSTRACT MODAL
+═══════════════════════════════ */
+#abstract-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(10,22,40,0.88);
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
 }
 
-@media (max-width: 700px) {
-  .reviewer-list {
-    grid-template-columns: 1fr;
-  }
-
-  .media-list-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+#abstract-modal-inner {
+  position: relative;
+  max-width: 760px;
+  width: 100%;
+  max-height: 86vh;
+  overflow-y: auto;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 28px 64px rgba(10,22,40,0.3);
 }
 
-@media (max-width: 720px) {
-  .pub-card-compact {
-    grid-template-columns: 1fr;
-  }
-
-  .pub-card-compact .pub-card-aside {
-    width: 100%;
-  }
-
-  .pub-card-compact .abstract-thumb-wrap {
-    max-height: 140px;
-  }
-
-  .pub-card-compact .abstract-thumb-wrap img {
-    height: 140px;
-  }
+#abstract-modal-close {
+  position: sticky;
+  top: 0.8rem;
+  float: right;
+  margin: 0.8rem 0.8rem 0 0;
+  background: var(--navy);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.36rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 10;
+  font-family: var(--font-body);
 }
 
-@media (max-width: 800px) {
-  .tab-btn {
-    width: 100%;
-    text-align: center;
-  }
+#abstract-modal-img {
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  background: #fff;
+  display: block;
+  border-radius: 14px;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media (max-width: 640px) {
+  .pub-entry { grid-template-columns: 24px 1fr; gap: 0 0.75rem; }
+  .pub-toolbar { flex-direction: column; }
+  .search-wrap, .sort-select { width: 100%; }
+  .tab-btn { font-size: 0.71rem; padding: 0.42rem 0.7rem; }
+  .panel-header { flex-direction: column; align-items: flex-start; }
+  .media-entry { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
 }
 </style>
 {% endblock %}
@@ -340,19 +621,37 @@
 {% block content %}
 
 <section class="section">
-    <div class="container">
+  <div class="container">
     <p class="eyebrow">Research</p>
     <h1>Publications</h1>
     <div class="page-hero-divider"></div>
     <p>{{ profile.research_interests }}</p>
 
     <div class="tab-bar">
-      <button class="tab-btn active" type="button" data-target="published-papers">Published Papers</button>
-      <button class="tab-btn" type="button" data-target="media-articles">Media Articles</button>
-      <button class="tab-btn" type="button" data-target="book-chapters">Book Chapters</button>
-      <button class="tab-btn" type="button" data-target="journal-reviewer">Journal Reviewer</button>
-      <button class="tab-btn" type="button" data-target="journal-published">Journal Published</button>
-      <button class="tab-btn" type="button" data-target="working-papers">Working Papers</button>
+      <button class="tab-btn active" type="button" data-target="published-papers">
+        Published Papers
+        <!-- {% if published_papers %}<span class="tab-count">{{ published_papers|length }}</span>{% endif %} -->
+      </button>
+      <button class="tab-btn" type="button" data-target="media-articles">
+        Media Articles
+        {% if media_articles %}<span class="tab-count">{{ media_articles|length }}</span>{% endif %}
+      </button>
+      <button class="tab-btn" type="button" data-target="book-chapters">
+        Book Chapters
+        {% if book_chapters %}<span class="tab-count">{{ book_chapters|length }}</span>{% endif %}
+      </button>
+      <button class="tab-btn" type="button" data-target="journal-reviewer">
+        Journal Reviewer
+        {% if journal_reviewers %}<span class="tab-count">{{ journal_reviewers|length }}</span>{% endif %}
+      </button>
+      <button class="tab-btn" type="button" data-target="journal-published">
+        Journal Published
+        {% if journal_published %}<span class="tab-count">{{ journal_published|length }}</span>{% endif %}
+      </button>
+      <button class="tab-btn" type="button" data-target="working-papers">
+        Working Papers
+        {% if working_papers %}<span class="tab-count">{{ working_papers|length }}</span>{% endif %}
+      </button>
     </div>
   </div>
 </section>
@@ -360,256 +659,490 @@
 <section class="section">
   <div class="container">
 
-  <div class="research-panel active" id="published-papers">
-    <div class="section-heading">
-      <div>
-        <h2>Published Papers</h2>
-        <p class="section-subtext">Peer-reviewed and completed scholarly research outputs.</p>
-      </div>
-    </div>
-    <div class="grid cards-2">
-      {% for item in published_papers %}
-      <article class="card pub-card{% if item.abstract_image %} pub-card-compact{% endif %}">
-        <div class="pub-card-main">
-          <p class="meta pub-year">
-            {{ item.year }}{% if item.journal_or_source %} · {{ item.journal_or_source }}{% endif %}
-            {% if item.rank %}<span class="rank-badge">ABDC: {{ item.rank }}</span>{% endif %}
-            {% if item.citation_count %}<span class="citation-pill">📄 {{ item.citation_count }} citations</span>{% endif %}
-          </p>
-          <h3>{{ item.title }}</h3>
-          <p class="meta" style="margin-top:0.35rem;">{{ item.apa7_reference }}</p>
-          {% if item.authors %}<p style="display:none;"><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
-          {% if item.abstract and not item.abstract_image %}
-            <p class="abstract-truncated">{{ item.abstract }}</p>
-            <p class="abstract-full">{{ item.abstract }}</p>
-            <button class="abstract-toggle" type="button">Show abstract ↓</button>
-          {% endif %}
-          {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ Link of the Paper</a>{% endif %}
+    <!-- ── Published Papers ── -->
+    <div class="research-panel active" id="published-papers">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Published Papers</h2>
+          <p>Peer-reviewed and completed scholarly research outputs.</p>
         </div>
-        {% if item.abstract_image %}
-        <div class="pub-card-aside">
-          <div class="abstract-thumb-wrap" data-src="{{ item.abstract_image.url }}">
-            <img src="{{ item.abstract_image.url }}" alt="Abstract preview for {{ item.title }}">
-            <div class="abstract-thumb-overlay">View Abstract</div>
+        <span class="panel-result-count" id="count-published-papers"></span>
+      </div>
+      <div class="pub-toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input class="pub-search" type="search" placeholder="Search by title, author, or journal…" data-panel="published-papers" autocomplete="off">
+          <button class="search-clear" type="button">×</button>
+        </div>
+        <select class="sort-select" data-panel="published-papers">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="cited">Most cited</option>
+          <option value="az">A → Z title</option>
+          <option value="za">Z → A title</option>
+        </select>
+      </div>
+      <div class="pub-list" id="list-published-papers">
+        {% for item in published_papers %}
+        <div class="pub-entry"
+             data-title="{{ item.title }}"
+             data-year="{{ item.year|default:0 }}"
+             data-citations="{{ item.citation_count|default:0 }}"
+             data-searchtext="{{ item.title }} {{ item.authors }} {{ item.journal_or_source }} {{ item.apa7_reference }}">
+          <div class="pub-index">{{ forloop.counter }}</div>
+          <div class="pub-body">
+            <div class="pub-meta-row">
+              {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
+              {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
+              {% if item.rank %}
+                {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
+                {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
+                {% elif item.rank == "B" %}<span class="rank-badge rank-b">ABDC: B</span>
+                {% elif item.rank == "C" %}<span class="rank-badge rank-c">ABDC: C</span>
+                {% else %}<span class="rank-badge rank-default">ABDC: {{ item.rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.citation_count %}<span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>{% endif %}
+            </div>
+            <h3 class="pub-title">{{ item.title }}</h3>
+            <p class="pub-apa">{{ item.apa7_reference }}</p>
+            {% if item.abstract and not item.abstract_image %}
+            <div class="abstract-block">
+              <p class="abstract-truncated">{{ item.abstract }}</p>
+              <p class="abstract-full">{{ item.abstract }}</p>
+              <button class="abstract-toggle" type="button">Show abstract ↓</button>
+            </div>
+            {% endif %}
+            {% if item.abstract_image %}
+            <div class="abstract-img-wrap" data-src="{{ item.abstract_image.url }}">
+              <img src="{{ item.abstract_image.url }}" alt="Abstract for {{ item.title }}">
+              <div class="abstract-img-overlay">View Abstract</div>
+            </div>
+            {% endif %}
+            {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ View Paper</a>{% endif %}
           </div>
         </div>
-        {% endif %}
-      </article>
-      {% empty %}
-      <article class="empty-card"><p>No published papers added yet.</p></article>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="research-panel" id="media-articles">
-    <div class="section-heading">
-      <div>
-        <h2>Media Articles</h2>
-        <p class="section-subtext">Articles, commentary, and public-facing writing.</p>
+        {% empty %}<div class="empty-card">No published papers added yet.</div>{% endfor %}
       </div>
+      <div class="no-results" id="noresults-published-papers"><strong>No results found</strong>Try adjusting your search term.</div>
     </div>
-    <div class="media-list">
-      {% for item in media_articles %}
-      <div class="media-list-item">
-        <div>
-          <h3>{{ item.title }}</h3>
-          {% if item.journal_or_source %}<p class="media-source">{{ item.journal_or_source }}</p>{% endif %}
-          {% if item.year %}<p class="meta">{{ item.year }}</p>{% endif %}
+
+    <!-- ── Media Articles ── -->
+    <div class="research-panel" id="media-articles">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Media Articles</h2>
+          <p>Articles, commentary, and public-facing writing.</p>
         </div>
-        {% if item.link %}
-        <a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ Read Article</a>
-        {% endif %}
+        <span class="panel-result-count" id="count-media-articles"></span>
       </div>
-      {% empty %}
-      <article class="empty-card"><p>No media articles added yet.</p></article>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="research-panel" id="book-chapters">
-    <div class="section-heading">
-      <div>
-        <h2>Book Chapters</h2>
-        <p class="section-subtext">Contributions published in edited volumes and books.</p>
-      </div>
-    </div>
-    <div class="grid cards-2">
-      {% for item in book_chapters %}
-      <article class="card">
-        <p class="meta">
-          {{ item.year }}
-          {% if item.rank %}<span class="rank-badge">APSA: {{ item.rank }}</span>{% endif %}
-        </p>
-        <h3>{{ item.title }}</h3>
-        <p class="meta" style="margin-top:0.35rem;">{{ item.apa7_reference }}</p>
-        {% if item.authors %}<p style="display:none;"><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
-        {% if item.journal_or_source %}<p><span class="label">Book / Publisher:</span> {{ item.journal_or_source }}</p>{% endif %}
-        {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ Link of the Paper</a>{% endif %}
-      </article>
-      {% empty %}
-      <article class="empty-card"><p>No book chapters added yet.</p></article>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="research-panel" id="journal-reviewer">
-    <div class="section-heading">
-      <div>
-        <h2>Journal Reviewer</h2>
-        <p class="section-subtext">Editorial and peer-review service.</p>
-      </div>
-    </div>
-    <div class="reviewer-list">
-      {% for item in journal_reviewers %}
-      <div class="reviewer-item">
-        <div>
-          <p>{{ item.title }}</p>
-          {% if item.journal_or_source and item.journal_or_source != item.title %}
-            <p style="font-size:0.82rem;color:var(--muted);margin:0.1rem 0 0;">{{ item.journal_or_source }}</p>
-          {% endif %}
+      <div class="pub-toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input class="pub-search" type="search" placeholder="Search articles…" data-panel="media-articles" autocomplete="off">
+          <button class="search-clear" type="button">×</button>
         </div>
+        <select class="sort-select" data-panel="media-articles">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="az">A → Z title</option>
+          <option value="za">Z → A title</option>
+        </select>
       </div>
-      {% empty %}
-      <article class="empty-card" style="grid-column:1/-1"><p>No journal reviewer entries added yet.</p></article>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="research-panel" id="journal-published">
-    <div class="section-heading">
-      <div>
-        <h2>Journal Published</h2>
-        <p class="section-subtext">Journal-based research outputs listed separately.</p>
-      </div>
-    </div>
-    <div class="grid cards-2">
-      {% for item in journal_published %}
-      <article class="card pub-card">
-        <p class="meta pub-year">
-          {{ item.year }}{% if item.journal_or_source %} · {{ item.journal_or_source }}{% endif %}
-          {% if item.rank %}<span class="rank-badge">ABDC: {{ item.rank }}</span>{% endif %}
-          {% if item.citation_count %}<span class="citation-pill">📄 {{ item.citation_count }} citations</span>{% endif %}
-        </p>
-        <h3>{{ item.title }}</h3>
-        <p class="meta" style="margin-top:0.35rem;">{{ item.apa7_reference }}</p>
-        {% if item.authors %}<p style="display:none;"><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
-        {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ Link of the Paper</a>{% endif %}
-      </article>
-      {% empty %}
-      <article class="empty-card"><p>No journal published entries added yet.</p></article>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="research-panel" id="working-papers">
-    <div class="section-heading">
-      <div>
-        <h2>Working Papers</h2>
-        <p class="section-subtext">Current research in progress and ongoing work.</p>
-      </div>
-    </div>
-    <div class="grid cards-2">
-      {% for item in working_papers %}
-      <article class="card{% if item.abstract_image %} pub-card-compact{% endif %}">
-        <div class="pub-card-main">
-          <p class="meta">
-            {{ item.year }}
-            {% if item.rank %}<span class="rank-badge">{{ item.rank }}</span>{% endif %}
-          </p>
-          <h3>{{ item.title }}</h3>
-          <p class="meta" style="margin-top:0.35rem;">{{ item.apa7_reference }}</p>
-          {% if item.authors %}<p style="display:none;"><span class="label">Authors:</span> {{ item.authors }}</p>{% endif %}
-          {% if item.journal_or_source %}<p><span class="label">Source:</span> {{ item.journal_or_source }}</p>{% endif %}
-          {% if item.abstract and not item.abstract_image %}
-            <p class="abstract-truncated">{{ item.abstract }}</p>
-            <p class="abstract-full">{{ item.abstract }}</p>
-            <button class="abstract-toggle" type="button">Show abstract ↓</button>
-          {% endif %}
-          {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ Link of the Paper</a>{% endif %}
+      <div class="media-list" id="list-media-articles">
+        {% for item in media_articles %}
+        <div class="media-entry"
+             data-title="{{ item.title }}"
+             data-year="{{ item.year|default:0 }}"
+             data-citations="0"
+             data-searchtext="{{ item.title }} {{ item.journal_or_source }}">
+          <div>
+            <h3>{{ item.title }}</h3>
+            {% if item.journal_or_source %}<p class="media-source">{{ item.journal_or_source }}</p>{% endif %}
+            {% if item.year %}<p class="media-year-tag">{{ item.year }}</p>{% endif %}
+          </div>
+          {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ Read Article</a>{% endif %}
         </div>
-        {% if item.abstract_image %}
-        <div class="pub-card-aside">
-          <div class="abstract-thumb-wrap" data-src="{{ item.abstract_image.url }}">
-            <img src="{{ item.abstract_image.url }}" alt="Abstract preview for {{ item.title }}">
-            <div class="abstract-thumb-overlay">View Abstract</div>
+        {% empty %}<div class="empty-card">No media articles added yet.</div>{% endfor %}
+      </div>
+      <div class="no-results" id="noresults-media-articles"><strong>No results found</strong>Try adjusting your search term.</div>
+    </div>
+
+    <!-- ── Book Chapters ── -->
+    <div class="research-panel" id="book-chapters">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Book Chapters</h2>
+          <p>Contributions published in edited volumes and books.</p>
+        </div>
+        <span class="panel-result-count" id="count-book-chapters"></span>
+      </div>
+      <div class="pub-toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input class="pub-search" type="search" placeholder="Search chapters…" data-panel="book-chapters" autocomplete="off">
+          <button class="search-clear" type="button">×</button>
+        </div>
+        <select class="sort-select" data-panel="book-chapters">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="az">A → Z title</option>
+          <option value="za">Z → A title</option>
+        </select>
+      </div>
+      <div class="pub-list" id="list-book-chapters">
+        {% for item in book_chapters %}
+        <div class="pub-entry"
+             data-title="{{ item.title }}"
+             data-year="{{ item.year|default:0 }}"
+             data-citations="0"
+             data-searchtext="{{ item.title }} {{ item.authors }} {{ item.journal_or_source }}">
+          <div class="pub-index">{{ forloop.counter }}</div>
+          <div class="pub-body">
+            <div class="pub-meta-row">
+              {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
+              {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
+              {% if item.rank %}<span class="rank-badge rank-default">APSA: {{ item.rank }}</span>{% endif %}
+            </div>
+            <h3 class="pub-title">{{ item.title }}</h3>
+            <p class="pub-apa">{{ item.apa7_reference }}</p>
+            {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ View Chapter</a>{% endif %}
           </div>
         </div>
-        {% endif %}
-      </article>
-      {% empty %}
-      <article class="empty-card"><p>No working papers added yet.</p></article>
-      {% endfor %}
+        {% empty %}<div class="empty-card">No book chapters added yet.</div>{% endfor %}
+      </div>
+      <div class="no-results" id="noresults-book-chapters"><strong>No results found</strong>Try adjusting your search term.</div>
     </div>
+
+    <!-- ── Journal Reviewer ── -->
+    <div class="research-panel" id="journal-reviewer">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Journal Reviewer</h2>
+          <p>Editorial and peer-review service.</p>
+        </div>
+        <span class="panel-result-count" id="count-journal-reviewer"></span>
+      </div>
+      <div class="pub-toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input class="pub-search" type="search" placeholder="Search journals…" data-panel="journal-reviewer" autocomplete="off">
+          <button class="search-clear" type="button">×</button>
+        </div>
+      </div>
+      <div class="reviewer-list" id="list-journal-reviewer">
+        {% for item in journal_reviewers %}
+        <div class="reviewer-entry" data-searchtext="{{ item.title }} {{ item.journal_or_source }}">
+          <div class="reviewer-dot"></div>
+          <div>
+            <p>{{ item.title }}</p>
+            {% if item.journal_or_source and item.journal_or_source != item.title %}<p class="reviewer-sub">{{ item.journal_or_source }}</p>{% endif %}
+          </div>
+        </div>
+        {% empty %}<div class="empty-card">No journal reviewer entries added yet.</div>{% endfor %}
+      </div>
+      <div class="no-results" id="noresults-journal-reviewer"><strong>No results found</strong>Try adjusting your search term.</div>
+    </div>
+
+    <!-- ── Journal Published ── -->
+    <div class="research-panel" id="journal-published">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Journal Published</h2>
+          <p>Journal-based research outputs listed separately.</p>
+        </div>
+        <span class="panel-result-count" id="count-journal-published"></span>
+      </div>
+      <div class="pub-toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input class="pub-search" type="search" placeholder="Search by title, author, or journal…" data-panel="journal-published" autocomplete="off">
+          <button class="search-clear" type="button">×</button>
+        </div>
+        <select class="sort-select" data-panel="journal-published">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="cited">Most cited</option>
+          <option value="az">A → Z title</option>
+          <option value="za">Z → A title</option>
+        </select>
+      </div>
+      <div class="pub-list" id="list-journal-published">
+        {% for item in journal_published %}
+        <div class="pub-entry"
+             data-title="{{ item.title }}"
+             data-year="{{ item.year|default:0 }}"
+             data-citations="{{ item.citation_count|default:0 }}"
+             data-searchtext="{{ item.title }} {{ item.authors }} {{ item.journal_or_source }} {{ item.apa7_reference }}">
+          <div class="pub-index">{{ forloop.counter }}</div>
+          <div class="pub-body">
+            <div class="pub-meta-row">
+              {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
+              {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
+              {% if item.rank %}
+                {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
+                {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
+                {% elif item.rank == "B" %}<span class="rank-badge rank-b">ABDC: B</span>
+                {% elif item.rank == "C" %}<span class="rank-badge rank-c">ABDC: C</span>
+                {% else %}<span class="rank-badge rank-default">ABDC: {{ item.rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.citation_count %}<span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>{% endif %}
+            </div>
+            <h3 class="pub-title">{{ item.title }}</h3>
+            <p class="pub-apa">{{ item.apa7_reference }}</p>
+            {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ View Paper</a>{% endif %}
+          </div>
+        </div>
+        {% empty %}<div class="empty-card">No journal published entries added yet.</div>{% endfor %}
+      </div>
+      <div class="no-results" id="noresults-journal-published"><strong>No results found</strong>Try adjusting your search term.</div>
+    </div>
+
+    <!-- ── Working Papers ── -->
+    <div class="research-panel" id="working-papers">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Working Papers</h2>
+          <p>Current research in progress and ongoing work.</p>
+        </div>
+        <span class="panel-result-count" id="count-working-papers"></span>
+      </div>
+      <div class="pub-toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input class="pub-search" type="search" placeholder="Search working papers…" data-panel="working-papers" autocomplete="off">
+          <button class="search-clear" type="button">×</button>
+        </div>
+        <select class="sort-select" data-panel="working-papers">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="az">A → Z title</option>
+          <option value="za">Z → A title</option>
+        </select>
+      </div>
+      <div class="pub-list" id="list-working-papers">
+        {% for item in working_papers %}
+        <div class="pub-entry"
+             data-title="{{ item.title }}"
+             data-year="{{ item.year|default:0 }}"
+             data-citations="0"
+             data-searchtext="{{ item.title }} {{ item.authors }} {{ item.journal_or_source }} {{ item.apa7_reference }}">
+          <div class="pub-index">{{ forloop.counter }}</div>
+          <div class="pub-body">
+            <div class="pub-meta-row">
+              {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
+              {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
+              {% if item.rank %}<span class="rank-badge rank-default">{{ item.rank }}</span>{% endif %}
+            </div>
+            <h3 class="pub-title">{{ item.title }}</h3>
+            <p class="pub-apa">{{ item.apa7_reference }}</p>
+            {% if item.abstract and not item.abstract_image %}
+            <div class="abstract-block">
+              <p class="abstract-truncated">{{ item.abstract }}</p>
+              <p class="abstract-full">{{ item.abstract }}</p>
+              <button class="abstract-toggle" type="button">Show abstract ↓</button>
+            </div>
+            {% endif %}
+            {% if item.abstract_image %}
+            <div class="abstract-img-wrap" data-src="{{ item.abstract_image.url }}">
+              <img src="{{ item.abstract_image.url }}" alt="Abstract for {{ item.title }}">
+              <div class="abstract-img-overlay">View Abstract</div>
+            </div>
+            {% endif %}
+            {% if item.link %}<a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ View Paper</a>{% endif %}
+          </div>
+        </div>
+        {% empty %}<div class="empty-card">No working papers added yet.</div>{% endfor %}
+      </div>
+      <div class="no-results" id="noresults-working-papers"><strong>No results found</strong>Try adjusting your search term.</div>
+    </div>
+
   </div>
-</div>
 </section>
 
-
-<div id="abstract-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(10,22,40,0.88); align-items:center; justify-content:center; padding:1rem;">
-  <div style="position:relative; max-width:720px; width:100%; max-height:82vh; overflow-y:auto; border-radius:16px; background:#fff; box-shadow:0 20px 48px rgba(10,22,40,0.28);">
-    <button id="abstract-modal-close" style="position:sticky; top:0.75rem; float:right; margin:0.75rem 0.75rem 0 0; background:var(--navy); color:white; border:none; border-radius:8px; padding:0.4rem 0.9rem; font-size:0.85rem; font-weight:700; cursor:pointer; z-index:10;">✕ Close</button>
-    <img id="abstract-modal-img" src="" alt="Paper abstract" style="width:100%; max-height:74vh; object-fit:contain; background:#fff; height:auto; display:block; border-radius:16px;">
+<!-- Abstract modal -->
+<div id="abstract-modal">
+  <div id="abstract-modal-inner">
+    <button id="abstract-modal-close">✕ Close</button>
+    <img id="abstract-modal-img" src="" alt="Paper abstract">
   </div>
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const buttons = document.querySelectorAll(".tab-btn");
-  const panels = document.querySelectorAll(".research-panel");
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const target = this.getAttribute("data-target");
+  /* Tab switching */
+  document.querySelectorAll(".tab-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll(".tab-btn").forEach(function (b) { b.classList.remove("active"); });
+      document.querySelectorAll(".research-panel").forEach(function (p) { p.classList.remove("active"); });
+      btn.classList.add("active");
+      var panel = document.getElementById(btn.getAttribute("data-target"));
+      if (panel) panel.classList.add("active");
+    });
+  });
 
-      buttons.forEach((btn) => btn.classList.remove("active"));
-      panels.forEach((panel) => panel.classList.remove("active"));
+  /* Abstract image modal */
+  document.querySelectorAll(".abstract-img-wrap").forEach(function (wrap) {
+    wrap.addEventListener("click", function () {
+      document.getElementById("abstract-modal-img").src = this.getAttribute("data-src");
+      document.getElementById("abstract-modal").style.display = "flex";
+      document.body.style.overflow = "hidden";
+    });
+  });
 
-      this.classList.add("active");
-      const activePanel = document.getElementById(target);
-      if (activePanel) {
-        activePanel.classList.add("active");
+  document.getElementById("abstract-modal-close").addEventListener("click", function () {
+    document.getElementById("abstract-modal").style.display = "none";
+    document.body.style.overflow = "";
+  });
+
+  document.getElementById("abstract-modal").addEventListener("click", function (e) {
+    if (e.target === this) { this.style.display = "none"; document.body.style.overflow = ""; }
+  });
+
+  /* Abstract text toggle */
+  document.querySelectorAll(".abstract-toggle").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var block = this.closest(".abstract-block");
+      var trunc = block.querySelector(".abstract-truncated");
+      var full  = block.querySelector(".abstract-full");
+      if (full.style.display === "block") {
+        full.style.display = "none";
+        trunc.style.display = "-webkit-box";
+        this.textContent = "Show abstract \u2193";
+      } else {
+        full.style.display = "block";
+        trunc.style.display = "none";
+        this.textContent = "Hide abstract \u2191";
       }
     });
   });
 
-  document.querySelectorAll('.abstract-thumb-wrap').forEach(function(wrap) {
-    wrap.addEventListener('click', function() {
-      const src = this.getAttribute('data-src');
-      document.getElementById('abstract-modal-img').src = src;
-      const modal = document.getElementById('abstract-modal');
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+  /* Highlight matching text */
+  function highlightTitle(el, query) {
+    var titleEl = el.querySelector(".pub-title, h3");
+    if (!titleEl) return;
+    var orig = titleEl.getAttribute("data-orig") || titleEl.textContent;
+    titleEl.setAttribute("data-orig", orig);
+    if (!query) { titleEl.textContent = orig; return; }
+    var safe = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    titleEl.innerHTML = orig.replace(new RegExp("(" + safe + ")", "gi"), "<mark>$1</mark>");
+  }
+
+  /* Sort array of DOM nodes */
+  function sortNodes(nodes, sortVal) {
+    return nodes.slice().sort(function (a, b) {
+      if (sortVal === "newest") return +b.dataset.year - +a.dataset.year;
+      if (sortVal === "oldest") return +a.dataset.year - +b.dataset.year;
+      if (sortVal === "cited")  return +b.dataset.citations - +a.dataset.citations;
+      if (sortVal === "az")     return (a.dataset.title || "").localeCompare(b.dataset.title || "");
+      if (sortVal === "za")     return (b.dataset.title || "").localeCompare(a.dataset.title || "");
+      return 0;
     });
-  });
+  }
 
-  document.getElementById('abstract-modal-close').addEventListener('click', function() {
-    document.getElementById('abstract-modal').style.display = 'none';
-    document.body.style.overflow = '';
-  });
+  /* Insert / refresh year group separators */
+  function refreshYearGroups(listEl, visible, sortVal) {
+    listEl.querySelectorAll(".year-group-sep").forEach(function (s) { s.remove(); });
+    if (sortVal !== "newest" && sortVal !== "oldest") return;
+    var last = null;
+    visible.forEach(function (entry) {
+      var yr = (entry.dataset.year || "").toString();
+      if (yr && yr !== "0" && yr !== last) {
+        var sep = document.createElement("div");
+        sep.className = "year-group-sep";
+        sep.innerHTML = '<span class="year-label">' + yr + '</span><span class="year-line"></span>';
+        listEl.insertBefore(sep, entry);
+        last = yr;
+      }
+    });
+  }
 
-  document.getElementById('abstract-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-      this.style.display = 'none';
-      document.body.style.overflow = '';
+  /* Renumber visible entries */
+  function renumber(visible) {
+    visible.forEach(function (entry, i) {
+      var idx = entry.querySelector(".pub-index");
+      if (idx) idx.textContent = i + 1;
+    });
+  }
+
+  /* Core: filter → sort → render */
+  function applyPanel(panelId) {
+    var listEl  = document.getElementById("list-" + panelId);
+    var noRes   = document.getElementById("noresults-" + panelId);
+    var countEl = document.getElementById("count-" + panelId);
+    if (!listEl) return;
+
+    var searchEl = document.querySelector('.pub-search[data-panel="' + panelId + '"]');
+    var sortEl   = document.querySelector('.sort-select[data-panel="' + panelId + '"]');
+    var query    = searchEl ? searchEl.value.trim().toLowerCase() : "";
+    var sortVal  = sortEl ? sortEl.value : "newest";
+
+    /* Gather filterable entries (exclude separators / empty cards) */
+    var allEntries = Array.from(listEl.querySelectorAll("[data-searchtext]"));
+    var total = allEntries.length;
+
+    /* Filter */
+    var visible = [];
+    allEntries.forEach(function (entry) {
+      var text = (entry.dataset.searchtext || "").toLowerCase();
+      var show = !query || text.indexOf(query) !== -1;
+      entry.style.display = show ? "" : "none";
+      if (show) visible.push(entry);
+      highlightTitle(entry, query);
+    });
+
+    /* Sort & reorder in DOM */
+    var sorted = sortNodes(visible, sortVal);
+    sorted.forEach(function (entry) { listEl.appendChild(entry); });
+
+    /* Year groups */
+    refreshYearGroups(listEl, sorted, sortVal);
+
+    /* Index numbers */
+    renumber(sorted);
+
+    /* Count label */
+    if (countEl) {
+      countEl.textContent = query
+        ? visible.length + " of " + total + " result" + (total !== 1 ? "s" : "")
+        : total + " publication" + (total !== 1 ? "s" : "");
+    }
+
+    /* No-results state */
+    if (noRes) noRes.style.display = visible.length === 0 && total > 0 ? "block" : "none";
+
+    /* Clear button visibility */
+    if (searchEl) {
+      var clearBtn = searchEl.parentElement.querySelector(".search-clear");
+      if (clearBtn) clearBtn.classList.toggle("visible", query.length > 0);
+    }
+  }
+
+  /* Wire search inputs */
+  document.querySelectorAll(".pub-search").forEach(function (input) {
+    var pid = input.getAttribute("data-panel");
+    input.addEventListener("input", function () { applyPanel(pid); });
+    var clearBtn = input.parentElement.querySelector(".search-clear");
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        input.value = "";
+        applyPanel(pid);
+        input.focus();
+      });
     }
   });
 
-  document.querySelectorAll('.abstract-toggle').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      const card = this.closest('.pub-card, .card');
-      const truncated = card.querySelector('.abstract-truncated');
-      const full = card.querySelector('.abstract-full');
-      if (full.style.display === 'block') {
-        full.style.display = 'none';
-        truncated.style.display = '-webkit-box';
-        this.textContent = 'Show abstract ↓';
-      } else {
-        full.style.display = 'block';
-        truncated.style.display = 'none';
-        this.textContent = 'Hide abstract ↑';
-      }
-    });
+  /* Wire sort selects */
+  document.querySelectorAll(".sort-select").forEach(function (sel) {
+    var pid = sel.getAttribute("data-panel");
+    sel.addEventListener("change", function () { applyPanel(pid); });
   });
+
+  /* Initial render for every panel */
+  ["published-papers","media-articles","book-chapters","journal-reviewer","journal-published","working-papers"].forEach(applyPanel);
+
 });
 </script>
 {% endblock %}
