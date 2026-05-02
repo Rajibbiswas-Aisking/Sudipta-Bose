@@ -4,13 +4,13 @@ from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, T
 
 def home(request):
     profile = SiteProfile.objects.first()
-    selected_publications = Publication.objects.all().order_by('-year', 'title')[:4]
+    featured_publications = Publication.objects.filter(featured=True).order_by('-year', 'title')[:4]
     experiences = Experience.objects.all()[:5]
     awards = Award.objects.all()[:3]
     photos = GalleryPhoto.objects.all()
     context = {
         'profile': profile,
-        'selected_publications': selected_publications,
+        'featured_publications': featured_publications,
         'experiences': experiences,
         'awards': awards,
         'photos': photos,

@@ -540,14 +540,14 @@
  <div class="container">
   <div class="section-heading">
     <div>
-      <h2>Selected Publications</h2>
-      <p>A curated sample of recent or representative research contributions.</p>
+      <h2>Featured Publications</h2>
+      <p>Publications marked as featured in the admin will appear here.</p>
     </div>
     <a href="/research/">See all research</a>
   </div>
 
   <div class="grid cards-2">
-    {% for item in selected_publications %}
+    {% for item in featured_publications %}
     <article class="card pub-card">
       <p class="meta">{{ item.year }}{% if item.get_category_display %} · {{ item.get_category_display }}{% endif %}</p>
       <h3>{{ item.title }}</h3>
@@ -556,7 +556,7 @@
     </article>
     {% empty %}
     <article class="card">
-      <p>Add selected publications from Django admin to showcase flagship work here.</p>
+      <p>Add featured publications from Django admin to showcase flagship work here.</p>
     </article>
     {% endfor %}
   </div>
