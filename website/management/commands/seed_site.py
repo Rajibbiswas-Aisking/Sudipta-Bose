@@ -58,6 +58,23 @@ class Command(BaseCommand):
         for title, authors, year, source, category in publications:
             Publication.objects.create(title=title, authors=authors, year=year, journal_or_source=source, category=category)
 
+        Publication.objects.create(
+            title='Carbon accounting practices in listed firms',
+            authors='Sudipta Bose et al.',
+            year=2024,
+            journal_or_source='AFAANZ Annual Conference',
+            category='conference_paper',
+            rank='A',
+        )
+        Publication.objects.create(
+            title='Biodiversity disclosure and investor reaction',
+            authors='Sudipta Bose et al.',
+            year=2023,
+            journal_or_source='EAA Annual Congress',
+            category='conference_paper',
+            rank='A*',
+        )
+
         Grant.objects.create(title='Climate-related disclosure research project', funder='AASB', amount='TBD', year=2024, summary='Research on reporting standards and disclosure quality.')
         Grant.objects.create(title='Sustainable finance and biodiversity reporting', funder='ADB', amount='TBD', year=2023, summary='Research focused on sustainability and finance intersections.')
 

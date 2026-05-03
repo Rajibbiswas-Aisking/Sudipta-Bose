@@ -632,6 +632,10 @@
         Published Papers
         {% if published_papers %}<span class="tab-count">{{ published_papers|length }}</span>{% endif %}
       </button>
+      <button class="tab-btn" type="button" data-target="conference-papers">
+        Conference Papers
+        {% if conference_papers %}<span class="tab-count">{{ conference_papers|length }}</span>{% endif %}
+      </button>
       <button class="tab-btn" type="button" data-target="media-articles">
         Media Articles
         {% if media_articles %}<span class="tab-count">{{ media_articles|length }}</span>{% endif %}
@@ -725,6 +729,93 @@
         {% empty %}<div class="empty-card">No published papers added yet.</div>{% endfor %}
       </div>
       <div class="no-results" id="noresults-published-papers"><strong>No results found</strong>Try adjusting your search term.</div>
+    </div>
+
+    <!-- ── Conference Papers ── -->
+    <div class="research-panel" id="conference-papers">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Conference Papers</h2>
+          <p>Refereed conference proceedings and presentations.</p>
+        </div>
+        <span class="panel-result-count" id="count-conference-papers"></span>
+      </div>
+      <div class="pub-toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <input class="pub-search" type="search"
+                 placeholder="Search by title, author, or conference…"
+                 data-panel="conference-papers" autocomplete="off">
+          <button class="search-clear" type="button">×</button>
+        </div>
+        <select class="sort-select" data-panel="conference-papers">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="cited">Most cited</option>
+          <option value="az">A → Z title</option>
+          <option value="za">Z → A title</option>
+        </select>
+      </div>
+      <div class="pub-list" id="list-conference-papers">
+        {% for item in conference_papers %}
+        <div class="pub-entry"
+             data-title="{{ item.title }}"
+             data-year="{{ item.year|default:0 }}"
+             data-citations="{{ item.citation_count|default:0 }}"
+             data-searchtext="{{ item.title }} {{ item.authors }} {{ item.journal_or_source }} {{ item.apa7_reference }}">
+          <div class="pub-index">{{ forloop.counter }}</div>
+          <div class="pub-body">
+            <div class="pub-meta-row">
+              {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
+              {% if item.journal_or_source %}
+                <span class="meta-dot"></span>
+                <span class="pub-source">{{ item.journal_or_source }}</span>
+              {% endif %}
+              {% if item.rank %}
+                {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ERA: A*</span>
+                {% elif item.rank == "A" %}<span class="rank-badge rank-a">ERA: A</span>
+                {% elif item.rank == "B" %}<span class="rank-badge rank-b">ERA: B</span>
+                {% elif item.rank == "C" %}<span class="rank-badge rank-c">ERA: C</span>
+                {% else %}<span class="rank-badge rank-default">CORE: {{ item.rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.citation_count %}
+                <span class="citation-pill">
+                  <span class="cite-dot"></span>{{ item.citation_count }} citations
+                </span>
+              {% endif %}
+            </div>
+            <h3 class="pub-title">{{ item.title }}</h3>
+            <p class="pub-apa">{{ item.apa7_reference }}</p>
+            {% if item.abstract and not item.abstract_image %}
+            <div class="abstract-block">
+              <p class="abstract-truncated">{{ item.abstract }}</p>
+              <p class="abstract-full">{{ item.abstract }}</p>
+              <button class="abstract-toggle" type="button">Show abstract ↓</button>
+            </div>
+            {% endif %}
+            {% if item.abstract_image %}
+            <div class="abstract-img-wrap" data-src="{{ item.abstract_image.url }}">
+              <img src="{{ item.abstract_image.url }}" alt="Abstract for {{ item.title }}">
+              <div class="abstract-img-overlay">View Abstract</div>
+            </div>
+            {% endif %}
+            {% if item.link %}
+              <a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">
+                ↗ View Paper
+              </a>
+            {% endif %}
+          </div>
+        </div>
+        {% empty %}
+        <div class="empty-card">No conference papers added yet.</div>
+        {% endfor %}
+      </div>
+      <div class="no-results" id="noresults-conference-papers">
+        <strong>No results found</strong>Try adjusting your search term.
+      </div>
     </div>
 
     <!-- ── Media Articles ── -->
@@ -1141,7 +1232,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /* Initial render for every panel */
-  ["published-papers","media-articles","book-chapters","journal-reviewer","journal-published","working-papers"].forEach(applyPanel);
+  ["published-papers","conference-papers","media-articles","book-chapters","journal-reviewer","journal-published","working-papers"].forEach(applyPanel);
 
 });
 </script>

@@ -50,6 +50,7 @@ class Experience(models.Model):
 class Publication(models.Model):
     CATEGORY_CHOICES = [
         ("published_paper", "Published Paper"),
+        ("conference_paper", "Conference Paper"),
         ("media_article", "Media Article"),
         ("book_chapter", "Book Chapter"),
         ("journal_reviewer", "Journal Reviewer"),

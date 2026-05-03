@@ -31,6 +31,7 @@ def research(request):
     context = {
         "profile": profile,
         "published_papers": Publication.objects.filter(category="published_paper").order_by("-year"),
+        "conference_papers": Publication.objects.filter(category="conference_paper").order_by("-year"),
         "media_articles": Publication.objects.filter(category="media_article").order_by("-year"),
         "book_chapters": Publication.objects.filter(category="book_chapter").order_by("-year"),
         "journal_reviewers": Publication.objects.filter(category="journal_reviewer").order_by("-year"),
