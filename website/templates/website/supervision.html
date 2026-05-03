@@ -154,6 +154,13 @@
   line-height: 1.4;
 }
 
+.completed-year {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+
 /* ── Section heading with count ──────────────────── */
 .sup-section-head {
   display: flex;
@@ -280,6 +287,9 @@
           </div>
           <div class="sup-side">
             <span class="status-badge completed">Completed</span>
+            {% if item.completed_year %}
+            <span class="completed-year">Completed {{ item.completed_year }}</span>
+            {% endif %}
             {% if item.current_position %}
             <p class="current-position-badge">
               <span>💼</span>

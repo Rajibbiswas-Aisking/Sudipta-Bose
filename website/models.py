@@ -214,6 +214,10 @@ class Supervision(models.Model):
         max_length=300, blank=True,
         help_text='Current position or job title of the graduate (for completed supervisions)'
     )
+    completed_year = models.PositiveIntegerField(
+        blank=True, null=True,
+        help_text='Year the supervision was completed (for completed supervisions)'
+    )
     ordering = models.PositiveIntegerField(default=0)
 
     class Meta:

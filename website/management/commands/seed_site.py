@@ -88,6 +88,8 @@ class Command(BaseCommand):
 
         Supervision.objects.create(student_name='Example PhD Candidate', degree='PhD', status='Current', role='Principal Supervisor', topic='Sustainability reporting', ordering=1)
         Supervision.objects.create(student_name='Example MPhil Candidate', degree='MPhil', status='Current', role='Co-Supervisor', topic='Corporate governance', ordering=2)
+        Supervision.objects.create(student_name='Dr Jane Smith', degree='PhD', status='Completed', role='Principal Supervisor', topic='Climate risk disclosure', current_position='Senior Lecturer, University of Sydney', completed_year=2023, ordering=3)
+        Supervision.objects.create(student_name='Dr Michael Johnson', degree='PhD', status='Completed', role='Co-Supervisor', topic='ESG metrics and valuation', current_position='Research Fellow, UNSW', completed_year=2022, ordering=4)
 
         ServiceItem.objects.create(
             title='Editorial Panel Member',
