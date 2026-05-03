@@ -1,0 +1,190 @@
+{% extends "website/base.html" %}
+{% block title %}Research Grants | Sudipta Bose{% endblock %}
+
+{% block page_styles %}
+<style>
+.grant-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.grant-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--gold), var(--navy));
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.grant-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.grant-year-funder {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.grant-card h3 {
+  font-size: 1.1rem;
+  margin: 0.25rem 0 0;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.grant-card p {
+  margin: 0.35rem 0 0;
+  color: var(--text-body);
+  font-size: 0.97rem;
+}
+
+.grant-amount {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  background: var(--gold-light);
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #7a5a10;
+  width: fit-content;
+}
+
+.grants-hero-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-number {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.section-subtext {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.empty-card {
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: 20px;
+  padding: 1.4rem;
+}
+
+@media (max-width: 600px) {
+  .grants-hero-stats {
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+
+  .grant-card {
+    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+  }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+  <div class="container">
+    <p class="eyebrow">Funding &amp; Support</p>
+    <h1>Research Grants</h1>
+    <div class="page-hero-divider"></div>
+    <p>Funded projects and research support awarded to Dr Sudipta Bose across competitive grant schemes, institutional funding, and collaborative research programs.</p>
+
+    {% if grants %}
+    <div class="grants-hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">{{ grants|length }}</span>
+        <span class="stat-label">Grants Awarded</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ earliest.year }}</span>
+        <span class="stat-label">First Grant Year</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">{{ latest.year }}</span>
+        <span class="stat-label">Most Recent</span>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <h2>All Grants</h2>
+        <p class="section-subtext">Funded projects and research support, ordered by most recent.</p>
+      </div>
+    </div>
+
+    <div class="grid cards-2" style="margin-top:1.5rem;">
+      {% for item in grants %}
+      <article class="grant-card">
+        <p class="grant-year-funder">{{ item.year }}{% if item.funder %} · {{ item.funder }}{% endif %}</p>
+        <h3>{{ item.title }}</h3>
+        {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
+        {% if item.amount %}
+        <div class="grant-amount">
+          <span>💰</span>
+          <span>{{ item.amount }}</span>
+        </div>
+        {% endif %}
+      </article>
+      {% empty %}
+      <article class="empty-card" style="grid-column:1/-1;">
+        <p>No research grants added yet.</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

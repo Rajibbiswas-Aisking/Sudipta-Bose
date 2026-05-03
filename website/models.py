@@ -61,18 +61,76 @@ class Publication(models.Model):
     authors = models.CharField(max_length=300, blank=True)
     year = models.PositiveIntegerField()
     category = models.CharField(max_length=30, choices=CATEGORY_CHOICES)
+    featured = models.BooleanField(default=False)
     journal_or_source = models.CharField(max_length=300, blank=True)
     rank = models.CharField(max_length=20, blank=True, help_text='e.g. A*, A, B, C (ABDC) or A (APSA)')
     citation_count = models.PositiveIntegerField(null=True, blank=True, help_text='Google Scholar citation count')
     abstract = models.TextField(blank=True)
     abstract_image = models.ImageField(upload_to="abstract_images/", blank=True, null=True)
     link = models.URLField(blank=True)
+    volume = models.CharField(max_length=50, blank=True)
+    issue = models.CharField(max_length=50, blank=True)
+    pages = models.CharField(max_length=50, blank=True, help_text='e.g. 123–138')
+    doi = models.CharField(max_length=200, blank=True, help_text='DOI without https://doi.org/')
+    publisher = models.CharField(max_length=300, blank=True)
+    reference_apa7 = models.TextField(blank=True, help_text='Optional manual APA7 reference override')
 
     class Meta:
         ordering = ['-year', 'title']
 
     def __str__(self):
         return f"{self.year} — {self.title}"
+
+    @property
+    def apa7_reference(self):
+        """Return an APA 7 formatted reference string (uses `reference_apa7` override when present).
+
+        This is a best-effort formatter using available fields. For full control, set
+        `reference_apa7` manually in the admin.
+        """
+        if self.reference_apa7:
+            return self.reference_apa7
+
+        parts = []
+
+        if self.authors:
+            parts.append(f"{self.authors}")
+
+        if self.year:
+            parts.append(f"({self.year}).")
+
+        # Title (italicised in templates) — keep as entered
+        if self.title:
+            parts.append(f"{self.title}.")
+
+        # Journal / source and publisher
+        source_parts = []
+        if self.journal_or_source:
+            source_parts.append(self.journal_or_source)
+        if self.publisher and not self.journal_or_source:
+            source_parts.append(self.publisher)
+
+        if source_parts:
+            src = ", ".join(source_parts)
+            vol_issue = ''
+            if self.volume:
+                vol_issue += f" {self.volume}"
+            if self.issue:
+                vol_issue += f"({self.issue})"
+            pages = f", {self.pages}" if self.pages else ''
+            parts.append(f"{src}{vol_issue}{pages}.")
+
+        # DOI or link
+        if self.doi:
+            doi_str = self.doi.strip()
+            if doi_str.startswith('http'):
+                parts.append(doi_str)
+            else:
+                parts.append(f"https://doi.org/{doi_str}")
+        elif self.link:
+            parts.append(self.link)
+
+        return ' '.join(p for p in parts if p)
 
 
 class Grant(models.Model):
@@ -141,11 +199,20 @@ class Award(models.Model):
 
 
 class Supervision(models.Model):
+    STATUS_CHOICES = [
+        ('Current', 'Current'),
+        ('Completed', 'Completed'),
+    ]
+
     student_name = models.CharField(max_length=200)
     degree = models.CharField(max_length=100)
-    status = models.CharField(max_length=100)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='Current')
     role = models.CharField(max_length=100, help_text='Principal supervisor / Co-supervisor')
     topic = models.CharField(max_length=250, blank=True)
+    current_position = models.CharField(
+        max_length=300, blank=True,
+        help_text='Current position or job title of the graduate (for completed supervisions)'
+    )
     ordering = models.PositiveIntegerField(default=0)
 
     class Meta:

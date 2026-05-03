@@ -15,10 +15,13 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'year', 'category', 'rank', 'citation_count')
-    list_filter = ('category', 'year')
+    list_display = ('title', 'year', 'category', 'featured', 'rank', 'citation_count')
+    list_filter = ('featured', 'category', 'year')
     search_fields = ('title', 'authors', 'journal_or_source')
-    fields = ('title', 'authors', 'year', 'category', 'journal_or_source', 'rank', 'citation_count', 'abstract', 'abstract_image', 'link')
+    fields = (
+        'title', 'authors', 'year', 'category', 'featured', 'journal_or_source', 'publisher',
+        'volume', 'issue', 'pages', 'doi', 'rank', 'citation_count', 'abstract', 'abstract_image', 'link', 'reference_apa7'
+    )
 
 
 @admin.register(Grant)
@@ -48,8 +51,9 @@ class AwardAdmin(admin.ModelAdmin):
 
 @admin.register(Supervision)
 class SupervisionAdmin(admin.ModelAdmin):
-    list_display = ('student_name', 'degree', 'status', 'role', 'ordering')
+    list_display = ('student_name', 'degree', 'status', 'role', 'current_position', 'ordering')
     list_editable = ('ordering',)
+    fields = ('student_name', 'degree', 'status', 'role', 'topic', 'current_position', 'ordering')
 
 
 @admin.register(ServiceItem)
