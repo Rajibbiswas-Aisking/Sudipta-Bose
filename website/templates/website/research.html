@@ -630,7 +630,7 @@
     <div class="tab-bar">
       <button class="tab-btn active" type="button" data-target="published-papers">
         Published Papers
-        <!-- {% if published_papers %}<span class="tab-count">{{ published_papers|length }}</span>{% endif %} -->
+        {% if published_papers %}<span class="tab-count">{{ published_papers|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="media-articles">
         Media Articles
