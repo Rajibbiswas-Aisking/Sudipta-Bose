@@ -312,6 +312,7 @@
 .rank-badge.rank-b     { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
 .rank-badge.rank-c     { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
 .rank-badge.rank-default { background: var(--gold-light); color: #7a5a10; border: 1px solid rgba(201,168,76,0.35); }
+.rank-badge.rank-ft50 { background: #fdf2ff; color: #5b1d7a; border: 1px solid #d6a8f0; letter-spacing: 0.09em; }
 
 /* Citation pill */
 .citation-pill {
@@ -699,7 +700,8 @@
               {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
               {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
               {% if item.rank %}
-                {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
+                {% if item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>
+                {% elif item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
                 {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
                 {% elif item.rank == "B" %}<span class="rank-badge rank-b">ABDC: B</span>
                 {% elif item.rank == "C" %}<span class="rank-badge rank-c">ABDC: C</span>
@@ -971,7 +973,8 @@
               {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
               {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
               {% if item.rank %}
-                {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
+                {% if item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>
+                {% elif item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
                 {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
                 {% elif item.rank == "B" %}<span class="rank-badge rank-b">ABDC: B</span>
                 {% elif item.rank == "C" %}<span class="rank-badge rank-c">ABDC: C</span>
