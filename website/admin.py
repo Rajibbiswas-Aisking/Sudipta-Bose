@@ -33,7 +33,7 @@ class GrantAdmin(admin.ModelAdmin):
 
 @admin.register(TeachingItem)
 class TeachingItemAdmin(admin.ModelAdmin):
-    list_display = ('course_name', 'institution', 'level', 'ordering')
+    list_display = ('course_name', 'institution', 'level', 'start_year', 'end_year', 'ordering')
     list_editable = ('ordering',)
 
 

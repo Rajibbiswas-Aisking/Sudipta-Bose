@@ -57,8 +57,11 @@ def teaching(request):
         if grouped_items.exists():
             resource_groups.append({'key': key, 'label': label, 'items': grouped_items})
 
+    # Order teaching items by institution then ordering so frontend can group by institution
+    teaching_items = TeachingItem.objects.all().order_by('institution', 'ordering', 'course_name')
+
     return render(request, 'website/teaching.html', {
-        'teaching_items': TeachingItem.objects.all(),
+        'teaching_items': teaching_items,
         'resources': resources,
         'resource_types': TeachingResource.RESOURCE_TYPE_CHOICES,
         'resource_groups': resource_groups,

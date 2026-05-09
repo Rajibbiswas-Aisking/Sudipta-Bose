@@ -156,6 +156,8 @@ class TeachingItem(models.Model):
     course_name = models.CharField(max_length=200)
     institution = models.CharField(max_length=200)
     level = models.CharField(max_length=100, blank=True)
+    start_year = models.CharField(max_length=20, blank=True)
+    end_year = models.CharField(max_length=20, blank=True)
     summary = models.TextField(blank=True)
     ordering = models.PositiveIntegerField(default=0)
 
