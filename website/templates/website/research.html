@@ -33,16 +33,6 @@
   gap: 0.45rem;
 }
 
-.tab-btn .tab-count {
-  font-size: 0.68rem;
-  font-weight: 800;
-  background: var(--line);
-  color: var(--muted);
-  border-radius: 999px;
-  padding: 0.05rem 0.45rem;
-  transition: all 0.15s ease;
-}
-
 .tab-btn:hover {
   border-color: var(--gold);
   color: var(--navy);
@@ -53,11 +43,6 @@
   background: var(--navy);
   color: var(--gold);
   border-color: var(--navy);
-}
-
-.tab-btn.active .tab-count {
-  background: rgba(255,255,255,0.18);
-  color: var(--gold);
 }
 
 /* ═══════════════════════════════
@@ -994,31 +979,24 @@
     <div class="tab-bar">
       <button class="tab-btn active" type="button" data-target="published-papers">
         Published Papers
-        {% if published_papers %}<span class="tab-count">{{ published_papers|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="conference-papers">
         Conference Papers
-        {% if conference_papers %}<span class="tab-count">{{ conference_papers|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="media-articles">
         Media Articles
-        {% if media_articles %}<span class="tab-count">{{ media_articles|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="book-chapters">
         Book Chapters
-        {% if book_chapters %}<span class="tab-count">{{ book_chapters|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="journal-reviewer">
         Journal Reviewer
-        {% if journal_reviewers %}<span class="tab-count">{{ journal_reviewers|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="journal-published">
         Journal Published
-        {% if journal_published %}<span class="tab-count">{{ journal_published|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="working-papers">
         Working Papers
-        {% if working_papers %}<span class="tab-count">{{ working_papers|length }}</span>{% endif %}
       </button>
     </div>
 
