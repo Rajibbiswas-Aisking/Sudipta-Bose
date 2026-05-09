@@ -15,11 +15,12 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'year', 'category', 'featured', 'rank', 'citation_count')
+    list_display = ('title', 'year', 'category', 'featured', 'featured_order', 'rank', 'citation_count')
+    list_editable = ('featured', 'featured_order', 'rank', 'citation_count')
     list_filter = ('featured', 'category', 'year')
     search_fields = ('title', 'authors', 'journal_or_source')
     fields = (
-        'title', 'authors', 'year', 'category', 'featured', 'journal_or_source', 'publisher',
+        'title', 'authors', 'year', 'category', 'featured', 'featured_order', 'journal_or_source', 'publisher',
         'volume', 'issue', 'pages', 'doi', 'rank', 'citation_count', 'abstract', 'abstract_image', 'link', 'reference_apa7'
     )
 

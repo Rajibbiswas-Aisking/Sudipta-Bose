@@ -63,6 +63,10 @@ class Publication(models.Model):
     year = models.PositiveIntegerField()
     category = models.CharField(max_length=30, choices=CATEGORY_CHOICES)
     featured = models.BooleanField(default=False)
+    featured_order = models.PositiveIntegerField(
+        default=0,
+        help_text='Display order for featured publications (1 = first). Only applies when featured=True.'
+    )
     journal_or_source = models.CharField(max_length=300, blank=True)
     rank = models.CharField(max_length=20, blank=True, help_text='e.g. FT50, A*, A, B, C (ABDC) or A (APSA)')
     citation_count = models.PositiveIntegerField(null=True, blank=True, help_text='Google Scholar citation count')

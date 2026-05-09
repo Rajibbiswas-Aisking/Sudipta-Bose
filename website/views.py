@@ -4,7 +4,7 @@ from .models import SiteProfile, Experience, Publication, Grant, TeachingItem, T
 
 def home(request):
     profile = SiteProfile.objects.first()
-    featured_publications = Publication.objects.filter(featured=True).order_by('-year', 'title')[:4]
+    featured_publications = Publication.objects.filter(featured=True).order_by('featured_order', '-year')[:4]
     experiences = Experience.objects.all()[:5]
     awards = Award.objects.all()[:3]
     photos = GalleryPhoto.objects.all()
@@ -30,6 +30,7 @@ def research(request):
 
     context = {
         "profile": profile,
+        "featured_papers": Publication.objects.filter(featured=True).order_by('featured_order', '-year'),
         "published_papers": Publication.objects.filter(category="published_paper").order_by("-year"),
         "conference_papers": Publication.objects.filter(category="conference_paper").order_by("-year"),
         "media_articles": Publication.objects.filter(category="media_article").order_by("-year"),
