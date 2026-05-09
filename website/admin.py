@@ -15,13 +15,35 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'year', 'category', 'featured', 'featured_order', 'rank', 'citation_count')
-    list_editable = ('featured', 'featured_order', 'rank', 'citation_count')
-    list_filter = ('featured', 'category', 'year')
-    search_fields = ('title', 'authors', 'journal_or_source')
-    fields = (
-        'title', 'authors', 'year', 'category', 'featured', 'featured_order', 'journal_or_source', 'publisher',
-        'volume', 'issue', 'pages', 'doi', 'rank', 'citation_count', 'abstract', 'abstract_image', 'link', 'reference_apa7'
+    list_display = ('title', 'year', 'category', 'featured', 'featured_order', 'rank', 'abs_rank', 'sjr_rank', 'citation_count')
+    list_editable = ('featured', 'featured_order', 'rank', 'abs_rank', 'sjr_rank', 'citation_count')
+    list_filter = ('featured', 'category', 'year', 'rank', 'abs_rank', 'sjr_rank')
+    search_fields = ('title', 'authors', 'journal_or_source', 'book_title', 'conference_name')
+
+    fieldsets = (
+        ('Core', {
+            'fields': ('title', 'authors', 'year', 'category', 'featured', 'featured_order', 'link', 'abstract', 'abstract_image')
+        }),
+        ('Journal / Source', {
+            'fields': ('journal_or_source', 'volume', 'issue', 'pages', 'doi')
+        }),
+        ('Rankings', {
+            'fields': ('rank', 'abs_rank', 'sjr_rank', 'citation_count'),
+            'description': 'ABDC rank (A*, A, B, C) · ABS rank (1–4*) · SJR quartile (Q1–Q4). For book chapters, the ABDC/rank field stores the APSA rank.'
+        }),
+        ('Book Chapter', {
+            'fields': ('editors', 'book_title', 'publisher', 'publisher_location'),
+            'classes': ('collapse',),
+        }),
+        ('Conference Paper', {
+            'fields': ('conference_name', 'conference_location'),
+            'classes': ('collapse',),
+        }),
+        ('APA7 Override', {
+            'fields': ('reference_apa7',),
+            'classes': ('collapse',),
+            'description': 'Optional: paste a fully formatted APA7 reference to override the auto-generated one.'
+        }),
     )
 
 

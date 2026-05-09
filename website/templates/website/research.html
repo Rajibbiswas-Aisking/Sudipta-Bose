@@ -314,6 +314,32 @@
 .rank-badge.rank-default { background: var(--gold-light); color: #7a5a10; border: 1px solid rgba(201,168,76,0.35); }
 .rank-badge.rank-ft50 { background: #fdf2ff; color: #5b1d7a; border: 1px solid #d6a8f0; letter-spacing: 0.09em; }
 
+/* ABS rank badges */
+.rank-badge.rank-abs-4star { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
+.rank-badge.rank-abs-4 { background: #e8f0fb; color: #1a3a6b; border: 1px solid #a8c1e8; }
+.rank-badge.rank-abs-3 { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
+.rank-badge.rank-abs-2 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+.rank-badge.rank-abs-1 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+
+/* SJR rank badges */
+.rank-badge.rank-sjr-q1 { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
+.rank-badge.rank-sjr-q2 { background: #e8f0fb; color: #1a3a6b; border: 1px solid #a8c1e8; }
+.rank-badge.rank-sjr-q3 { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
+.rank-badge.rank-sjr-q4 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+
+/* ABS rank badges */
+.rank-badge.rank-abs-4star { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
+.rank-badge.rank-abs-4 { background: #e8f0fb; color: #1a3a6b; border: 1px solid #a8c1e8; }
+.rank-badge.rank-abs-3 { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
+.rank-badge.rank-abs-2 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+.rank-badge.rank-abs-1 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+
+/* SJR rank badges */
+.rank-badge.rank-sjr-q1 { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
+.rank-badge.rank-sjr-q2 { background: #e8f0fb; color: #1a3a6b; border: 1px solid #a8c1e8; }
+.rank-badge.rank-sjr-q3 { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
+.rank-badge.rank-sjr-q4 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+
 /* Citation pill */
 .citation-pill {
   display: inline-flex;
@@ -920,6 +946,15 @@
               {% else %}<span class="rank-badge rank-default">{{ item.rank }}</span>
               {% endif %}
             {% endif %}
+            {% if item.abs_rank %}
+              {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+              {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+              {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+              {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+              {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+              {% endif %}
+            {% endif %}
+            {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
             {% if item.citation_count %}
               <span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>
             {% endif %}
@@ -1031,6 +1066,15 @@
                 {% else %}<span class="rank-badge rank-default">ABDC: {{ item.rank }}</span>
                 {% endif %}
               {% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
               {% if item.citation_count %}<span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>{% endif %}
             </div>
             <h3 class="pub-title">{{ item.title }}</h3>
@@ -1106,6 +1150,15 @@
                 {% else %}<span class="rank-badge rank-default">CORE: {{ item.rank }}</span>
                 {% endif %}
               {% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
               {% if item.citation_count %}
                 <span class="citation-pill">
                   <span class="cite-dot"></span>{{ item.citation_count }} citations
@@ -1219,6 +1272,15 @@
               {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
               {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
               {% if item.rank %}<span class="rank-badge rank-default">APSA: {{ item.rank }}</span>{% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
             </div>
             <h3 class="pub-title">{{ item.title }}</h3>
             <p class="pub-apa">{{ item.apa7_reference }}</p>
@@ -1304,6 +1366,15 @@
                 {% else %}<span class="rank-badge rank-default">ABDC: {{ item.rank }}</span>
                 {% endif %}
               {% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
               {% if item.citation_count %}<span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>{% endif %}
             </div>
             <h3 class="pub-title">{{ item.title }}</h3>
@@ -1351,6 +1422,15 @@
               {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
               {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
               {% if item.rank %}<span class="rank-badge rank-default">{{ item.rank }}</span>{% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
             </div>
             <h3 class="pub-title">{{ item.title }}</h3>
             <p class="pub-apa">{{ item.apa7_reference }}</p>
