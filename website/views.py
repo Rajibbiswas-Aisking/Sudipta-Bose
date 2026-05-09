@@ -66,7 +66,7 @@ def teaching(request):
 
 
 def service(request):
-    items = ServiceItem.objects.all().order_by('category', 'ordering', '-title')
+    items = ServiceItem.objects.all().order_by('ordering')
     return render(request, 'website/service.html', {'items': items})
 
 

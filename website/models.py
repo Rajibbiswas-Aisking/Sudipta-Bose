@@ -240,7 +240,7 @@ class ServiceItem(models.Model):
     ordering = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ['ordering', '-title']
+        ordering = ['ordering']
 
     def __str__(self):
         return self.title
