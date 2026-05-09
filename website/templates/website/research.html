@@ -1313,7 +1313,27 @@
         <div class="reviewer-entry" data-searchtext="{{ item.title }} {{ item.journal_or_source }}">
           <div class="reviewer-dot"></div>
           <div>
-            <p>{{ item.title }}</p>
+            <p style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+              {{ item.title }}
+              {% if item.rank %}
+                {% if item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>
+                {% elif item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
+                {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
+                {% elif item.rank == "B" %}<span class="rank-badge rank-b">ABDC: B</span>
+                {% elif item.rank == "C" %}<span class="rank-badge rank-c">ABDC: C</span>
+                {% else %}<span class="rank-badge rank-default">ABDC: {{ item.rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
+            </p>
             {% if item.journal_or_source and item.journal_or_source != item.title %}<p class="reviewer-sub">{{ item.journal_or_source }}</p>{% endif %}
           </div>
         </div>
