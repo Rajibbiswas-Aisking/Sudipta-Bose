@@ -528,7 +528,7 @@
   }
 
   .photo-grid { grid-template-columns: 1fr; }
-  .photo-img { height: 200px; }
+  
 }
 </style>
 {% endblock %}
@@ -769,29 +769,150 @@
     </div>
 
     {% if photos %}
-    <div class="photo-grid">
-      {% for photo in photos %}
-      <figure class="photo-card">
-        <img
-          src="{{ photo.image.url }}"
-          alt="{{ photo.caption }}"
-          loading="lazy"
-          class="photo-img"
-        >
-        {% if photo.caption or photo.year %}
-        <figcaption>
-          {% if photo.caption %}{{ photo.caption }}{% endif %}
-          {% if photo.year %}<span class="meta">{{ photo.year }}</span>{% endif %}
-        </figcaption>
-        {% endif %}
-      </figure>
-      {% endfor %}
+<div class="photo-grid" id="photo-grid">
+  {% for photo in photos %}
+  <figure class="photo-card"
+          data-src="{{ photo.image.url }}"
+          data-caption="{{ photo.caption }}"
+          data-year="{{ photo.year|default:'' }}"
+          data-index="{{ forloop.counter0 }}">
+    <div class="photo-img-wrap">
+      <img
+        src="{{ photo.image.url }}"
+        alt="{{ photo.caption|default:'Gallery photo' }}"
+        loading="lazy"
+        class="photo-img"
+      >
+      <div class="photo-zoom-hint"><span>View full image</span></div>
     </div>
-    {% else %}
-    <div class="card">
-      <p>Upload photos from Django admin to display them here.</p>
-    </div>
+    {% if photo.caption or photo.year %}
+    <figcaption>
+      {% if photo.caption %}{{ photo.caption }}{% endif %}
+      {% if photo.year %}<span class="meta">{{ photo.year }}</span>{% endif %}
+    </figcaption>
     {% endif %}
+  </figure>
+  {% endfor %}
+</div>
+
+<!-- Lightbox -->
+<div class="photo-lightbox" id="photo-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-arrow lb-prev" id="lb-prev" aria-label="Previous photo">&#8592;</button>
+  <div class="photo-lightbox-inner" id="lb-inner">
+    <button class="photo-lightbox-close" id="lb-close">&#10005; Close</button>
+    <img class="photo-lightbox-img" id="lb-img" src="" alt="">
+    <p class="photo-lightbox-caption" id="lb-caption"></p>
+  </div>
+  <button class="lb-arrow lb-next" id="lb-next" aria-label="Next photo">&#8594;</button>
+</div>
+
+{% else %}
+<div class="card">
+  <p>Upload photos from Django admin to display them here.</p>
+</div>
+{% endif %}
   </div>
 </section>
+
+
+<!-- REPLACE WITH -->
+<script>
+(function () {
+  var lb = document.getElementById('photo-lightbox');
+  if (!lb) return;
+
+  // ─── Move lightbox to <body> root so it escapes any transform
+  //     stacking context on <main> (caused by the fadeUp animation).
+  //     position: fixed only works correctly when no ancestor has
+  //     a transform, filter, or will-change applied.
+  document.body.appendChild(lb);
+
+  var cards   = Array.from(document.querySelectorAll('.photo-card[data-src]'));
+  var lbImg   = document.getElementById('lb-img');
+  var lbCap   = document.getElementById('lb-caption');
+  var lbClose = document.getElementById('lb-close');
+  var lbPrev  = document.getElementById('lb-prev');
+  var lbNext  = document.getElementById('lb-next');
+  var current = 0;
+
+  if (cards.length === 0) return;
+
+  function lockScroll() {
+    // Lock both <html> and <body> — covers all browsers
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function unlockScroll() {
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+  }
+
+  function openAt(index) {
+    current = (index + cards.length) % cards.length;
+    var card = cards[current];
+
+    lbImg.src = card.dataset.src;
+    lbImg.alt = card.dataset.caption || 'Gallery photo';
+
+    var capText  = card.dataset.caption || '';
+    var yearText = card.dataset.year
+      ? '<span class="lb-year">' + card.dataset.year + '</span>'
+      : '';
+    lbCap.innerHTML = capText + yearText;
+
+    lb.classList.add('open');
+    lockScroll();
+
+    // Scroll the lightbox itself to top in case it retained position
+    lb.scrollTop = 0;
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    unlockScroll();
+    // Clear src after transition so no flash on next open
+    setTimeout(function () { lbImg.src = ''; }, 200);
+  }
+
+  // Open on card click
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () {
+      openAt(parseInt(this.dataset.index, 10));
+    });
+  });
+
+  // Close controls
+  lbClose.addEventListener('click', close);
+
+  lb.addEventListener('click', function (e) {
+    // Close if clicking the dark backdrop (not the inner content)
+    if (e.target === lb) close();
+  });
+
+  // Arrow navigation
+  lbPrev.addEventListener('click', function (e) {
+    e.stopPropagation();
+    openAt(current - 1);
+  });
+
+  lbNext.addEventListener('click', function (e) {
+    e.stopPropagation();
+    openAt(current + 1);
+  });
+
+  // Keyboard controls
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     { close(); }
+    if (e.key === 'ArrowLeft')  { openAt(current - 1); }
+    if (e.key === 'ArrowRight') { openAt(current + 1); }
+  });
+})();
+</script>
+
 {% endblock %}
+
+
+
+
