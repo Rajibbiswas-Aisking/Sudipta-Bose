@@ -286,6 +286,7 @@
   color: var(--navy);
 }
 
+/* REPLACE WITH — full image, no cropping */
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -300,6 +301,7 @@
   border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
 }
 
 .photo-card:hover {
@@ -307,11 +309,160 @@
   transform: translateY(-2px);
 }
 
+/* Fixed-ratio box — image fills it without any cropping */
+.photo-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #0d1e35;          /* dark navy fill for any letterbox bars */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .photo-img {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;          /* ← key: show the FULL image, no cropping */
   display: block;
+}
+
+/* Hover overlay hint */
+.photo-zoom-hint {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 22, 40, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.photo-zoom-hint span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(201, 168, 76, 0.85);
+  padding: 0.38rem 0.85rem;
+  border-radius: 4px;
+}
+
+.photo-card:hover .photo-zoom-hint {
+  opacity: 1;
+}
+
+/* Lightbox overlay */
+.photo-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(7, 14, 26, 0.94);
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  cursor: zoom-out;
+}
+
+.photo-lightbox.open {
+  display: flex;
+}
+
+.photo-lightbox-inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: default;
+}
+
+.photo-lightbox-img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;          /* full image, no cropping in lightbox either */
+  border-radius: 6px;
+  box-shadow: 0 28px 64px rgba(0,0,0,0.5);
+  display: block;
+}
+
+.photo-lightbox-caption {
+  color: rgba(255,255,255,0.82);
+  font-size: 0.92rem;
+  text-align: center;
+  max-width: 640px;
+  line-height: 1.5;
+}
+
+.photo-lightbox-caption .lb-year {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+}
+
+.photo-lightbox-close {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.15s ease;
+}
+
+.photo-lightbox-close:hover {
+  background: rgba(255,255,255,0.22);
+}
+
+/* Nav arrows */
+.lb-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-size: 1.4rem;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  z-index: 10000;
+}
+
+.lb-arrow:hover { background: rgba(201,168,76,0.5); }
+.lb-arrow.lb-prev { left: 1.25rem; }
+.lb-arrow.lb-next { right: 1.25rem; }
+
+@media (max-width: 900px) {
+  .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .photo-grid { grid-template-columns: 1fr; }
+  .lb-arrow { display: none; }
 }
 
 .photo-card figcaption {
@@ -377,7 +528,7 @@
   }
 
   .photo-grid { grid-template-columns: 1fr; }
-  .photo-img { height: 200px; }
+  
 }
 </style>
 {% endblock %}
@@ -512,7 +663,7 @@
     <div class="section-heading">
       <div>
         <h2>Research Highlights</h2>
-        <p>A sharper overview of scholarship, impact, and academic direction.</p>
+        
       </div>
     </div>
 
@@ -581,7 +732,7 @@
       </div>
       {% empty %}
       <div class="card">
-        <p>Add academic appointments from Django admin.</p>
+        <p></p>
       </div>
       {% endfor %}
     </div>
@@ -614,34 +765,154 @@
     <div class="section-heading">
       <div>
         <h2>Photo Gallery</h2>
-        <p>Conferences, collaborations, and memorable moments.</p>
       </div>
     </div>
 
     {% if photos %}
-    <div class="photo-grid">
-      {% for photo in photos %}
-      <figure class="photo-card">
-        <img
-          src="{{ photo.image.url }}"
-          alt="{{ photo.caption }}"
-          loading="lazy"
-          class="photo-img"
-        >
-        {% if photo.caption or photo.year %}
-        <figcaption>
-          {% if photo.caption %}{{ photo.caption }}{% endif %}
-          {% if photo.year %}<span class="meta">{{ photo.year }}</span>{% endif %}
-        </figcaption>
-        {% endif %}
-      </figure>
-      {% endfor %}
+<div class="photo-grid" id="photo-grid">
+  {% for photo in photos %}
+  <figure class="photo-card"
+          data-src="{{ photo.image.url }}"
+          data-caption="{{ photo.caption }}"
+          data-year="{{ photo.year|default:'' }}"
+          data-index="{{ forloop.counter0 }}">
+    <div class="photo-img-wrap">
+      <img
+        src="{{ photo.image.url }}"
+        alt="{{ photo.caption|default:'Gallery photo' }}"
+        loading="lazy"
+        class="photo-img"
+      >
+      <div class="photo-zoom-hint"><span>View full image</span></div>
     </div>
-    {% else %}
-    <div class="card">
-      <p>Upload photos from Django admin to display them here.</p>
-    </div>
+    {% if photo.caption or photo.year %}
+    <figcaption>
+      {% if photo.caption %}{{ photo.caption }}{% endif %}
+      {% if photo.year %}<span class="meta">{{ photo.year }}</span>{% endif %}
+    </figcaption>
     {% endif %}
+  </figure>
+  {% endfor %}
+</div>
+
+<!-- Lightbox -->
+<div class="photo-lightbox" id="photo-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-arrow lb-prev" id="lb-prev" aria-label="Previous photo">&#8592;</button>
+  <div class="photo-lightbox-inner" id="lb-inner">
+    <button class="photo-lightbox-close" id="lb-close">&#10005; Close</button>
+    <img class="photo-lightbox-img" id="lb-img" src="" alt="">
+    <p class="photo-lightbox-caption" id="lb-caption"></p>
+  </div>
+  <button class="lb-arrow lb-next" id="lb-next" aria-label="Next photo">&#8594;</button>
+</div>
+
+{% else %}
+<div class="card">
+  <p>Upload photos from Django admin to display them here.</p>
+</div>
+{% endif %}
   </div>
 </section>
+
+
+<!-- REPLACE WITH -->
+<script>
+(function () {
+  var lb = document.getElementById('photo-lightbox');
+  if (!lb) return;
+
+  // ─── Move lightbox to <body> root so it escapes any transform
+  //     stacking context on <main> (caused by the fadeUp animation).
+  //     position: fixed only works correctly when no ancestor has
+  //     a transform, filter, or will-change applied.
+  document.body.appendChild(lb);
+
+  var cards   = Array.from(document.querySelectorAll('.photo-card[data-src]'));
+  var lbImg   = document.getElementById('lb-img');
+  var lbCap   = document.getElementById('lb-caption');
+  var lbClose = document.getElementById('lb-close');
+  var lbPrev  = document.getElementById('lb-prev');
+  var lbNext  = document.getElementById('lb-next');
+  var current = 0;
+
+  if (cards.length === 0) return;
+
+  function lockScroll() {
+    // Lock both <html> and <body> — covers all browsers
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function unlockScroll() {
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+  }
+
+  function openAt(index) {
+    current = (index + cards.length) % cards.length;
+    var card = cards[current];
+
+    lbImg.src = card.dataset.src;
+    lbImg.alt = card.dataset.caption || 'Gallery photo';
+
+    var capText  = card.dataset.caption || '';
+    var yearText = card.dataset.year
+      ? '<span class="lb-year">' + card.dataset.year + '</span>'
+      : '';
+    lbCap.innerHTML = capText + yearText;
+
+    lb.classList.add('open');
+    lockScroll();
+
+    // Scroll the lightbox itself to top in case it retained position
+    lb.scrollTop = 0;
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    unlockScroll();
+    // Clear src after transition so no flash on next open
+    setTimeout(function () { lbImg.src = ''; }, 200);
+  }
+
+  // Open on card click
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () {
+      openAt(parseInt(this.dataset.index, 10));
+    });
+  });
+
+  // Close controls
+  lbClose.addEventListener('click', close);
+
+  lb.addEventListener('click', function (e) {
+    // Close if clicking the dark backdrop (not the inner content)
+    if (e.target === lb) close();
+  });
+
+  // Arrow navigation
+  lbPrev.addEventListener('click', function (e) {
+    e.stopPropagation();
+    openAt(current - 1);
+  });
+
+  lbNext.addEventListener('click', function (e) {
+    e.stopPropagation();
+    openAt(current + 1);
+  });
+
+  // Keyboard controls
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     { close(); }
+    if (e.key === 'ArrowLeft')  { openAt(current - 1); }
+    if (e.key === 'ArrowRight') { openAt(current + 1); }
+  });
+})();
+</script>
+
 {% endblock %}
+
+
+
+

@@ -50,13 +50,56 @@ class Command(BaseCommand):
             Experience.objects.create(role=item[0], organization=item[1], start_date=item[2], end_date=item[3], ordering=idx)
 
         publications = [
-            ('Climate disclosure and firm outcomes', 'Sudipta Bose et al.', 2025, 'Journal of Corporate Finance', 'published_paper'),
-            ('Sustainability assurance and market effects', 'Sudipta Bose et al.', 2024, 'Accounting & Finance', 'published_paper'),
-            ('Machine learning in accounting research', 'Sudipta Bose et al.', 2024, 'Working Paper Series', 'working_paper'),
-            ('Carbon emissions reporting and governance', 'Sudipta Bose et al.', 2023, 'British Accounting Review', 'journal_published'),
+            ('Climate disclosure and firm outcomes', 'Sudipta Bose et al.', 2025, 'Journal of Corporate Finance', 'published_paper', True, ''),
+            ('Sustainability assurance and market effects', 'Sudipta Bose et al.', 2024, 'Accounting & Finance', 'published_paper', False, None),
+            ('Machine learning in accounting research', 'Sudipta Bose et al.', 2024, 'Working Paper Series', 'working_paper', False, None),
+            ('Carbon emissions reporting and governance', 'Sudipta Bose et al.', 2023, 'British Accounting Review', 'journal_published', False, None),
         ]
-        for title, authors, year, source, category in publications:
-            Publication.objects.create(title=title, authors=authors, year=year, journal_or_source=source, category=category)
+        for title, authors, year, source, category, ft50, rank in publications:
+            Publication.objects.create(title=title, authors=authors, year=year, journal_or_source=source, category=category, ft50=ft50, rank=rank or '')
+
+        Publication.objects.create(
+            title='Carbon accounting practices in listed firms',
+            authors='Sudipta Bose et al.',
+            year=2024,
+            journal_or_source='AFAANZ Annual Conference',
+            category='conference_paper',
+            rank='A',
+        )
+        Publication.objects.create(
+            title='Biodiversity disclosure and investor reaction',
+            authors='Sudipta Bose et al.',
+            year=2023,
+            journal_or_source='EAA Annual Congress',
+            category='conference_paper',
+            rank='A*',
+        )
+
+        # Sample journal reviewer entries (journal_type demonstrates grouping)
+        Publication.objects.create(
+            title='Reviewer for Accounting Research Journal',
+            authors='',
+            year=2024,
+            journal_or_source='Accounting Research Journal',
+            category='journal_reviewer',
+            journal_type='accounting',
+        )
+        Publication.objects.create(
+            title='Reviewer for Journal of Finance',
+            authors='',
+            year=2023,
+            journal_or_source='Journal of Finance',
+            category='journal_reviewer',
+            journal_type='finance',
+        )
+        Publication.objects.create(
+            title='Ad-hoc conference reviewer',
+            authors='',
+            year=2022,
+            journal_or_source='Various conferences (ad-hoc)',
+            category='journal_reviewer',
+            journal_type='conference_reviewer',
+        )
 
         Grant.objects.create(title='Climate-related disclosure research project', funder='AASB', amount='TBD', year=2024, summary='Research on reporting standards and disclosure quality.')
         Grant.objects.create(title='Sustainable finance and biodiversity reporting', funder='ADB', amount='TBD', year=2023, summary='Research focused on sustainability and finance intersections.')
@@ -71,6 +114,8 @@ class Command(BaseCommand):
 
         Supervision.objects.create(student_name='Example PhD Candidate', degree='PhD', status='Current', role='Principal Supervisor', topic='Sustainability reporting', ordering=1)
         Supervision.objects.create(student_name='Example MPhil Candidate', degree='MPhil', status='Current', role='Co-Supervisor', topic='Corporate governance', ordering=2)
+        Supervision.objects.create(student_name='Dr Jane Smith', degree='PhD', status='Completed', role='Principal Supervisor', topic='Climate risk disclosure', current_position='Senior Lecturer, University of Sydney', completed_year=2023, ordering=3)
+        Supervision.objects.create(student_name='Dr Michael Johnson', degree='PhD', status='Completed', role='Co-Supervisor', topic='ESG metrics and valuation', current_position='Research Fellow, UNSW', completed_year=2022, ordering=4)
 
         ServiceItem.objects.create(
             title='Editorial Panel Member',

@@ -33,16 +33,6 @@
   gap: 0.45rem;
 }
 
-.tab-btn .tab-count {
-  font-size: 0.68rem;
-  font-weight: 800;
-  background: var(--line);
-  color: var(--muted);
-  border-radius: 999px;
-  padding: 0.05rem 0.45rem;
-  transition: all 0.15s ease;
-}
-
 .tab-btn:hover {
   border-color: var(--gold);
   color: var(--navy);
@@ -53,11 +43,6 @@
   background: var(--navy);
   color: var(--gold);
   border-color: var(--navy);
-}
-
-.tab-btn.active .tab-count {
-  background: rgba(255,255,255,0.18);
-  color: var(--gold);
 }
 
 /* ═══════════════════════════════
@@ -225,6 +210,34 @@
   background: var(--line);
 }
 
+/* Journal reviewer category separators */
+.reviewer-group-sep {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.6rem 0 0.4rem;
+}
+
+.reviewer-group-sep .year-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--gold-light);
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 3px;
+  padding: 0.18rem 0.6rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.reviewer-group-sep .year-line {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
 /* ═══════════════════════════════
    PUB ENTRIES
 ═══════════════════════════════ */
@@ -312,6 +325,33 @@
 .rank-badge.rank-b     { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
 .rank-badge.rank-c     { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
 .rank-badge.rank-default { background: var(--gold-light); color: #7a5a10; border: 1px solid rgba(201,168,76,0.35); }
+.rank-badge.rank-ft50 { background: #fdf2ff; color: #5b1d7a; border: 1px solid #d6a8f0; letter-spacing: 0.09em; }
+
+/* ABS rank badges */
+.rank-badge.rank-abs-4star { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
+.rank-badge.rank-abs-4 { background: #e8f0fb; color: #1a3a6b; border: 1px solid #a8c1e8; }
+.rank-badge.rank-abs-3 { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
+.rank-badge.rank-abs-2 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+.rank-badge.rank-abs-1 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+
+/* SJR rank badges */
+.rank-badge.rank-sjr-q1 { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
+.rank-badge.rank-sjr-q2 { background: #e8f0fb; color: #1a3a6b; border: 1px solid #a8c1e8; }
+.rank-badge.rank-sjr-q3 { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
+.rank-badge.rank-sjr-q4 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+
+/* ABS rank badges */
+.rank-badge.rank-abs-4star { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
+.rank-badge.rank-abs-4 { background: #e8f0fb; color: #1a3a6b; border: 1px solid #a8c1e8; }
+.rank-badge.rank-abs-3 { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
+.rank-badge.rank-abs-2 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+.rank-badge.rank-abs-1 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
+
+/* SJR rank badges */
+.rank-badge.rank-sjr-q1 { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
+.rank-badge.rank-sjr-q2 { background: #e8f0fb; color: #1a3a6b; border: 1px solid #a8c1e8; }
+.rank-badge.rank-sjr-q3 { background: #e6f4f0; color: #0d5c3e; border: 1px solid #7ecbb4; }
+.rank-badge.rank-sjr-q4 { background: var(--surface); color: var(--muted); border: 1px solid var(--line); }
 
 /* Citation pill */
 .citation-pill {
@@ -605,6 +645,258 @@
 }
 
 /* ═══════════════════════════════
+   FEATURED PUBLICATIONS SECTION
+═══════════════════════════════ */
+
+.featured-section {
+  padding: 3rem 0 2rem;
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+}
+
+.featured-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.featured-intro-left .page-hero-divider {
+  margin: 0.6rem 0 0;
+}
+
+.scroll-to-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand);
+  background: var(--accent);
+  border: 1px solid rgba(26,58,107,0.2);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.1rem;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.scroll-to-all-btn:hover {
+  background: var(--brand);
+  color: #ffffff;
+  border-color: var(--brand);
+  text-decoration: none;
+}
+
+.feat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feat-card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feat-card.feat-has-img {
+  grid-template-columns: 64px 1fr 220px;
+}
+
+.feat-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.feat-num-col {
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0.5rem;
+  gap: 0.25rem;
+  min-width: 64px;
+}
+
+.feat-num-col .feat-num {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.feat-num-col .feat-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+}
+
+.feat-body {
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.feat-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.feat-year {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.feat-source {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.feat-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.feat-apa {
+  font-size: 0.845rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.feat-abstract {
+  font-size: 0.875rem;
+  color: var(--text-body);
+  line-height: 1.68;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+
+.feat-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
+.feat-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--brand);
+  background: var(--accent);
+  border: 1px solid rgba(26,58,107,0.2);
+  border-radius: 4px;
+  padding: 0.32rem 0.76rem;
+  text-decoration: none;
+  transition: all 0.14s ease;
+}
+
+.feat-view-btn:hover {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+  text-decoration: none;
+}
+
+.feat-cat-chip {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--gold-light);
+  color: #7a5a10;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 3px;
+  padding: 0.15rem 0.55rem;
+}
+
+.feat-img-col {
+  overflow: hidden;
+  position: relative;
+  min-height: 180px;
+}
+
+.feat-img-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.feat-card:hover .feat-img-col img {
+  opacity: 1;
+}
+
+.feat-img-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  background: linear-gradient(145deg, var(--navy) 0%, var(--navy-mid) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(201,168,76,0.25);
+  font-size: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .feat-card,
+  .feat-card.feat-has-img {
+    grid-template-columns: 56px 1fr;
+  }
+  .feat-img-col { display: none; }
+}
+
+@media (max-width: 640px) {
+  .feat-num-col { min-width: 48px; }
+  .feat-num-col .feat-num { font-size: 1.4rem; }
+  .feat-body { padding: 1rem 1.1rem; }
+  .featured-intro { flex-direction: column; align-items: flex-start; }
+}
+
+/* ═══════════════════════════════
    RESPONSIVE
 ═══════════════════════════════ */
 @media (max-width: 640px) {
@@ -626,38 +918,116 @@
     <h1>Publications</h1>
     <div class="page-hero-divider"></div>
     <p>{{ profile.research_interests }}</p>
+  </div>
+</section>
+
+{% if featured_papers %}
+<section class="featured-section">
+  <div class="container">
+    <div class="featured-intro">
+      <div class="featured-intro-left">
+        <p class="eyebrow">Selected Research</p>
+        <h2 style="margin:0 0 0.3rem;">Featured Publications</h2>
+        <div class="page-hero-divider"></div>
+      </div>
+      <a class="scroll-to-all-btn" href="#all-publications">
+        ↓ See all publications
+      </a>
+    </div>
+
+    <div class="feat-list">
+      {% for item in featured_papers %}
+      <article class="feat-card{% if item.abstract_image %} feat-has-img{% endif %}">
+
+        <div class="feat-num-col">
+          <span class="feat-num">{{ forloop.counter|stringformat:"02d" }}</span>
+          <!-- <span class="feat-label">Featured</span> -->
+        </div>
+
+        <div class="feat-body">
+          <div class="feat-meta-row">
+            {% if item.year %}<span class="feat-year">{{ item.year }}</span>{% endif %}
+            {% if item.journal_or_source %}
+              <span class="meta-dot"></span>
+              <span class="feat-source">{{ item.journal_or_source }}</span>
+            {% endif %}
+            {% if item.ft50 or item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>{% endif %}
+            {% if item.rank %}
+              {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
+              {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
+              {% elif item.rank == "B" %}<span class="rank-badge rank-b">ABDC: B</span>
+              {% elif item.rank == "C" %}<span class="rank-badge rank-c">ABDC: C</span>
+              {% else %}<span class="rank-badge rank-default">{{ item.rank }}</span>
+              {% endif %}
+            {% endif %}
+            {% if item.abs_rank %}
+              {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+              {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+              {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+              {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+              {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+              {% endif %}
+            {% endif %}
+            {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
+            {% if item.citation_count %}
+              <span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>
+            {% endif %}
+          </div>
+
+          <h3 class="feat-title">{{ item.title }}</h3>
+          <p class="feat-apa">{{ item.apa7_reference }}</p>
+
+          {% if item.abstract %}
+            <p class="feat-abstract">{{ item.abstract }}</p>
+          {% endif %}
+
+          <div class="feat-actions">
+            {% if item.link %}
+              <a class="feat-view-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ View Paper</a>
+            {% endif %}
+            <span class="feat-cat-chip">{{ item.get_category_display }}</span>
+          </div>
+        </div>
+
+        {% if item.abstract_image %}
+        <div class="feat-img-col">
+          <img src="{{ item.abstract_image.url }}" alt="Abstract figure for {{ item.title }}">
+        </div>
+        {% endif %}
+
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section" id="all-publications">
+  <div class="container">
 
     <div class="tab-bar">
       <button class="tab-btn active" type="button" data-target="published-papers">
         Published Papers
-        {% if published_papers %}<span class="tab-count">{{ published_papers|length }}</span>{% endif %}
+      </button>
+      <button class="tab-btn" type="button" data-target="conference-papers">
+        Conference Papers
       </button>
       <button class="tab-btn" type="button" data-target="media-articles">
         Media Articles
-        {% if media_articles %}<span class="tab-count">{{ media_articles|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="book-chapters">
         Book Chapters
-        {% if book_chapters %}<span class="tab-count">{{ book_chapters|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="journal-reviewer">
         Journal Reviewer
-        {% if journal_reviewers %}<span class="tab-count">{{ journal_reviewers|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="journal-published">
         Journal Published
-        {% if journal_published %}<span class="tab-count">{{ journal_published|length }}</span>{% endif %}
       </button>
       <button class="tab-btn" type="button" data-target="working-papers">
         Working Papers
-        {% if working_papers %}<span class="tab-count">{{ working_papers|length }}</span>{% endif %}
       </button>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
 
     <!-- ── Published Papers ── -->
     <div class="research-panel active" id="published-papers">
@@ -694,6 +1064,7 @@
             <div class="pub-meta-row">
               {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
               {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
+              {% if item.ft50 or item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>{% endif %}
               {% if item.rank %}
                 {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
                 {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
@@ -702,6 +1073,15 @@
                 {% else %}<span class="rank-badge rank-default">ABDC: {{ item.rank }}</span>
                 {% endif %}
               {% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
               {% if item.citation_count %}<span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>{% endif %}
             </div>
             <h3 class="pub-title">{{ item.title }}</h3>
@@ -725,6 +1105,102 @@
         {% empty %}<div class="empty-card">No published papers added yet.</div>{% endfor %}
       </div>
       <div class="no-results" id="noresults-published-papers"><strong>No results found</strong>Try adjusting your search term.</div>
+    </div>
+
+    <!-- ── Conference Papers ── -->
+    <div class="research-panel" id="conference-papers">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Conference Papers</h2>
+          <p>Refereed conference proceedings and presentations.</p>
+        </div>
+        <span class="panel-result-count" id="count-conference-papers"></span>
+      </div>
+      <div class="pub-toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <input class="pub-search" type="search"
+                 placeholder="Search by title, author, or conference…"
+                 data-panel="conference-papers" autocomplete="off">
+          <button class="search-clear" type="button">×</button>
+        </div>
+        <select class="sort-select" data-panel="conference-papers">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="cited">Most cited</option>
+          <option value="az">A → Z title</option>
+          <option value="za">Z → A title</option>
+        </select>
+      </div>
+      <div class="pub-list" id="list-conference-papers">
+        {% for item in conference_papers %}
+        <div class="pub-entry"
+             data-title="{{ item.title }}"
+             data-year="{{ item.year|default:0 }}"
+             data-citations="{{ item.citation_count|default:0 }}"
+             data-searchtext="{{ item.title }} {{ item.authors }} {{ item.journal_or_source }} {{ item.apa7_reference }}">
+          <div class="pub-index">{{ forloop.counter }}</div>
+          <div class="pub-body">
+            <div class="pub-meta-row">
+              {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
+              {% if item.journal_or_source %}
+                <span class="meta-dot"></span>
+                <span class="pub-source">{{ item.journal_or_source }}</span>
+              {% endif %}
+              {% if item.rank %}
+                {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ERA: A*</span>
+                {% elif item.rank == "A" %}<span class="rank-badge rank-a">ERA: A</span>
+                {% elif item.rank == "B" %}<span class="rank-badge rank-b">ERA: B</span>
+                {% elif item.rank == "C" %}<span class="rank-badge rank-c">ERA: C</span>
+                {% else %}<span class="rank-badge rank-default">CORE: {{ item.rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
+              {% if item.citation_count %}
+                <span class="citation-pill">
+                  <span class="cite-dot"></span>{{ item.citation_count }} citations
+                </span>
+              {% endif %}
+            </div>
+            <h3 class="pub-title">{{ item.title }}</h3>
+            <p class="pub-apa">{{ item.apa7_reference }}</p>
+            {% if item.abstract and not item.abstract_image %}
+            <div class="abstract-block">
+              <p class="abstract-truncated">{{ item.abstract }}</p>
+              <p class="abstract-full">{{ item.abstract }}</p>
+              <button class="abstract-toggle" type="button">Show abstract ↓</button>
+            </div>
+            {% endif %}
+            {% if item.abstract_image %}
+            <div class="abstract-img-wrap" data-src="{{ item.abstract_image.url }}">
+              <img src="{{ item.abstract_image.url }}" alt="Abstract for {{ item.title }}">
+              <div class="abstract-img-overlay">View Abstract</div>
+            </div>
+            {% endif %}
+            {% if item.link %}
+              <a class="paper-link-btn" href="{{ item.link }}" target="_blank" rel="noopener">
+                ↗ View Paper
+              </a>
+            {% endif %}
+          </div>
+        </div>
+        {% empty %}
+        <div class="empty-card">No conference papers added yet.</div>
+        {% endfor %}
+      </div>
+      <div class="no-results" id="noresults-conference-papers">
+        <strong>No results found</strong>Try adjusting your search term.
+      </div>
     </div>
 
     <!-- ── Media Articles ── -->
@@ -803,6 +1279,15 @@
               {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
               {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
               {% if item.rank %}<span class="rank-badge rank-default">APSA: {{ item.rank }}</span>{% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
             </div>
             <h3 class="pub-title">{{ item.title }}</h3>
             <p class="pub-apa">{{ item.apa7_reference }}</p>
@@ -831,15 +1316,47 @@
         </div>
       </div>
       <div class="reviewer-list" id="list-journal-reviewer">
-        {% for item in journal_reviewers %}
-        <div class="reviewer-entry" data-searchtext="{{ item.title }} {{ item.journal_or_source }}">
-          <div class="reviewer-dot"></div>
-          <div>
-            <p>{{ item.title }}</p>
-            {% if item.journal_or_source and item.journal_or_source != item.title %}<p class="reviewer-sub">{{ item.journal_or_source }}</p>{% endif %}
-          </div>
-        </div>
-        {% empty %}<div class="empty-card">No journal reviewer entries added yet.</div>{% endfor %}
+        {% if journal_reviewer_groups %}
+          {% for group in journal_reviewer_groups %}
+            <div class="reviewer-group" data-reviewer-group>
+              <div class="reviewer-group-sep">
+                <span class="year-label">{{ group.label }}</span>
+                <span class="year-line"></span>
+              </div>
+              {% for item in group.items %}
+              <div class="reviewer-entry" data-searchtext="{{ item.title }} {{ item.journal_or_source }}">
+                <div class="reviewer-dot"></div>
+                <div>
+                  <p style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+                    {{ item.title }}
+                    {% if item.ft50 or item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>{% endif %}
+                    {% if item.rank %}
+                      {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
+                      {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
+                      {% elif item.rank == "B" %}<span class="rank-badge rank-b">ABDC: B</span>
+                      {% elif item.rank == "C" %}<span class="rank-badge rank-c">ABDC: C</span>
+                      {% else %}<span class="rank-badge rank-default">ABDC: {{ item.rank }}</span>
+                      {% endif %}
+                    {% endif %}
+                    {% if item.abs_rank %}
+                      {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                      {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                      {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                      {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                      {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                      {% endif %}
+                    {% endif %}
+                    {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
+                  </p>
+                  {% if item.journal_or_source and item.journal_or_source != item.title %}<p class="reviewer-sub">{{ item.journal_or_source }}</p>{% endif %}
+                </div>
+            </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="empty-card">No journal reviewer entries added yet.</div>
+        {% endif %}
       </div>
       <div class="no-results" id="noresults-journal-reviewer"><strong>No results found</strong>Try adjusting your search term.</div>
     </div>
@@ -877,8 +1394,8 @@
           <div class="pub-index">{{ forloop.counter }}</div>
           <div class="pub-body">
             <div class="pub-meta-row">
-              {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
-              {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
+              {% if item.journal_or_source %}<span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
+              {% if item.ft50 or item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>{% endif %}
               {% if item.rank %}
                 {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
                 {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
@@ -887,6 +1404,15 @@
                 {% else %}<span class="rank-badge rank-default">ABDC: {{ item.rank }}</span>
                 {% endif %}
               {% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
               {% if item.citation_count %}<span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>{% endif %}
             </div>
             <h3 class="pub-title">{{ item.title }}</h3>
@@ -934,6 +1460,15 @@
               {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
               {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
               {% if item.rank %}<span class="rank-badge rank-default">{{ item.rank }}</span>{% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
             </div>
             <h3 class="pub-title">{{ item.title }}</h3>
             <p class="pub-apa">{{ item.apa7_reference }}</p>
@@ -1043,8 +1578,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* Insert / refresh year group separators */
-  function refreshYearGroups(listEl, visible, sortVal) {
+  function refreshYearGroups(listEl, visible, sortVal, panelId) {
     listEl.querySelectorAll(".year-group-sep").forEach(function (s) { s.remove(); });
+    if (panelId === "journal-published") return;
     if (sortVal !== "newest" && sortVal !== "oldest") return;
     var last = null;
     visible.forEach(function (entry) {
@@ -1093,15 +1629,26 @@ document.addEventListener("DOMContentLoaded", function () {
       highlightTitle(entry, query);
     });
 
-    /* Sort & reorder in DOM */
-    var sorted = sortNodes(visible, sortVal);
-    sorted.forEach(function (entry) { listEl.appendChild(entry); });
+    var sorted = visible;
+    if (panelId !== "journal-reviewer") {
+      /* Sort & reorder in DOM */
+      sorted = sortNodes(visible, sortVal);
+      sorted.forEach(function (entry) { listEl.appendChild(entry); });
 
-    /* Year groups */
-    refreshYearGroups(listEl, sorted, sortVal);
+      /* Year groups */
+      refreshYearGroups(listEl, sorted, sortVal, panelId);
 
-    /* Index numbers */
-    renumber(sorted);
+      /* Index numbers */
+      renumber(sorted);
+    } else {
+      /* Keep reviewer category groups intact; only hide empty groups after filtering. */
+      listEl.querySelectorAll("[data-reviewer-group]").forEach(function (groupEl) {
+        var hasVisible = Array.from(groupEl.querySelectorAll(".reviewer-entry")).some(function (entry) {
+          return entry.style.display !== "none";
+        });
+        groupEl.style.display = hasVisible ? "" : "none";
+      });
+    }
 
     /* Count label */
     if (countEl) {
@@ -1141,7 +1688,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /* Initial render for every panel */
-  ["published-papers","media-articles","book-chapters","journal-reviewer","journal-published","working-papers"].forEach(applyPanel);
+  ["published-papers","conference-papers","media-articles","book-chapters","journal-reviewer","journal-published","working-papers"].forEach(applyPanel);
 
 });
 </script>

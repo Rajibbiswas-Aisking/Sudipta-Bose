@@ -124,23 +124,38 @@
         <p class="eyebrow">Teaching</p>
         <h1>Teaching and Courses</h1>
         <div class="page-hero-divider"></div>
-        <p>A dedicated place for course leadership, curriculum, and mentoring activity.</p>
     </div>
 </section>
 
 <section class="section page-last-section">
     <div class="container">
         <div class="section-heading"><h2>Courses</h2></div>
-        <div class="grid cards-2">
-            {% for item in teaching_items %}
-            <article class="card">
-                {% if item.level %}<span class="badge">{{ item.level }}</span>{% endif %}
-                <h3 style="margin-top: 0.5rem;">{{ item.course_name }}</h3>
-                <p class="meta">{{ item.institution }}</p>
-                {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
-            </article>
-            {% endfor %}
+        {% regroup teaching_items by institution as institution_groups %}
+        {% for group in institution_groups %}
+        <div style="margin-bottom: 1.6rem;">
+            <div class="section-heading"><h3>{{ group.grouper }}</h3></div>
+            <div class="grid cards-2">
+                {% for item in group.list %}
+                <article class="card">
+                    {% if item.level %}<span class="badge">{{ item.level }}</span>{% endif %}
+                    <h3 style="margin-top: 0.5rem;">{{ item.course_name }}</h3>
+                    <p class="meta">
+                        {% if item.start_year %}{{ item.start_year }}{% endif %}
+                        {% if item.start_year and item.end_year %} – {% elif item.start_year and not item.end_year %} – Present{% endif %}
+                        {% if item.end_year %}{{ item.end_year }}{% endif %}
+                    </p>
+                    {% if item.summary %}<p>{{ item.summary }}</p>{% endif %}
+                </article>
+                {% endfor %}
+            </div>
         </div>
+        {% empty %}
+        <div class="grid cards-2">
+            <article class="card">
+                <p>No courses added yet.</p>
+            </article>
+        </div>
+        {% endfor %}
 
         <div class="resources-wrap">
             <div class="section-heading"><h2>Resources</h2></div>
