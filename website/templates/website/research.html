@@ -1353,8 +1353,7 @@
           <div class="pub-index">{{ forloop.counter }}</div>
           <div class="pub-body">
             <div class="pub-meta-row">
-              {% if item.year %}<span class="pub-year-tag">{{ item.year }}</span>{% endif %}
-              {% if item.journal_or_source %}<span class="meta-dot"></span><span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
+              {% if item.journal_or_source %}<span class="pub-source">{{ item.journal_or_source }}</span>{% endif %}
               {% if item.rank %}
                 {% if item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>
                 {% elif item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
@@ -1538,8 +1537,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* Insert / refresh year group separators */
-  function refreshYearGroups(listEl, visible, sortVal) {
+  function refreshYearGroups(listEl, visible, sortVal, panelId) {
     listEl.querySelectorAll(".year-group-sep").forEach(function (s) { s.remove(); });
+    if (panelId === "journal-published") return;
     if (sortVal !== "newest" && sortVal !== "oldest") return;
     var last = null;
     visible.forEach(function (entry) {
@@ -1593,7 +1593,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sorted.forEach(function (entry) { listEl.appendChild(entry); });
 
     /* Year groups */
-    refreshYearGroups(listEl, sorted, sortVal);
+    refreshYearGroups(listEl, sorted, sortVal, panelId);
 
     /* Index numbers */
     renumber(sorted);
