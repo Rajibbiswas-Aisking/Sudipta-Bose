@@ -15,9 +15,9 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'year', 'category', 'featured', 'featured_order', 'ft50', 'rank', 'abs_rank', 'sjr_rank', 'citation_count')
-    list_editable = ('featured', 'featured_order', 'ft50', 'rank', 'abs_rank', 'sjr_rank', 'citation_count')
-    list_filter = ('featured', 'ft50', 'category', 'year', 'rank', 'abs_rank', 'sjr_rank')
+    list_display = ('title', 'year', 'category', 'featured', 'featured_order', 'ft50', 'journal_type', 'rank', 'abs_rank', 'sjr_rank', 'citation_count')
+    list_editable = ('featured', 'featured_order', 'ft50', 'journal_type', 'rank', 'abs_rank', 'sjr_rank', 'citation_count')
+    list_filter = ('featured', 'ft50', 'journal_type', 'category', 'year', 'rank', 'abs_rank', 'sjr_rank')
     search_fields = ('title', 'authors', 'journal_or_source', 'book_title', 'conference_name')
 
     fieldsets = (
@@ -28,8 +28,8 @@ class PublicationAdmin(admin.ModelAdmin):
             'fields': ('journal_or_source', 'volume', 'issue', 'pages', 'doi')
         }),
         ('Rankings', {
-            'fields': ('ft50', 'rank', 'abs_rank', 'sjr_rank', 'citation_count'),
-            'description': 'Tick FT50 for Financial Times 50 journals. ABDC rank (A*, A, B, C) · ABS rank (1–4*) · SJR quartile (Q1–Q4). For book chapters, the ABDC/rank field stores the APSA rank.'
+            'fields': ('ft50', 'journal_type', 'rank', 'abs_rank', 'sjr_rank', 'citation_count'),
+            'description': 'Tick FT50 for Financial Times 50 journals. Select a journal type for reviewer entries. ABDC rank (A*, A, B, C) · ABS rank (1–4*) · SJR quartile (Q1–Q4). For book chapters, the ABDC/rank field stores the APSA rank.'
         }),
         ('Book Chapter', {
             'fields': ('editors', 'book_title', 'publisher', 'publisher_location'),

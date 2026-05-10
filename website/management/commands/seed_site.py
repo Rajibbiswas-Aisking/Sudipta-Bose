@@ -75,6 +75,32 @@ class Command(BaseCommand):
             rank='A*',
         )
 
+        # Sample journal reviewer entries (journal_type demonstrates grouping)
+        Publication.objects.create(
+            title='Reviewer for Accounting Research Journal',
+            authors='',
+            year=2024,
+            journal_or_source='Accounting Research Journal',
+            category='journal_reviewer',
+            journal_type='accounting',
+        )
+        Publication.objects.create(
+            title='Reviewer for Journal of Finance',
+            authors='',
+            year=2023,
+            journal_or_source='Journal of Finance',
+            category='journal_reviewer',
+            journal_type='finance',
+        )
+        Publication.objects.create(
+            title='Ad-hoc conference reviewer',
+            authors='',
+            year=2022,
+            journal_or_source='Various conferences (ad-hoc)',
+            category='journal_reviewer',
+            journal_type='conference_reviewer',
+        )
+
         Grant.objects.create(title='Climate-related disclosure research project', funder='AASB', amount='TBD', year=2024, summary='Research on reporting standards and disclosure quality.')
         Grant.objects.create(title='Sustainable finance and biodiversity reporting', funder='ADB', amount='TBD', year=2023, summary='Research focused on sustainability and finance intersections.')
 

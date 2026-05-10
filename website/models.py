@@ -69,6 +69,14 @@ class Publication(models.Model):
     )
     ft50 = models.BooleanField(default=False, help_text='Tick this for FT50 journal publications.')
     journal_or_source = models.CharField(max_length=300, blank=True)
+    JOURNAL_TYPE_CHOICES = [
+        ('accounting', 'Accounting Journals'),
+        ('finance', 'Finance Journals'),
+        ('economics', 'Economics Journals'),
+        ('management', 'Management Journals'),
+        ('conference_reviewer', 'Conference reviewer (Adhoc)'),
+    ]
+    journal_type = models.CharField(max_length=40, choices=JOURNAL_TYPE_CHOICES, blank=True)
     rank = models.CharField(max_length=20, blank=True, help_text='e.g. A*, A, B, C (ABDC) or A (APSA)')
     abs_rank = models.CharField(
         max_length=10,
