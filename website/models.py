@@ -67,8 +67,9 @@ class Publication(models.Model):
         default=0,
         help_text='Display order for featured publications (1 = first). Only applies when featured=True.'
     )
+    ft50 = models.BooleanField(default=False, help_text='Tick this for FT50 journal publications.')
     journal_or_source = models.CharField(max_length=300, blank=True)
-    rank = models.CharField(max_length=20, blank=True, help_text='e.g. FT50, A*, A, B, C (ABDC) or A (APSA)')
+    rank = models.CharField(max_length=20, blank=True, help_text='e.g. A*, A, B, C (ABDC) or A (APSA)')
     abs_rank = models.CharField(
         max_length=10,
         blank=True,
