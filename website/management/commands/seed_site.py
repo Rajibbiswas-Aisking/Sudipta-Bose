@@ -50,13 +50,13 @@ class Command(BaseCommand):
             Experience.objects.create(role=item[0], organization=item[1], start_date=item[2], end_date=item[3], ordering=idx)
 
         publications = [
-            ('Climate disclosure and firm outcomes', 'Sudipta Bose et al.', 2025, 'Journal of Corporate Finance', 'published_paper', 'FT50'),
-            ('Sustainability assurance and market effects', 'Sudipta Bose et al.', 2024, 'Accounting & Finance', 'published_paper', None),
-            ('Machine learning in accounting research', 'Sudipta Bose et al.', 2024, 'Working Paper Series', 'working_paper', None),
-            ('Carbon emissions reporting and governance', 'Sudipta Bose et al.', 2023, 'British Accounting Review', 'journal_published', None),
+            ('Climate disclosure and firm outcomes', 'Sudipta Bose et al.', 2025, 'Journal of Corporate Finance', 'published_paper', True, ''),
+            ('Sustainability assurance and market effects', 'Sudipta Bose et al.', 2024, 'Accounting & Finance', 'published_paper', False, None),
+            ('Machine learning in accounting research', 'Sudipta Bose et al.', 2024, 'Working Paper Series', 'working_paper', False, None),
+            ('Carbon emissions reporting and governance', 'Sudipta Bose et al.', 2023, 'British Accounting Review', 'journal_published', False, None),
         ]
-        for title, authors, year, source, category, rank in publications:
-            Publication.objects.create(title=title, authors=authors, year=year, journal_or_source=source, category=category, rank=rank or '')
+        for title, authors, year, source, category, ft50, rank in publications:
+            Publication.objects.create(title=title, authors=authors, year=year, journal_or_source=source, category=category, ft50=ft50, rank=rank or '')
 
         Publication.objects.create(
             title='Carbon accounting practices in listed firms',
