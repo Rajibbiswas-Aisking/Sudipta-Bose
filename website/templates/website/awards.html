@@ -1,57 +1,236 @@
 {% extends "website/base.html" %}
+{% load static %}
 {% block title %}Awards | Sudipta Bose{% endblock %}
 
 {% block page_styles %}
 <style>
+/* ── Award ceremony video highlight ─────────────── */
+.award-video-section {
+  background: var(--navy);
+  padding: 3.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.award-video-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 10% 50%, rgba(201,168,76,0.07) 0%, transparent 55%),
+    radial-gradient(circle at 90% 30%, rgba(26,58,107,0.5) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.award-video-inner {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.award-video-meta {
+  color: white;
+}
+
+.award-video-meta .eyebrow {
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.award-video-meta h2 {
+  color: #ffffff;
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  margin: 0 0 1rem;
+  line-height: 1.15;
+}
+
+.award-video-meta p {
+  color: rgba(255,255,255,0.68);
+  font-size: 1rem;
+  line-height: 1.72;
+  margin: 0 0 1.5rem;
+}
+
+.video-detail-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.video-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold);
+  border-radius: 4px;
+  padding: 0.3rem 0.75rem;
+}
+
+/* Video player wrapper */
+.video-player-wrap {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(201,168,76,0.25);
+  box-shadow:
+    0 0 0 1px rgba(201,168,76,0.1),
+    0 24px 48px rgba(0,0,0,0.45);
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+
+.video-player-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 14px;
+}
+
+/* Gold corner accent */
+.video-player-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.45) 0%, transparent 55%);
+  pointer-events: none;
+  border-radius: 14px 0 0 0;
+}
+
+/* Gold divider below video section */
+.award-video-divider {
+  height: 3px;
+  background: linear-gradient(90deg, var(--navy), var(--gold), var(--navy));
+}
+
+/* ── Award list cards ────────────────────────────── */
 .award-card {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
-    align-items: start;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
 }
 
 .award-year {
-    font-family: var(--font-display);
-    font-size: 2.8rem;
-    color: var(--gold);
-    line-height: 1;
-    font-weight: 800;
-    opacity: 0.25;
-    min-width: 5rem;
-    text-align: right;
-    padding-top: 0.1rem;
-    user-select: none;
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  color: var(--gold);
+  line-height: 1;
+  font-weight: 800;
+  opacity: 0.25;
+  min-width: 5rem;
+  text-align: right;
+  padding-top: 0.1rem;
+  user-select: none;
+}
+
+@media (max-width: 900px) {
+  .award-video-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .award-video-meta {
+    order: 2;
+  }
+
+  .video-player-wrap {
+    order: 1;
+  }
 }
 
 @media (max-width: 640px) {
-    .award-card {
-        grid-template-columns: 1fr;
-    }
+  .award-card {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 {% endblock %}
 
 {% block content %}
+
+{# ── Page heading ────────────────────────────────── #}
 <section class="section">
-    <div class="container">
-        <p class="eyebrow">Awards</p>
-        <h1>Recognition and Achievement</h1>
-        <div class="page-hero-divider"></div>
-    </div>
+  <div class="container">
+    <p class="eyebrow">Awards</p>
+    <h1>Recognition and Achievement</h1>
+    <div class="page-hero-divider"></div>
+  </div>
 </section>
 
-<section class="section page-last-section">
-    <div class="container">
-        {% for item in awards %}
-        <article class="card compact-card award-card">
-            <div class="award-year">{{ item.year }}</div>
-            <div>
-                <h3>{{ item.title }}</h3>
-                <p class="meta">{% if item.issuer %}{{ item.issuer }}{% endif %}</p>
-                <p>{{ item.summary }}</p>
-            </div>
-        </article>
-        {% endfor %}
+{# ── Award Ceremony Video Highlight ──────────────── #}
+<section class="award-video-section">
+  <div class="container award-video-inner">
+
+    <div class="award-video-meta">
+      <span class="eyebrow">College of Human and Social Futures (CHSF), The University of Newcastle</span>
+      <h2>Excellence Award for Research Supervision</h2>
+      <p>
+        Recipient of 2023 College of Human and Social Futures (CHSF) "Excellence Award for Research Supervision" in recognition for excellence in supervision of Higher Degree Research (HDR) students.
+      </p>
+      <div class="video-detail-row">
+        <span class="video-chip">🏆 Award Ceremony</span>
+        <span class="video-chip">🎓 University of Newcastle</span>
+      </div>
     </div>
+
+    <div class="video-player-wrap">
+      <video
+        controls
+        preload="metadata"
+        poster=""
+        aria-label="Award ceremony video">
+        {#
+          Upload the video file via Django admin (add a VideoItem model or
+          simply drop it into your media folder) then update the src below.
+
+          Option A — media file uploaded through Django:
+            <source src="{{ award_video.url }}" type="video/mp4">
+
+          Option B — static file placed in website/static/website/videos/:
+            {% load static %}
+            <source src="{% static 'static\videos\award_ceremony.mp4' %}" type="video/mp4">
+
+          For now, reference the file by its media path:
+        #}
+        <source src="{% static 'videos/award_ceremony.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+  </div>
 </section>
+
+<div class="award-video-divider"></div>
+
+{# ── Award list ───────────────────────────────────── #}
+<section class="section page-last-section">
+  <div class="container">
+    {% for item in awards %}
+    <article class="card compact-card award-card">
+      <div class="award-year">{{ item.year }}</div>
+      <div>
+        <h3>{{ item.title }}</h3>
+        <p class="meta">{% if item.issuer %}{{ item.issuer }}{% endif %}</p>
+        <p>{{ item.summary }}</p>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
 {% endblock %}
