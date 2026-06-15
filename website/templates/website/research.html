@@ -3,6 +3,14 @@
 
 {% block page_styles %}
 <style>
+/* Page-specific tweaks for research hero spacing */
+.research-hero { padding-bottom: 0.4rem; }
+.research-hero p { margin: 0.2rem 0 0.6rem; }
+
+/* Reduce spacing between hero and publications section */
+#all-publications { padding-top: 0.6rem; }
+#all-publications .tab-bar { margin-top: 0.6rem; padding-top: 0.6rem; }
+
 /* ═══════════════════════════════
    TABS
 ═══════════════════════════════ */
@@ -912,7 +920,7 @@
 
 {% block content %}
 
-<section class="section">
+<section class="section research-hero">
   <div class="container">
     <p class="eyebrow">Research</p>
     <h1>Publications</h1>
@@ -921,92 +929,14 @@
   </div>
 </section>
 
-{% if featured_papers %}
-<section class="featured-section">
-  <div class="container">
-    <div class="featured-intro">
-      <div class="featured-intro-left">
-        <p class="eyebrow">Selected Research</p>
-        <h2 style="margin:0 0 0.3rem;">Featured Publications</h2>
-        <div class="page-hero-divider"></div>
-      </div>
-      <a class="scroll-to-all-btn" href="#all-publications">
-        ↓ See all publications
-      </a>
-    </div>
-
-    <div class="feat-list">
-      {% for item in featured_papers %}
-      <article class="feat-card{% if item.abstract_image %} feat-has-img{% endif %}">
-
-        <div class="feat-num-col">
-          <span class="feat-num">{{ forloop.counter|stringformat:"02d" }}</span>
-          <!-- <span class="feat-label">Featured</span> -->
-        </div>
-
-        <div class="feat-body">
-          <div class="feat-meta-row">
-            {% if item.year %}<span class="feat-year">{{ item.year }}</span>{% endif %}
-            {% if item.journal_or_source %}
-              <span class="meta-dot"></span>
-              <span class="feat-source">{{ item.journal_or_source }}</span>
-            {% endif %}
-            {% if item.ft50 or item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>{% endif %}
-            {% if item.rank %}
-              {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
-              {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
-              {% elif item.rank == "B" %}<span class="rank-badge rank-b">ABDC: B</span>
-              {% elif item.rank == "C" %}<span class="rank-badge rank-c">ABDC: C</span>
-              {% else %}<span class="rank-badge rank-default">{{ item.rank }}</span>
-              {% endif %}
-            {% endif %}
-            {% if item.abs_rank %}
-              {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
-              {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
-              {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
-              {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
-              {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
-              {% endif %}
-            {% endif %}
-            {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
-            {% if item.citation_count %}
-              <span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>
-            {% endif %}
-          </div>
-
-          <h3 class="feat-title">{{ item.title }}</h3>
-          <p class="feat-apa">{{ item.apa7_reference }}</p>
-
-          {% if item.abstract %}
-            <p class="feat-abstract">{{ item.abstract }}</p>
-          {% endif %}
-
-          <div class="feat-actions">
-            {% if item.link %}
-              <a class="feat-view-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ View Paper</a>
-            {% endif %}
-            <span class="feat-cat-chip">{{ item.get_category_display }}</span>
-          </div>
-        </div>
-
-        {% if item.abstract_image %}
-        <div class="feat-img-col">
-          <img src="{{ item.abstract_image.url }}" alt="Abstract figure for {{ item.title }}">
-        </div>
-        {% endif %}
-
-      </article>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
 <section class="section" id="all-publications">
   <div class="container">
 
     <div class="tab-bar">
-      <button class="tab-btn active" type="button" data-target="published-papers">
+      <button class="tab-btn active" type="button" data-target="featured-publications">
+        Featured Publications
+      </button>
+      <button class="tab-btn" type="button" data-target="published-papers">
         Published Papers
       </button>
       <button class="tab-btn" type="button" data-target="conference-papers">
@@ -1029,8 +959,97 @@
       </button>
     </div>
 
+    <!-- ── Featured Publications ── -->
+    <div class="research-panel active" id="featured-publications">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Featured Publications</h2>
+          <p>Selected flagship research outputs.</p>
+        </div>
+        <span class="panel-result-count" id="count-featured-publications"></span>
+      </div>
+      
+      <div class="pub-toolbar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input class="pub-search" type="search" placeholder="Search featured publications…" data-panel="featured-publications" autocomplete="off">
+          <button class="search-clear" type="button">×</button>
+        </div>
+      </div>
+      
+      <div class="feat-list" id="list-featured-publications" style="margin-top: 1.5rem;">
+        {% for item in featured_papers %}
+        <article class="feat-card{% if item.abstract_image %} feat-has-img{% endif %}"
+                 data-title="{{ item.title }}"
+                 data-year="{{ item.year|default:0 }}"
+                 data-citations="{{ item.citation_count|default:0 }}"
+                 data-searchtext="{{ item.title }} {{ item.authors }} {{ item.journal_or_source }} {{ item.apa7_reference }}">
+
+          <div class="feat-num-col">
+            <span class="feat-num">{{ forloop.counter|stringformat:"02d" }}</span>
+          </div>
+
+          <div class="feat-body">
+            <div class="feat-meta-row">
+              {% if item.year %}<span class="feat-year">{{ item.year }}</span>{% endif %}
+              {% if item.journal_or_source %}
+                <span class="meta-dot"></span>
+                <span class="feat-source">{{ item.journal_or_source }}</span>
+              {% endif %}
+              {% if item.ft50 or item.rank == "FT50" %}<span class="rank-badge rank-ft50">FT50</span>{% endif %}
+              {% if item.rank %}
+                {% if item.rank == "A*" %}<span class="rank-badge rank-astar">ABDC: A*</span>
+                {% elif item.rank == "A" %}<span class="rank-badge rank-a">ABDC: A</span>
+                {% elif item.rank == "B" %}<span class="rank-badge rank-b">ABDC: B</span>
+                {% elif item.rank == "C" %}<span class="rank-badge rank-c">ABDC: C</span>
+                {% else %}<span class="rank-badge rank-default">{{ item.rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.abs_rank %}
+                {% if item.abs_rank == "4*" %}<span class="rank-badge rank-abs-4star">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "4" %}<span class="rank-badge rank-abs-4">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "3" %}<span class="rank-badge rank-abs-3">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "2" %}<span class="rank-badge rank-abs-2">ABS: {{ item.abs_rank }}</span>
+                {% elif item.abs_rank == "1" %}<span class="rank-badge rank-abs-1">ABS: {{ item.abs_rank }}</span>
+                {% endif %}
+              {% endif %}
+              {% if item.sjr_rank %}<span class="rank-badge rank-sjr-{{ item.sjr_rank|lower }}">SJR: {{ item.sjr_rank }}</span>{% endif %}
+              {% if item.citation_count %}
+                <span class="citation-pill"><span class="cite-dot"></span>{{ item.citation_count }} citations</span>
+              {% endif %}
+            </div>
+
+            <h3 class="feat-title pub-title">{{ item.title }}</h3>
+            <p class="feat-apa">{{ item.apa7_reference }}</p>
+
+            {% if item.abstract %}
+              <p class="feat-abstract">{{ item.abstract }}</p>
+            {% endif %}
+
+            <div class="feat-actions">
+              {% if item.link %}
+                <a class="feat-view-btn" href="{{ item.link }}" target="_blank" rel="noopener">↗ View Paper</a>
+              {% endif %}
+              <span class="feat-cat-chip">{{ item.get_category_display }}</span>
+            </div>
+          </div>
+
+          {% if item.abstract_image %}
+          <div class="feat-img-col">
+            <img src="{{ item.abstract_image.url }}" alt="Abstract figure for {{ item.title }}">
+          </div>
+          {% endif %}
+
+        </article>
+        {% empty %}
+        <div class="empty-card">No featured publications added yet.</div>
+        {% endfor %}
+      </div>
+      <div class="no-results" id="noresults-featured-publications"><strong>No results found</strong>Try adjusting your search term.</div>
+    </div>
+
     <!-- ── Published Papers ── -->
-    <div class="research-panel active" id="published-papers">
+    <div class="research-panel" id="published-papers">
       <div class="panel-header">
         <div class="panel-header-left">
           <h2>Published Papers</h2>
@@ -1630,7 +1649,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     var sorted = visible;
-    if (panelId !== "journal-reviewer") {
+    if (panelId === "featured-publications") {
+      visible.forEach(function (entry) { listEl.appendChild(entry); });
+      visible.forEach(function (entry, i) {
+        var idx = entry.querySelector(".feat-num");
+        if (idx) {
+          var n = i + 1;
+          idx.textContent = n < 10 ? "0" + n : n;
+        }
+      });
+    } else if (panelId !== "journal-reviewer") {
       /* Sort & reorder in DOM */
       sorted = sortNodes(visible, sortVal);
       sorted.forEach(function (entry) { listEl.appendChild(entry); });
@@ -1688,7 +1716,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /* Initial render for every panel */
-  ["published-papers","conference-papers","media-articles","book-chapters","journal-reviewer","journal-published","working-papers"].forEach(applyPanel);
+  ["featured-publications","published-papers","conference-papers","media-articles","book-chapters","journal-reviewer","journal-published","working-papers"].forEach(applyPanel);
 
 });
 </script>

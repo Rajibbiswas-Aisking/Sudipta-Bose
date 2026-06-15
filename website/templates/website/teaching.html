@@ -119,16 +119,11 @@
 {% endblock %}
 
 {% block content %}
-<section class="section">
+<section class="section page-last-section">
     <div class="container">
         <p class="eyebrow">Teaching</p>
         <h1>Teaching and Courses</h1>
-        <div class="page-hero-divider"></div>
-    </div>
-</section>
-
-<section class="section page-last-section">
-    <div class="container">
+        <div class="page-hero-divider" style="margin-bottom: 2.5rem;"></div>
         <div class="section-heading"><h2>Courses</h2></div>
         {% regroup teaching_items by institution as institution_groups %}
         {% for group in institution_groups %}
